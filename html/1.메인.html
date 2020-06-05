@@ -9,9 +9,10 @@
    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    <script type="text/javascript" src="js/wow.min.js"></script>
    <script>
-      //wow
-      new WOW().init();
+   //wow
+   new WOW().init();
 
+   $(document).ready(function(){
       //header fixed
       $(window).scroll(function(){
           if ($(window).scrollTop() >= 10) {
@@ -21,10 +22,24 @@
              $('.header').removeClass('fixed');
           }
       });
+
+      //smooth scroll
+      $(".header a").on('click', function(event) {
+         if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+               scrollTop: $(hash).offset().top
+            }, 800, function(){
+               window.location.hash = hash;
+            });
+         }
+      });
+   });
    </script>
    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
-<body>
+<body id="top">
    <div class="wrapper">
       <header class="header">
          <div class="container">
@@ -32,13 +47,13 @@
                <a href="#top">Knowledge Talk <span>CCC</span></a>
             </h1>
             <div class="menu">
-               <a href="">
+               <a href="#infomation">
                   <span data-menu="infomation">infomation</span>
                </a>
-               <a href="">
+               <a href="#function">
                   <span data-menu="function">function</span>
                </a>
-               <a href="">
+               <a href="#guide">
                   <span data-menu="guide">guide</span>
                </a>
                <button>
@@ -61,7 +76,7 @@
                <button class="scroll"></button>
             </div>
          </section>
-         <section class="infomation">
+         <section id="infomation" class="infomation">
             <div class="container">
                <h2>Knowledge Talk <span>CCC</span></h2>
                <ul>
@@ -92,7 +107,7 @@
                </ul>
             </div>
          </section>
-         <section class="function">
+         <section id="function" class="function">
             <div class="container">
                <ul>
                   <li class="wow animate__animated animate__fadeInUp">
@@ -114,7 +129,7 @@
                </ul>
             </div>
          </section>
-         <section class="guide">
+         <section id="guide" class="guide">
             <div class="container">
                <ul>
                   <li>
