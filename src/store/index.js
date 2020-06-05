@@ -9,7 +9,7 @@ export default new Vuex.Store({
     peerInfo: {},
     streamInfo: {},
     roomInfo: {},
-    video: []
+    userInfo: null,
   },
   mutations: {
     setSocketIo(state, socket) {
@@ -27,8 +27,27 @@ export default new Vuex.Store({
     setRoomInfo(state, info) {
       Object.assign(state.roomInfo, info);
     },
-    clearAll() {
-      
+    setUserInfo(state, uid) {
+      state.userInfo = uid;
+    },
+    clearAll(state) {
+      if (Object.keys(state.streamInfo).length > 0) {
+        for (let c in state.streamInfo) {
+          state.streamInfo[c].getTracks().forEach(track => {
+            track.stop();
+          });
+        }
+        state.streamInfo = {};
+      }
+
+      for (let c in state.peerInfo) {
+        state.peerInfo[c].close();
+        delete state.peerInfo[c];
+      }
+
+      state.roomInfo = {}
+      state.socket.close();
+      state.socket = null;
     }
   }
 })

@@ -1,5 +1,5 @@
 <template>
-  <div class="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo }">
+  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo }">
     <div class="userContainer">
       <div class="user" @click="handleChangeName">
         <span class="name micOff">익명</span>
@@ -14,22 +14,20 @@ import webRTC from '../commons/webrtc';
 import { eBus } from '../commons/eventBus';
 
 export default {
-  props: { isLocal: Boolean },
+  props: { isLocal: Boolean, vid: String },
   data() {
     return {
       isLocalVideo: this.isLocal,
-      id: this.isLocal ? 'local' : 'id'
+      id: this.isLocal ? 'local' : this.vid,
     }
   },
-  created() {
-    eBus.$on('createVideo', _ => {
-      let video = document.createElement('video');
-      video.srcObject = _.stream;
-      video.autoplay = true;
-      this.isLocalVideo = _.isLocal;
-      this.id = _.id;
-      document.getElementById(_.isLocal ? 'local' : 'id').insertBefore(video, document.getElementById(_.isLocal ? 'local' : 'id').firstChild);
-    })
+  mounted() {
+    let video = document.createElement('video');
+    video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.count === 2 ? 'remote' : this.id)];
+    video.autoplay = true;
+    video.muted = this.isLocalVideo;
+    this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
+    console.log(this.$store.state);
   },
   methods: {
     handleChangeName: () => {

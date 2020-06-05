@@ -1,36 +1,36 @@
 <template>
   <div class="wrapper">
     <div class="videoContainer">
-        <div class="mainVideo">
-          <template v-for="v in videos">
-            <Video 
-              :key="v.id"
-              v-bind:isLocal="v.isLocal"
-              v-bind:id="v.id" 
-            />
-          </template>
-        </div>
+      <div class="mainVideo" ref="mainVideo" @mouseover="handleBtnArea">
+        <template v-for="v in videos">
+          <Video 
+            :key="v.id"
+            v-bind:isLocal="v.isLocal"
+            v-bind:vid="v.id" 
+          />
+        </template>
+      </div>
     </div>
+    <!-- <div ref="btnArea" @mouseover="handleBtnArea" style="position:fixed;display:flex;justify-content:center;align-items:flex-end;width:50%;bottom:0;height:200px;z-index:11"></div> -->
+    <Buttons v-if="visible" class="wow animate__animated animate__fadeInUp animate__faster" />
   </div>
 </template>
 
 <script>
+import { eBus } from '../commons/eventBus';
+import { sendMessage } from '../commons/message';
 import webRTC from '../commons/webrtc';
 import Session from '../commons/session';
-import { sendMessage } from '../commons/message';
+
 import Video from '@/components/Video';
-import { eBus } from '../commons/eventBus';
+import Buttons from '@/components/Buttons';
 
 export default {
-  components: { Video },
+  components: { Video, Buttons },
   data () {
     return {
-      videos: [
-        {
-          id: 'local',
-          isLocal: true
-        }
-      ],
+      videos: [],
+      visible: false
     }
   },
   async created() {
@@ -49,18 +49,17 @@ export default {
     }
   },
   methods: {
-    setVideo: (isLocal, id, stream) => {
-      if (!this.videos || !Array.isArray(this.videos)) this.videos = [];
+    setVideo(isLocal, id, stream) {
       this.videos.push({
         id: isLocal ? 'local' : id,
         isLocal
       })
-
-      eBus.$emit('createVideo', {
-        stream,
-        isLocal
-      });
     },
+    handleBtnArea(e) {
+      // let style = 'position:fixed;display:flex;justify-content:center;align-items:flex-end;width:50%;bottom:0;height:200px;';
+      // this.visible = e.target !== this.$refs.mainVideo;
+      // this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
+    }
   }
 }
 </script>

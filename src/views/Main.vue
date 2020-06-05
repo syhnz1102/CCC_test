@@ -1,14 +1,162 @@
 <template>
-  <div class="mainContainer" id="MainContainer">
-      <div class="mainContent">
-          <div class="mainTitle">
-          </div>
-          <div class="mainButton">
-              <button @click="handleBtnClick">회의방 생성</button>
-              <button @click="tempHandleBtnClickTest">회의방 참여</button>
-          </div>
+   <div class="wrapper">
+      <header class="header">
+         <div class="container">
+            <h1>
+               <a href="#top">Knowledge Talk <span>CCC</span></a>
+            </h1>
+            <div class="menu">
+               <a href="#infomation">
+                  <span data-menu="infomation">infomation</span>
+               </a>
+               <a href="#function">
+                  <span data-menu="function">function</span>
+               </a>
+               <a href="#guide">
+                  <span data-menu="guide">guide</span>
+               </a>
+               <button>
+                  <span data-menu-btn="화상회의 시작하기">화상회의 시작하기</span>
+               </button>
+            </div>
+         </div>
+      </header>
+      <div class="main">
+         <section class="visual">
+            <div class="bg">
+               <img src="../assets/images/bg.jpg">
+            </div>
+            <div class="container">
+               <div class="content">
+                  <strong class="wow animate__animated animate__fadeInUp">Knowledge Talk</strong>
+                  <span class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">Convenient Conference Call</span>
+                  <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="handleBtnClick">화상회의 시작하기</button>
+                  <br />
+                  <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="tempHandleBtnClickTest">화상회의 참여하기 (개발자 테스트 전용)</button>
+               </div>
+               <button class="scroll"></button>
+            </div>
+         </section>
+         <section id="infomation" class="infomation">
+            <div class="container">
+               <h2>Knowledge Talk <span>CCC</span></h2>
+               <ul>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>C</strong>onvenient</div>
+                        <div class="content">
+                           <p>프로그램 설치와 회원가입이 필요없어<br /> 편하게 사용할 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>C</strong>onference</div>
+                        <div class="content">
+                           <p>회의실이 아니어도<br /> 화상으로 회의를 진행할 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>C</strong>all</div>
+                        <div class="content">
+                           <p>누구나 무료로<br /> 화상통화를 즐길 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="function" class="function">
+            <div class="container">
+               <ul>
+                  <li class="wow animate__animated animate__fadeInUp">
+                     <strong>비회원</strong>
+                     <p>복잡한 회원가입 절차가<br /> 필요 없습니다.</p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+                     <strong>프로그램 설치 없이</strong>
+                     <p>별도의 프로그램 설치가<br /> 필요 없습니다.</p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
+                     <strong>인터넷 브라우저</strong>
+                     <p>인터넷 브라우저만으로<br /> 화상통화를 할 수 있습니다. <span>*Chrome browser 권장</span></p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                     <strong>최대 16명까지</strong>
+                     <p>최대 16명까지<br /> 화상통화를 할 수 있습니다.</p>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="guide" class="guide">
+            <div class="container">
+               <ul>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_01.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 1</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 바로 시작됩니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_02.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 2</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">하단에서 '초대하기' 버튼을 클릭하면 사용자를 초대할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_03.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 3</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 URL을 입력하면 바로 회의에 참석됩니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_04.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">최대 16명까지 화상통화를 할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_05.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 5</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="../assets/images/img_guide_06.jpg" alt="">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 6</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">하단에서 '화면공유' 버튼을 클릭하면 본인의 컴퓨터 화면을 공유할 수 있습니다.</p>
+                  </li>
+               </ul>
+            </div>
+         </section>
       </div>
-  </div>
+      <footer class="footer">
+         <div class="container">
+            <div class="company">
+               <strong>Knowledge Talk CCC</strong>
+               <p>
+                  <a href="http://knowledgepoint.co.kr/" target="_blank">(주)날리지포인트</a>
+                  <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
+               </p>
+               <p>
+                  <span>전화 : <a href="tel:070-4325-4033">070-4325-4033</a></span>
+                  <span>담당자 : 이철원 이사(<a href="<tel:010-4235-9876></tel:010-4235-9876>">010-4235-9876</a>)</span>
+                  <span>메일주소 : <a href="mailto:maverick@knowledgepoint.co.kr">maverick@knowledgepoint.co.kr</a></span>
+               </p>
+            </div>
+            <div class="copyright">Copyright All rights reserved. Knowledgepoint Co., Ltd.</div>
+         </div>
+      </footer>
+   </div>
 </template>
 
 <script>
@@ -25,12 +173,10 @@ export default {
   methods: {
     async handleBtnClick() {
       new Session();
-      sendMessage('CCC-CreateRoom', { foo: 'bar' });
-
-      this.$router.push({ path: '/rooms' })
+      sendMessage('CCC-CreateRoom', {});
     },
     tempHandleBtnClickTest() {
-      this.$router.push({ path: '/rooms' })
+      this.$router.push({ path: '/room/abcdefg' })
     }
   }
 }

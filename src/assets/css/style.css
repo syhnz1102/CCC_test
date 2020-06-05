@@ -1,8 +1,7 @@
 @charset "utf-8";
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url("https://fonts.googleapis.com/css?family=Fugaz+One");
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700;900&display=swap');
+@import url("animate.min.css");
 @import url("reset.css");
 
 /* common */
@@ -11,38 +10,89 @@ body,
 .wrapper {position:relative;width:100%;height:100%}
 
 /* main */
-.container {position:relative;width:100%;max-width:1400px;height:100%;margin:0 auto;padding:0 5%;box-sizing:border-box}
-.header {overflow:hidden;position:fixed;top:0;left:0;width:100%;height:80px;z-index:1}
-.header h1 {float:left;line-height:80px;font-family:'Montserrat',sans-serif;font-size:20px;color:#fff}
-.header h1 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:text-bottom;font-weight:700;font-size:14px;color:#fff;border:2px solid #fff;border-radius:1.5em}
-.header .menu {float:right}
-.header .menu a {display:inline-block;margin-right:10px;color:#fff}
-.header .menu button {display:inline-block;height:40px;margin-top:20px;padding:0 20px;color:#fff;border-radius:40px;background:#7117EA;transition:background-color .3s}
-.header .menu button:hover {background:#5e13bf}
-.header .menu button:active {background:#4b0f99}
-.main section {width:100%;background:#252525}
-.main section .container {padding-top:100px;padding-bottom:100px}
-.main section h2 {text-align:center;font-size:30px;color:#fff}
-.main section ul {margin-top:40px;text-align:center}
-.main section li {display:inline-block;padding:100px;font-size:16px;color:#fff;border-radius:20px;background:#555}
-.main section li + li {margin-left:10px}
-.main .visual {height:100vh;background:url('../images/bg.jpg') no-repeat center center;background-size:105% auto;animation:zoomin 2s linear}
-.main .visual::before {content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6)}
-.main .visual span {display:block;font-family:'Montserrat',sans-serif;font-size:30px;color:#fff}
-.main .visual strong {display:block;font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;color:transparent;-webkit-text-stroke:1px #fff;}
-.main .visual button {height:60px;margin-top:40px;padding:0 30px;font-size:20px;color:#fff;border-radius:60px;background-color:#7117EA;transition:background-color .3s}
-.main .visual button:hover {background:#5e13bf}
-.main .visual button:active {background:#4b0f99}
-.main .content {position:absolute;top:50%;transform:translateY(-50%)}
+.container {position:relative;width:100%;max-width:1000px;height:100%;margin:0 auto;box-sizing:border-box}
+.header {overflow:hidden;position:absolute;top:0;left:0;width:100%;height:70px;z-index:1}
+.header.fixed::before {animation:fadein .3s}
+.header h1 {float:left;line-height:70px;font-family:'Montserrat',sans-serif;font-size:20px;color:#fff}
+.header h1 a {display:block;font-family:'Montserrat',sans-serif;color:#fff}
+.header h1 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:text-bottom;font-family:'Montserrat',sans-serif;font-weight:500;font-size:14px;color:#fff;border:2px solid #fff;border-radius:1.5em}
+.header .menu {overflow:hidden;float:right;height:40px;margin-top:15px}
+.header .menu a {display:inline-block;height:40px;margin-right:30px;vertical-align:middle;font-family:'Montserrat',sans-serif;font-size:16px}
+.header .menu a span {display:block;height:40px;line-height:40px;color:#fff;transition:transform .3s}
+.header .menu a span::after {content:attr(data-menu);display:block;height:40px;line-height:40px;color:#fff;transition:color .3s}
+.header .menu a:hover span {transform:translateY(-40px)}
+.header .menu a:active span::after {color:rgba(255,255,255,0.7)}
+.header .menu button {width:146px;height:40px;vertical-align:middle;text-align:center;border-radius:40px;border:2px solid #fff;box-sizing:border-box}
+.header .menu button span {display:block;height:36px;line-height:36px;font-size:14px;color:#fff;transition:transform .3s}
+.header .menu button span::after {content:attr(data-menu-btn);display:block;height:40px;line-height:40px;font-size:14px;color:#fff}
+.header .menu button:hover {transition:background-color .3s}
+.header .menu button:hover span {transform:translateY(-38px)}
+.header .menu button:active {background:rgba(255,255,255,0.1);transition:background-color .3s}
+.header.fixed {position:fixed}
+.header.fixed::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background-image:linear-gradient(to left, #EA6060, #7117EA);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.main .visual {overflow:hidden;position:relative;height:100vh}
+.main .visual .bg {position:absolute;top:0;left:0;width:100%;height:100%}
+.main .visual .bg img {width:100%;height:100%;object-fit:cover;transform:scale(1.1);animation:zoomin 2s}
+.main .visual .bg::after {content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6)}
+.main .visual .content {position:absolute;top:50%;transform:translateY(-50%)}
+.main .visual .content strong {display:block;font-family:'Montserrat',sans-serif;font-size:30px;color:#fff}
+.main .visual .content strong span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:middle;font-family:'Montserrat',sans-serif;font-weight:500;font-size:18px;color:#fff;border:2px solid #fff;border-radius:1.5em}
+.main .visual .content span {display:block;font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .visual .content button {position:relative;height:60px;margin-top:40px;padding:0 50px;font-size:20px;color:#fff;border-radius:60px;background-color:#7117EA}
+.main .visual .content button:hover {background:#5e13bf;transition:background-color .3s}
+.main .visual .content button:active {background:#4b0f99;transition:background-color .3s}
+.main .visual .content button:hover::before {content:'';position:absolute;top:30px;right:-30px;display:block;width:60px;height:1px;background:rgba(255,255,255,0.6);animation:fadein .3s, slideRight .3s}
+.main .visual .content button:hover::after {content:'';position:absolute;top:25px;right:-32px;transform:rotate(45deg);display:block;width:14px;height:1px;background:rgba(255,255,255,0.6);animation:fadein .3s, slideRight .3s}
+.main .visual .scroll {position:absolute;bottom:40px;left:50%;display:block;width:1px;height:30px;background:rgba(255,255,255,0.6);animation:scrolldown .8s infinite linear}
+.main .visual .scroll::before {content:'';position:absolute;bottom:-2px;left:4px;display:block;width:1px;height:12px;transform:rotate(45deg);background:rgba(255,255,255,0.6)}
+.main section {width:100%}
+.main section .container {padding-top:120px;padding-bottom:120px}
+.main section h2 {text-align:center;font-family:'Montserrat',sans-serif;font-size:30px;color:#333}
+.main section h2 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:middle;font-weight:700;font-size:18px;color:#333;border:2px solid #333;border-radius:1.5em}
+.main .infomation {background:#f5f5f5}
+.main .infomation li {position:relative;margin-top:70px}
+.main .infomation li::before {content:'';display:block;width:60%;height:400px;margin-left:40%;background-repeat:no-repeat;background-position:center right;background-size:cover}
+.main .infomation li:nth-child(2n)::before {right:0;margin-left:0}
+.main .infomation li:nth-child(2n) .box {right:0;background:#fff}
+.main .infomation li:nth-child(2n) .box .tit,
+.main .infomation li:nth-child(2n) .box .content p {color:#7117EA}
+.main .infomation li:nth-child(2n) .box strong {-webkit-text-stroke-color:#7117EA}
+.main .infomation li:nth-child(1)::before {background-image:url('../images/img_infomation_03.jpg')}
+.main .infomation li:nth-child(2)::before {background-image:url('../images/img_infomation_02.jpg')}
+.main .infomation li:nth-child(3)::before {background-image:url('../images/img_infomation_01.jpg')}
+.main .infomation .box {position:absolute;top:50%;transform:translateY(-50%);width:50%;padding:50px;background:#7117EA;box-shadow:20px 20px 30px rgba(0,0,0,.2);box-sizing:border-box}
+.main .infomation .box .tit {text-align:center;font-family:'Montserrat',sans-serif;font-weight:300;font-size:30px;color:#fff}
+.main .infomation .box .tit strong {font-family:'Montserrat',sans-serif;font-weight:900;font-size:50px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .infomation .box .content p {margin-top:30px;text-align:center;font-weight:100;font-size:18px;color:#fff}
+.main .function ul {overflow:hidden}
+.main .function li {float:left;width:25%;padding-top:65px;text-align:center;background-repeat:no-repeat;background-position:center 5px;background-size:auto 50px;box-sizing:border-box;transition:background-position .3s}
+.main .function li:hover {background-position-y:0}
+.main .function li:nth-child(1) {background-image:url('../images/img_function_01.png')}
+.main .function li:nth-child(2) {background-image:url('../images/img_function_02.png')}
+.main .function li:nth-child(3) {background-image:url('../images/img_function_03.png')}
+.main .function li:nth-child(4) {background-image:url('../images/img_function_04.png')}
+.main .function li strong {display:block;font-size:18px;color:#333}
+.main .function li p {margin-top:10px;color:#999}
+.main .function li p span {display:block;font-size:12px}
+.main .guide {background:#f5f5f5}
+.main .guide ul {overflow:hidden}
+.main .guide li {float:left;width:calc(50% - 10px);padding:30px;background:#fff;box-sizing:border-box}
+.main .guide li:nth-child(2n) {margin-left:20px}
+.main .guide li + li:not(:nth-child(2)) {margin-top:20px}
+.main .guide li .img {overflow:hidden;width:100%}
+.main .guide li .img img {width:100%;transition:transform .3s}
+.main .guide li:hover .img img {transform:scale(1.05)}
+.main .guide strong {display:block;margin-top:30px;font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;color:#7117EA}
+.main .guide p {min-height:45px;margin-top:10px}
+.main .guide p span {display:block;font-size:12px;color:#999}
 .footer {background:#151515}
-.footer .container {padding-top:30px;padding-bottom:30px;color:#555}
-.footer a {color:#555}
+.footer .container {padding-top:50px;padding-bottom:50px;color:#666}
+.footer a {color:#666}
 .footer a:hover {color:#999}
-.footer .link a + a {margin-left:5px}
 .footer .company {margin-top:10px}
-.footer .company span {margin-right:5px}
-.footer .company span:first-child {display:block}
-.footer .copyright {margin-top:10px}
+.footer .company strong {display:block;margin-bottom:5px;font-size:16px;color:#666}
+.footer .company span:not(:first-child) {margin-left:10px;color:#666}
+.footer .copyright {margin-top:15px;color:#444}
 
 /* video */
 .videoContainer {overflow:hidden;width:100%;height:100%}
@@ -52,14 +102,14 @@ body,
 .video .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
 .video .user .name {overflow:hidden;float:left;display:block;max-width:200px;height:30px;line-height:30px;padding:0 15px;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:#fff;box-sizing:border-box}
 .video .user .name:only-child {border-radius:1.5em}
-.video .user .name.mic-off::before {content:'';display:inline-block;width:12px;height:12px;margin-right:5px;background:url('../images/icon_mic_off.png') no-repeat left center;background-size:cover}
+.video .user .name.micOff::before {content:'';display:inline-block;width:12px;height:12px;margin-right:5px;background:url('../images/icon_mic_off.png') no-repeat left center;background-size:cover}
 .video .user button {float:right;display:block;width:30px;height:30px;vertical-align:middle;font-size:0;border-left:1px solid rgba(255,255,255,0.1);border-top-right-radius:1.5em;border-bottom-right-radius:1.5em;box-sizing:border-box}
 .video .user button:active {background:rgba(0,0,0,0.2)}
 .video .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
 .video.local .user .name {max-width:calc(100% - 30px)}
 
 .mainVideo {width:100%;height:100%}
-.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
@@ -79,6 +129,10 @@ body,
 .mainVideoContainer {position:relative;float:left;width:20%;height:100%;transition:width .3s}
 .mainVideoContainer .mainVideo {overflow-y:auto;float:right;width:calc(100% - 24px);height:100%}
 .mainVideoContainer .mainVideo .video {width:100%;height:25%}
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {height:50%}
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(3),
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(3) ~ .video {height:33.33%}
 .mainVideoContainer .button {float:left;position:absolute;top:0;left:0;width:34px;height:100%;transition:all .3s}
 .mainVideoContainer .button button {width:100%;height:100%;font-size:0;background:#ccc}
 .mainVideoContainer .button button::before {content:'';display:inline-block;width:14px;height:14px;margin-left:-10px;background:url('../images/icon_arrow.png') no-repeat 0 0;background-size:cover;transition:margin .3s}
@@ -89,8 +143,8 @@ body,
 .videoContainer.close .mainVideoContainer {width:24px}
 .videoContainer.close .mainVideoContainer .button button::before {transform:scaleX(-1)}
 
-.buttonContainer {position:fixed;top:0;left:0;display:flex;justify-content:center;align-items:flex-end;width:100%;height:100%;padding-bottom:50px;box-sizing:border-box;z-index:10}
-.buttonContainer::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:40%;background:linear-gradient(to bottom,  rgba(0,0,0,0) 0%,  rgba(0,0,0,0.5) 100%)}
+.buttonContainer {position:fixed;bottom:0;left:0;display:flex;justify-content:center;align-items:flex-end;width:100%;height:40%;padding-bottom:50px;box-sizing:border-box;z-index:10}
+.buttonContainer::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(to bottom,  rgba(0,0,0,0) 0%,  rgba(0,0,0,0.5) 100%)}
 .buttonContainer .button {position:relative;padding:15px;border-radius:5em;background:rgba(0,0,0,0.7)}
 .buttonContainer .button::after {content:'';display:block;clear:both}
 .buttonContainer .button button {position:relative;float:left;display:block;width:56px;height:56px;margin-left:10px;border-radius:100%}
@@ -155,25 +209,76 @@ body,
 .toast {position:fixed;top:50px;width:100%;text-align:center;z-index:101}
 .toast p {display:inline-block;padding:8px 25px;color:#fff;border-radius:1.5em;background:rgba(0,0,0,0.6)}
 
-
+/* animation */
 @keyframes zoomin {
-  0% {background-size:100% auto}
-  100% {background-size:105% auto}
+  0% {transform:scale(1)}
+  100% {transform:scale(1.1)}
 }
-
 @keyframes fadein {
   0% {opacity:0}
   100% {opacity:1}
 }
+@keyframes slideRight {
+  0% {margin-right:10px}
+  100% {margin-right:0}
+}
+@keyframes scrolldown {
+  0% {transform:translateY(0)}
+  50% {transform:translateY(5px)}
+  100% {transform:translateY(0)}
+}
 
+
+/* media */
+@media screen and (max-width: 1200px) {
+   .container {width:90%}
+   .header .menu a {margin-right:15px}
+}
 
 @media screen and (max-width: 767px) {
+   .header {height:auto;text-align:center;padding:15px 0}
+   .header h1 {float:none;line-height:normal}
+   .header .menu {display:none}
+   .main .visual .content {text-align:center}
+   .main .infomation li + li {margin-top:120px}
+   .main .infomation li::before {width:80%;height:300px;margin-left:20%}
+   .main .infomation .box {top:auto;bottom:-50px;width:80%;padding:30px;transform:none}
+   .main .function li {width:50%}
+   .main .function li + li:not(:nth-child(2)) {margin-top:50px}
+   .main .guide li {width:100%}
+   .main .guide li + li {margin-top:20px}
+   .main .guide li:nth-child(2n) {margin-left:0}
+   .main .guide li p {min-height:auto}
+   .footer .company span {display:block;margin-left:0 !important}
+
    .mainVideo.six .video {width:50%;height:33.33%}
    .mainVideo.twelve .video {width:33.33%;height:25%}
    .modalContainer {min-width:90%}
+   .shareContainer {width:100%;height:75%}
+   .mainVideoContainer {width:100%;height:25%}
+   .mainVideoContainer .button {width:100%;height:34px}
+   .mainVideoContainer .button:hover {top:-10px;left:0}
+   .mainVideoContainer .button button::before {margin-top:-10px;margin-left:0;transform:rotate(90deg)}
+   .mainVideoContainer .button:hover button::before {margin-top:0;background-image:url('../images/icon_double_arrow.png')}
+   .mainVideoContainer .mainVideo {overflow-x:auto;overflow-y:hidden;width:100%;height:calc(100% - 24px);margin-top:24px;font-size:0;white-space:nowrap}
+   .mainVideoContainer .mainVideo .video {display:inline-block;float:none;width:45%;height:100%;font-size:14px}
+   .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
+   .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {width:50%}
+   .videoContainer.close .shareContainer {width:100%;height:calc(100% - 24px)}
+   .videoContainer.close .mainVideoContainer {width:100%;height:24px}
+   .videoContainer.close .mainVideoContainer .button button::before {transform:rotate(-90deg)}
 }
 
 @media screen and (max-width: 479px) {
+   .main .visual .content strong {font-size:20px}
+   .main .visual .content strong span {font-size:14px}
+   .main .visual .content span {font-size:45px}
+   .main .visual .content button {font-size:16px}
+   .main .infomation .box {padding:20px}
+   .main .infomation .box .content p {font-size:14px}
+   .main .function li {width:100%}
+   .main .function li + li {margin-top:50px}
+
    .buttonContainer .button button {width:50px;height:50px;margin-left:0}
    .modalContainer {width:100%;min-width:100%;height:100%}
 }

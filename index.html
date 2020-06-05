@@ -25,14 +25,12 @@
         for (var file of chunk.files) {
           if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/wow.min.js"></script>
   </head>
-  <body>
-    <noscript>
-      This is your fallback content in case JavaScript fails to load.
-    </noscript>
+  <body id="top">
     <div id="app"></div>
-    <!-- Todo: only include in production -->
     <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
-    <!-- built files will be auto injected -->
   </body>
+  <script>new WOW().init();$(document).ready(function(){$(window).scroll(function(){if($(window).scrollTop()>=10){$('.header').addClass('fixed');}else{$('.header').removeClass('fixed');}});$(".header a").on('click', function(e){if(this.hash!==""){e.preventDefault();var hash=this.hash;$('html, body').animate({scrollTop: $(hash).offset().top},800,function(){window.location.hash = hash;});}});});</script>
 </html>

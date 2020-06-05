@@ -4,8 +4,6 @@ import { sendMessage } from './message';
 
 class WebRTC {
   constraints = { video: true, audio: true };
-  peer = null;
-  stream = null;
 
   constructor() {
     
@@ -25,56 +23,60 @@ class WebRTC {
     })
   }
 
-  createPeer() {
+  createPeer(uid) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
-        eBus.$emit('addVideo', { isLocal: false, id: 'id', stream });
-        // streamInfo[s.sessionId] = stream;
-        // self.videoSetting('MainVideo', `video_${s.sessionId}`, streamInfo[s.sessionId], sessionInfo[s.sessionId].peer.name);
+
+        let streamObj = {};
+        streamObj[uid === 'local' ? 'remote' : uid] = stream;
+        store.commit('setStreamInfo', streamObj);
+        eBus.$emit('addVideo', { isLocal: false, id: uid === 'local' ? 'remote' : uid, stream });
       }
       peer.onicecandidate = e => {
         if (e.candidate) {
-          console.log('candidate 생성');
-          sendMessage('CCC-Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId });
+          // console.log('candidate 생성');
+          sendMessage('CCC-Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, userId: store.state.userInfo });
         }
       };
 
-      store.commit('setPeerInfo', { local: peer });
+      let peerObj = {};
+      peerObj[uid] = peer;
+      store.commit('setPeerInfo', peerObj);
       let s = store.state;
-      if (s.streamInfo && s.peerInfo) s.streamInfo.local.getTracks().forEach(track => s.peerInfo.local.addTrack(track, s.streamInfo.local));
+      if (uid === 'local' && s.streamInfo[uid] && s.peerInfo[uid]) s.streamInfo.local.getTracks().forEach(track => s.peerInfo.local.addTrack(track, s.streamInfo.local));
       resolve();
     });
   }
 
-  async createOffer() {
+  async createOffer(uid) {
     try {
-      const offer = await store.state.peerInfo['local'].createOffer();
-      await store.state.peerInfo['local'].setLocalDescription(offer);
-      sendMessage('CCC-SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId });
+      const offer = await store.state.peerInfo[uid].createOffer();
+      await store.state.peerInfo[uid].setLocalDescription(offer);
+      sendMessage('CCC-SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: uid === 'local', userId: store.state.userInfo });
     } catch (e) {
       console.error(e);
     }
   }
 
-  async createAnswer(sdp) {
+  async createAnswer(sdp, uid) {
     try {
-      await store.state.peerInfo['local'].setRemoteDescription(sdp);
-      const answer = await store.state.peerInfo['local'].createAnswer();
-      await store.state.peerInfo['local'].setLocalDescription(answer);
-      sendMessage('CCC-SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId });
+      await store.state.peerInfo[uid].setRemoteDescription(sdp);
+      const answer = await store.state.peerInfo[uid].createAnswer();
+      await store.state.peerInfo[uid].setLocalDescription(answer);
+      sendMessage('CCC-SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: uid === 'local', userId: store.state.userInfo });
     } catch (e) {
       console.error(e);
     }
   }
 
-  async setRemoteDescription(sdp) {
-    await store.state.peerInfo['local'].setRemoteDescription(sdp);
+  async setRemoteDescription(sdp, uid) {
+    await store.state.peerInfo[uid].setRemoteDescription(sdp);
   }
 
-  async setCandidate(candidate) {
-    await store.state.peerInfo['local'].addIceCandidate(new RTCIceCandidate(candidate));
+  async setCandidate(candidate, uid) {
+    await store.state.peerInfo[uid].addIceCandidate(new RTCIceCandidate(candidate));
   }
 
   checkMediaDevices() {
@@ -101,74 +103,18 @@ class WebRTC {
         });
     });
   }
+
+  exitRoom() {
+    sendMessage('CCC-ExitRoom', { });
+  }
+
+  clearVideo(id) {
+
+  }
+
+  clear() {
+    store.commit('clearAll');
+  }
 }
 
 export default new WebRTC();
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * 
- *   createPeer() {
-    return new Promise(async (resolve, reject) => {
-      // const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
-      const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
-      peer.onaddstream = ({ stream }) => {
-        console.debug(`${s.sessionId}'s onaddstream :`, stream);
-        streamInfo[s.sessionId] = stream;
-        // self.videoSetting('MainVideo', `video_${s.sessionId}`, streamInfo[s.sessionId], sessionInfo[s.sessionId].peer.name);
-      }
-      peer.onicecandidate = e => {
-        if (e.candidate) {
-          console.log('candidate 생성');
-          // message.send('room', { r_method: 'candidate', sessionId: s.sessionId, candidate: e.candidate });
-        }
-      };
-
-      store.commit('addPeer', { local: peer });
-      console.log(store.state.peerInfo);
-      
-      // streamInfo.local.getTracks().forEach(track => peerInfo[s.sessionId].addTrack(track, streamInfo.local));
-      resolve();
-    });
-  }
-
-  async createOffer() {
-    try {
-      const offer = await store.state.peerInfo['local'].createOffer()
-      console.log('setLocalDescription', 'offer');
-      // await store.state.peerInfo['local'].setLocalDescription(offer);
-      store.state.peerInfo['local'].setLocalDescription(offer).then(a => {console.log('a')}).catch(e => {console.error(e)});
-      sendMessage('CCC-SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async createAnswer(sdp) {
-    try {
-      // await store.state.peerInfo['local'].setRemoteDescription(sdp)
-      store.state.peerInfo['local'].setRemoteDescription(sdp).then(a => {console.log('a')}).catch(e => {console.error(e)});
-      const answer = await store.state.peerInfo['local'].createAnswer();
-      // await store.state.peerInfo['local'].setLocalDescription(answer)
-      store.state.peerInfo['local'].setLocalDescription(answer).then(a => {console.log('a')}).catch(e => {console.error(e)});
-      sendMessage('CCC-SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async setRemoteDescription(sdp) {
-    // await store.state.peerInfo['local'].setRemoteDescription(sdp)
-    store.state.peerInfo['local'].setRemoteDescription(sdp).then(a => {console.log('a')}).catch(e => {console.error(e)});
-  }
- */
