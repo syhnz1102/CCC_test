@@ -7,7 +7,7 @@ class Session {
 
   constructor() {
     console.debug('----------------- Opened Session -----------------')
-    this.socket = io.connect('https://localhost:7101/SignalServer', {});
+    this.socket = io.connect('https://ktgenie.com:54545/SignalServer', {});
     this.socket.on('knowledgetalk', on);
     store.commit('setSocketIo', this.socket);
   }
