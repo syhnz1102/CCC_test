@@ -83,7 +83,7 @@ export default {
       if (!this.$store.state.socket) new Session();
 
       let stream = await webRTC.createVideoStream();
-      sendMessage('CCC-Join', { roomId: 'abcdefg' })
+      sendMessage('CCC-Join', { roomId: window.location.href.split('/room/')[1]})
       this.setVideo(true, 'local', stream);
 
       eBus.$on('video', param => {
@@ -166,7 +166,6 @@ export default {
       } else {
         // when stopped screen sharing
         if (document.getElementById('local') && count <= 2) document.getElementById('local').classList.add('local');
-
       }
     },
     setDisplay(count, id) {
