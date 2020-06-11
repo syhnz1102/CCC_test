@@ -19,10 +19,22 @@ export default new Vuex.Store({
       Object.assign(state.peerInfo, peer);
     },
     removePeerInfo(state, name) {
-
+      if (state.peerInfo[name]) {
+        state.peerInfo[name].close();
+        delete state.peerInfo[name];
+      }
     },
     setStreamInfo(state, info) {
       Object.assign(state.streamInfo, info);
+    },
+    removeStreamInfo(state, name) {
+      if (state.streamInfo[name]) {
+        state.streamInfo[name].getTracks().forEach(track => {
+          track.stop();
+        });
+        
+        delete state.streamInfo[name];
+      }
     },
     setRoomInfo(state, info) {
       Object.assign(state.roomInfo, info);

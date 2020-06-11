@@ -1,9 +1,10 @@
 <template>
   <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo }">
     <div class="userContainer">
-      <div class="user" @click="handleChangeName">
-        <span class="name micOff">익명</span>
-        <button>이름변경</button>
+      <div class="user">
+        <span class="name">익명</span>
+        <!-- <span class="name micOff">익명</span> -->
+        <button v-if="id === 'local'" @click="handleChangeName">이름변경</button>
       </div>
     </div>
   </div>
@@ -31,7 +32,15 @@ export default {
   },
   methods: {
     handleChangeName: () => {
-      console.log('handleChangeName')
+      console.log('handleChangeName');
+      eBus.$emit('popup', {
+        on: true,
+        type: 'ChangeName',
+        title: '이름 변경',
+        ok: () => {
+          console.log('change name');
+        }
+      })
     }
   }
 }

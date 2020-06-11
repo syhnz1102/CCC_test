@@ -6,7 +6,7 @@ class WebRTC {
   constraints = { video: true, audio: true };
 
   constructor() {
-    
+
   }
 
   createVideoStream() {
@@ -23,29 +23,38 @@ class WebRTC {
     })
   }
 
-  createPeer(uid) {
+  createPeer(uid, isMulti) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
-
         let streamObj = {};
-        streamObj[uid === 'local' ? 'remote' : uid] = stream;
+        streamObj[uid === 'local' && isMulti !== 'Y' ? 'remote' : uid] = stream;
         store.commit('setStreamInfo', streamObj);
-        eBus.$emit('addVideo', { isLocal: false, id: uid === 'local' ? 'remote' : uid, stream });
+        eBus.$emit('video', { type: 'add', isLocal: false, id: uid === 'local' && isMulti !== 'Y' ? 'remote' : uid, stream, count: store.state.roomInfo.count });
       }
-      peer.onicecandidate = e => {
-        if (e.candidate) {
-          // console.log('candidate 생성');
-          sendMessage('CCC-Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, userId: store.state.userInfo });
-        }
+      // peer.onicecandidate = e => {
+      //   if (e.candidate) {
+      //     console.log('candidate 생성');
+      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+      //   }
+      // };
+      peer.onconnectionstatechange = e => {
+        console.debug(`## ${uid} onconnectionstatechange ## `, e.currentTarget.connectionState)
       };
+      peer.onicegatheringstatechange = e => {
+        if (peer.iceGatheringState === 'complete') {
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+        }
+      }
 
       let peerObj = {};
       peerObj[uid] = peer;
       store.commit('setPeerInfo', peerObj);
       let s = store.state;
-      if (uid === 'local' && s.streamInfo[uid] && s.peerInfo[uid]) s.streamInfo.local.getTracks().forEach(track => s.peerInfo.local.addTrack(track, s.streamInfo.local));
+      let id = uid === 'local' ? 'local' : uid;
+      console.log(s)
+      s.streamInfo.local.getTracks().forEach(track => s.peerInfo[id].addTrack(track, s.streamInfo.local));
       resolve();
     });
   }
@@ -54,7 +63,7 @@ class WebRTC {
     try {
       const offer = await store.state.peerInfo[uid].createOffer();
       await store.state.peerInfo[uid].setLocalDescription(offer);
-      sendMessage('CCC-SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: uid === 'local', userId: store.state.userInfo });
+      // sendMessage('SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
     } catch (e) {
       console.error(e);
     }
@@ -65,7 +74,7 @@ class WebRTC {
       await store.state.peerInfo[uid].setRemoteDescription(sdp);
       const answer = await store.state.peerInfo[uid].createAnswer();
       await store.state.peerInfo[uid].setLocalDescription(answer);
-      sendMessage('CCC-SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: uid === 'local', userId: store.state.userInfo });
+      // sendMessage('SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
     } catch (e) {
       console.error(e);
     }

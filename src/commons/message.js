@@ -1,6 +1,7 @@
 import store from '../store';
 import router from '../router';
 import webRTC from './webrtc';
+import screenshare from './screenshare';
 
 export async function on(resp) {
   console.debug(`[ ${resp.eventOp} ] Signal -> Web `, resp);
@@ -16,34 +17,51 @@ export async function on(resp) {
         window.location.href = '/';
       }
       store.commit('setUserInfo', resp.userId);
-      if (resp.members) store.commit('setRoomInfo', { members: resp.members, roomId: resp.roomId, count: resp.members.length });
+      if (resp.members) store.commit('setRoomInfo', { members: resp.members, roomId: resp.roomId, count: Object.keys(resp.members).length, type: Object.keys(resp.members).length > 2 ? 'multi' : 'p2p' });
       break;
 
     case 'CCC-StartSession':
       sendMessage('CCC-StartSession', { code: '200' });
-      if (resp.members) store.commit('setRoomInfo', { count: resp.members.length });
-
-      await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.who);
-      webRTC.createOffer(resp.useMediaSvr === 'N' ? 'local' : resp.who);
+      if (resp.members) store.commit('setRoomInfo', { count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p' });
+      if (resp.useMediaSvr === 'Y') {
+        if (resp.changeView) {
+          store.commit('removePeerInfo', 'local');
+          await webRTC.createPeer('local', resp.useMediaSvr);
+          webRTC.createOffer('local');
+        }
+      } else {
+        await webRTC.createPeer('local', resp.useMediaSvr);
+        webRTC.createOffer('local');
+      }
       break;
 
-    case 'CCC-SDP':
+    case 'SDP':
       if (resp.usage === 'cam') {
         if (resp.sdp.type === 'offer') {
-          await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.userId);
-          webRTC.createAnswer(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
-          sendMessage('CCC-SDP', { code: '200' });
+          await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
+          webRTC.createAnswer(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
+          sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
-          webRTC.setRemoteDescription(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
-          sendMessage('CCC-SDP', { code: '200' });
+          // if (resp.useMediaSvr === 'Y') await webRTC.createPeer(resp.userId);
+          webRTC.setRemoteDescription(resp.sdp, 'local');
+          sendMessage('SDP', { code: '200' });
+        }
+      } else if (resp.usage === 'screen') {
+        if (resp.sdp.type === 'offer' && resp.useMediaSvr === 'N') {
+          await screenshare.createPeer('screen');
+          webRTC.createAnswer(resp.sdp, 'screen');
+          sendMessage('SDP', { code: '200' });
+        } else if (resp.sdp.type === 'answer') {
+          webRTC.setRemoteDescription(resp.sdp, 'screen');
+          sendMessage('SDP', { code: '200' });
         }
       }
       break;
 
-    case 'CCC-Candidate':
+    case 'Candidate':
       if (resp.usage === 'cam') {
         if (resp.candidate) webRTC.setCandidate(resp.candidate, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
-        sendMessage('CCC-Candidate', { code: '200' });
+        sendMessage('Candidate', { code: '200' });
       }
       break;
   }
@@ -51,6 +69,6 @@ export async function on(resp) {
 
 export function sendMessage(op, data = {}) {
   Object.assign(data, { eventOp: op });
-  // console.debug(`[ ${op} ] Web -> Signal `, data);
+  console.debug(`[ ${op} ] Web -> Signal `, data);
   store.state.socket.emit('knowledgetalk', data);
 }
