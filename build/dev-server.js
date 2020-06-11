@@ -9,6 +9,8 @@ if (!process.env.NODE_ENV) {
 
 const opn = require('opn')
 const path = require('path')
+const https = require('https')
+const fs = require('fs')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
@@ -64,7 +66,7 @@ app.use(devMiddleware)
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-const uri = 'http://localhost:' + port
+const uri = 'https://localhost:' + port
 
 let _resolve
 const readyPromise = new Promise(resolve => {
@@ -81,7 +83,12 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-const server = app.listen(port)
+const server = https.createServer({
+  key: fs.readFileSync('./ssl/ktgenie.key'),
+  cert: fs.readFileSync('./ssl/ktgenie_cert.pem'),
+  ca: fs.readFileSync(`./ssl/RootCA.crt`),
+  passphrase: 'kpoint'
+}, app).listen(port)
 
 module.exports = {
   ready: readyPromise,
