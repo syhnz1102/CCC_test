@@ -1,11 +1,12 @@
 import store from '../store';
 import router from '../router';
 import webRTC from './webrtc';
-import screenshare from './screenshare';
+import { eBus } from "./eventBus";
+import screenShare from "./screenshare";
 
 export async function on(resp) {
   console.debug(`[ ${resp.eventOp} ] Signal -> Web `, resp);
-  switch (resp.eventOp) {
+  switch (resp.eventOp || resp.signalOp) {
     case 'CCC-CreateRoom':
       if (resp.code === '200') {
         router.push({ path: `/room/${resp.roomId}` });
@@ -36,6 +37,7 @@ export async function on(resp) {
       break;
 
     case 'SDP':
+      if (resp.code === '200') return;
       if (resp.usage === 'cam') {
         if (resp.sdp.type === 'offer') {
           await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
@@ -47,8 +49,8 @@ export async function on(resp) {
           sendMessage('SDP', { code: '200' });
         }
       } else if (resp.usage === 'screen') {
-        if (resp.sdp.type === 'offer' && resp.useMediaSvr === 'N') {
-          await screenshare.createPeer('screen');
+        if (resp.sdp.type === 'offer') {
+          await screenShare.createPeer('screen');
           webRTC.createAnswer(resp.sdp, 'screen');
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
@@ -62,6 +64,41 @@ export async function on(resp) {
       if (resp.usage === 'cam') {
         if (resp.candidate) webRTC.setCandidate(resp.candidate, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
         sendMessage('Candidate', { code: '200' });
+      }
+      break;
+
+    case 'SessionReserve':
+      if (resp.code === '200') {
+        let stream = await screenShare.createShareStream();
+        await screenShare.createPeer('screen');
+        await webRTC.createOffer('screen');
+        eBus.$emit('share', {
+          type: 'add',
+          id: 'screen',
+          isLocal: true,
+          stream,
+          count: store.state.roomInfo.count
+        })
+      } else {
+        return alert('지금은 화면공유를 진행 할 수 없습니다.');
+      }
+      break;
+
+    case 'ScreenShareConferenceEndSvr':
+      eBus.$emit('share', {
+        type: 'remove'
+      })
+      break;
+
+    case 'Presence':
+      if (resp.action === 'exit') {
+        store.commit('setRoomInfo', { count: store.state.roomInfo.count - 1 });
+
+        eBus.$emit('video', {
+          type: 'remove',
+          count: store.state.roomInfo.count,
+          id: store.state.roomInfo.count > 2 ? resp.userId : 'remote'
+        })
       }
       break;
   }

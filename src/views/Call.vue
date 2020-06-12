@@ -8,7 +8,7 @@
       v-bind:ok="handlePopupOkBtnClick"
       v-bind:cancel="handlePopupCancelBtnClick"
     />
-    <div class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
+    <div id="VideoContainer"  class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
       <div class="shareContainer" v-bind:style="{display: (share ? 'block' : 'none')}" ref="share" @mouseover="handleBtnArea">
         <div class="shareVideo">
           <div class="video" v-bind:style="{display: (share && !share.isSharer ? 'block' : 'none')}">
@@ -33,6 +33,8 @@
         <template v-for="v in videos">
           <Video
             :key="v.id"
+            v-bind:isOffVideo="v.isOffVideo"
+            v-bind:isOffMic="v.isOffMic"
             v-bind:isLocal="v.isLocal"
             v-bind:vid="v.id"
             @mouseover="handleBtnArea"
@@ -60,11 +62,10 @@ export default {
   data () {
     return {
       videos: [],
+      share: null,
       visibleBtnArea: false,
       videoDisplayType: '',
-      isSharing: false,
       isCollapsedVideo: false,
-      share: null,
       constraint: {
         mWidth: 1280, mHeight: 960
       },
@@ -84,19 +85,26 @@ export default {
 
       let stream = await webRTC.createVideoStream();
       sendMessage('CCC-Join', { roomId: window.location.href.split('/room/')[1]})
-      this.setVideo(true, 'local', stream);
+      this.addVideo(true, 'local', stream);
 
       eBus.$on('video', param => {
         if (param.type === 'add') {
           this.setDisplay(param.count, param.id);
-          this.setVideo(param.isLocal, param.id, param.stream);
+          this.addVideo(param.isLocal, param.id, param.stream);
+        } else if (param.type === 'remove') {
+          this.setDisplay(param.count, param.id);
+          this.removeVideo(param.id);
+        } else if (param.type === 'set') {
+          this.setVideo(param);
         }
       });
 
       eBus.$on('share', param => {
         if (param.type === 'add') {
-          this.setVideo(param.isLocal, param.id, param.stream);
+          this.addVideo(param.isLocal, param.id, param.stream);
           this.changeDisplay(param.type === 'add', param.count);
+        } else if (param.type === 'remove') {
+          this.handleShareEndBtnClick(false);
         }
       });
 
@@ -127,13 +135,19 @@ export default {
       this.popup.on = false;
       if (this.popup.cancel) return this.popup.cancel();
     },
-    handleShareEndBtnClick() {
-      console.log('공유 중지');
+    handleShareEndBtnClick(isSharer) {
+      let s = this.$store.state
+      this.removeVideo('screen');
+      this.changeDisplay(false, s.roomInfo.count);
+      if (isSharer) {
+        sendMessage('SessionReserveEnd', { userId: s.userInfo, roomId: s.roomInfo.roomId })
+        sendMessage('ScreenShareConferenceEnd', { userId: s.userInfo, roomId: s.roomInfo.roomId, useMediaSvr: s.roomInfo.count > 2 ? 'Y' : 'N' })
+      }
     },
     handleCollapseBtnClick() {
       this.isCollapsedVideo = !this.isCollapsedVideo;
     },
-    setVideo(isLocal, id, stream) {
+    addVideo(isLocal, id, stream) {
       if (id === 'screen') {
         this.share = {
           id: 'screen',
@@ -146,15 +160,36 @@ export default {
       } else {
         this.videos.push({
           id: isLocal ? 'local' : id,
+          isOffVideo: false,
+          isOffMic: false,
           isLocal
         })
       }
     },
-    removeVideo() {
+    setVideo(param) {
+      this.videos.forEach((curr, idx) => {
+        if (curr.id === param.id && param.hasOwnProperty('isOffVideo')) {
+          this.$set(this.videos, idx, Object.assign({}, this.videos[idx], { isOffVideo: param.isOffVideo }));
+        }
+        if (curr.id === param.id && param.hasOwnProperty('isOffMic')) {
+          let list = [...this.videos];
+          let obj = Object.assign({}, this.videos[idx], { isOffMic: param.isOffMic });
+          list.splice(idx, 1, obj);
+          this.videos = list;
+        }
+      })
+    },
+    removeVideo(id) {
       if (id === 'screen') {
-
+        this.$store.commit('removePeerInfo', id);
+        this.$store.commit('removeStreamInfo', id);
+        this.share = null;
+        document.getElementById('ShareVideo').srcObject = null;
       } else {
-
+        this.$store.commit('removePeerInfo', id);
+        this.$store.commit('removeStreamInfo', id);
+        this.videos = this.videos.filter(c => c.id !== id);
+        console.log(this.videos);
       }
     },
     changeDisplay(isSharing, count) {
@@ -165,6 +200,7 @@ export default {
         // this.$refs.mainCont.appendChild(this.$refs.mainVideo);
       } else {
         // when stopped screen sharing
+        document.getElementById('VideoContainer').appendChild(document.getElementById('MainVideo'));
         if (document.getElementById('local') && count <= 2) document.getElementById('local').classList.add('local');
       }
     },

@@ -1,9 +1,8 @@
 <template>
-  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo }">
+  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'off': OffVideo }">
     <div class="userContainer">
       <div class="user">
-        <span class="name">익명</span>
-        <!-- <span class="name micOff">익명</span> -->
+        <span class="name" v-bind:class="{ 'micOff': offMic }">익명</span>
         <button v-if="id === 'local'" @click="handleChangeName">이름변경</button>
       </div>
     </div>
@@ -15,11 +14,13 @@ import webRTC from '../commons/webrtc';
 import { eBus } from '../commons/eventBus';
 
 export default {
-  props: { isLocal: Boolean, vid: String },
+  props: { isLocal: Boolean, isOffVideo: Boolean, isOffMic: Boolean, vid: String },
   data() {
     return {
       isLocalVideo: this.isLocal,
       id: this.isLocal ? 'local' : this.vid,
+      OffVideo: this.isOffVideo,
+      offMic: this.isOffMic
     }
   },
   mounted() {
@@ -28,7 +29,6 @@ export default {
     video.autoplay = true;
     video.muted = this.isLocalVideo;
     this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
-    console.log(this.$store.state);
   },
   methods: {
     handleChangeName: () => {

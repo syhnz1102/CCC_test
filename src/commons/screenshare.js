@@ -34,7 +34,7 @@ class ScreenShare {
           id: 'screen',
           isLocal: false,
           stream,
-          count: s.roomInfo.count
+          count: store.state.roomInfo.count
         })
       }
       // peer.onicecandidate = e => {
@@ -48,7 +48,14 @@ class ScreenShare {
       };
       peer.onicegatheringstatechange = e => {
         if (peer.iceGatheringState === 'complete') {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+          sendMessage('SDP', {
+            sdp: peer.localDescription,
+            usage: 'screen',
+            roomId: store.state.roomInfo.roomId,
+            isSfu: true,
+            userId: store.state.userInfo,
+            useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N'
+          });
         }
       }
 
