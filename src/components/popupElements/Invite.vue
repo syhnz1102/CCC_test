@@ -23,7 +23,7 @@ import { eBus } from '../../commons/eventBus';
 export default {
   data() {
     return {
-      
+
     }
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
       document.execCommand('copy');
       document.body.removeChild(t);
 
-      eBus.$emit('toast');
+      eBus.$emit('toast', 'URL이 복사 되었습니다.');
     },
     handleTalkBtnClick() {
       alert('현재 준비중인 기능입니다.');

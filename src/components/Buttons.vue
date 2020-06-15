@@ -12,7 +12,6 @@
 
 <script>
 import webRTC from '../commons/webrtc';
-import screenShare from '../commons/screenshare';
 import { sendMessage } from '../commons/message';
 import { eBus } from '../commons/eventBus';
 
@@ -38,29 +37,63 @@ export default {
     async handleScreenShareBtn() {
       let s = this.$store.state;
       if (s.roomInfo.count <= 1 || s.streamInfo.screen) {
-        return alert('지금은 화면공유를 진행 할 수 없습니다.');
+        return eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '화면 공유',
+          contents: '지금은 화면 공유를 진행할 수 없습니다.'
+        })
       }
 
       sendMessage('SessionReserve', { userId: s.userInfo, roomId: s.roomInfo.roomId })
     },
     handleCamBtn() {
       this.isOffVideo = !this.isOffVideo;
+
+      let s = this.$store.state;
+      sendMessage('SetVideo', { userId: s.userInfo, roomId: s.roomInfo.roomId, status: this.isOffVideo }, 'signalOp');
+
       eBus.$emit('video', {
         type: 'set',
         id: 'local',
         isOffVideo: this.isOffVideo
       })
+
+      if (s.streamInfo.local) {
+        const tracks = s.streamInfo.local.getTracks();
+        tracks.forEach(curr => {
+          if (curr.kind === 'video') {
+            curr.enabled = !this.isOffVideo;
+          }
+        });
+      }
     },
     handleMicBtn() {
       this.isOffMic = !this.isOffMic;
+
+      let s = this.$store.state;
+      sendMessage('SetAudio', { userId: s.userInfo, roomId: s.roomInfo.roomId, status: this.isOffMic }, 'signalOp');
+
       eBus.$emit('video', {
         type: 'set',
         id: 'local',
         isOffMic: this.isOffMic
       })
+
+      if (s.streamInfo.local) {
+        const tracks = s.streamInfo.local.getTracks();
+        tracks.forEach(curr => {
+          if (curr.kind === 'audio') {
+            curr.enabled = !this.isOffMic;
+          }
+        });
+      }
     },
     handleEndCallBtn() {
       webRTC.clear();
+      eBus.$emit('video', {
+        type: 'remove'
+      })
       this.$router.push({ path: '/' })
     }
   }

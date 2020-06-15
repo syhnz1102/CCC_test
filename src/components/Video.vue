@@ -1,8 +1,8 @@
 <template>
-  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'off': OffVideo }">
+  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'off': offVideo }">
     <div class="userContainer">
       <div class="user">
-        <span class="name" v-bind:class="{ 'micOff': offMic }">익명</span>
+        <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
         <button v-if="id === 'local'" @click="handleChangeName">이름변경</button>
       </div>
     </div>
@@ -14,31 +14,43 @@ import webRTC from '../commons/webrtc';
 import { eBus } from '../commons/eventBus';
 
 export default {
-  props: { isLocal: Boolean, isOffVideo: Boolean, isOffMic: Boolean, vid: String },
+  props: { isLocal: Boolean, isOffVideo: Boolean, isOffMic: Boolean, vid: String, userName: String },
   data() {
     return {
       isLocalVideo: this.isLocal,
       id: this.isLocal ? 'local' : this.vid,
-      OffVideo: this.isOffVideo,
+      name: this.userName,
+      offVideo: this.isOffVideo,
       offMic: this.isOffMic
     }
   },
   mounted() {
-    let video = document.createElement('video');
-    video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.count === 2 ? 'remote' : this.id)];
-    video.autoplay = true;
-    video.muted = this.isLocalVideo;
-    this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
+    this.attachVideo();
+    eBus.$on('setVideo', param => {
+      this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2;
+      if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
+      if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
+      if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
+        param.isOffVideo ? this.$refs.video.querySelector('video').remove() : this.attachVideo();
+        this.offVideo = param.isOffVideo;
+      }
+    })
   },
   methods: {
-    handleChangeName: () => {
-      console.log('handleChangeName');
+    attachVideo() {
+      let video = document.createElement('video');
+      video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.count === 2 ? 'remote' : this.id)];
+      video.autoplay = true;
+      video.muted = this.isLocalVideo;
+      if (this.$refs.video.firstChild) this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
+    },
+    handleChangeName() {
       eBus.$emit('popup', {
         on: true,
         type: 'ChangeName',
         title: '이름 변경',
-        ok: () => {
-          console.log('change name');
+        ok: (param) => {
+          this.name = param.name;
         }
       })
     }

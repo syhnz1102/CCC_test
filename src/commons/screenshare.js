@@ -15,8 +15,12 @@ class ScreenShare {
         resolve(stream);
       } catch (err) {
         console.log(err);
-        return alert(`화면 공유 영상을 불러오는 중 오류가 발생하였습니다.`);
-        // reject(err);
+        return eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '화면 공유',
+          contents: '화면 공유 영상을 불러오는 중 문제가 발생하였습니다.'
+        })
       }
     })
   }
@@ -64,7 +68,19 @@ class ScreenShare {
       store.commit('setPeerInfo', peerObj);
 
       let s = store.state;
-      if (s.streamInfo[uid]) s.streamInfo[uid].getTracks().forEach(track => s.peerInfo['screen'].addTrack(track, s.streamInfo[uid]));
+      if (s.streamInfo[uid]) {
+        s.streamInfo[uid].getTracks().forEach(track => {
+          s.peerInfo['screen'].addTrack(track, s.streamInfo[uid]);
+          track.onended = () => {
+            eBus.$emit('share', {
+              type: 'remove',
+              isSharer: true
+            })
+            track.stop();
+          }
+        });
+      }
+
       resolve();
     });
   }

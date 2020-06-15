@@ -17,7 +17,12 @@ class WebRTC {
         resolve(stream);
       } catch (err) {
         console.log(err);
-        return alert(`카메라, 마이크 장치를 불러오는 중 오류가 발생하였습니다.`);
+        return eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '영상 통화',
+          contents: '카메라, 마이크 장치를 불러오는 중 오류가 발생하였습니다.'
+        })
         // reject(err);
       }
     })
@@ -29,9 +34,24 @@ class WebRTC {
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
         let streamObj = {};
-        streamObj[uid === 'local' && isMulti !== 'Y' ? 'remote' : uid] = stream;
+        streamObj[uid === 'local' && !isMulti ? 'remote' : uid] = stream;
         store.commit('setStreamInfo', streamObj);
-        eBus.$emit('video', { type: 'add', isLocal: false, id: uid === 'local' && isMulti !== 'Y' ? 'remote' : uid, stream, count: store.state.roomInfo.count });
+
+        let name = '';
+        if (Object.keys(store.state.roomInfo.members).length > 2) {
+          if (store.state.roomInfo.members[uid]) name = store.state.roomInfo.members[uid].NAME;
+        } else if (Object.keys(store.state.roomInfo.members).length === 2) {
+          name = store.state.roomInfo.members[Object.keys(store.state.roomInfo.members).filter(c => c !== store.state.userInfo)[0]].NAME;
+        }
+
+        eBus.$emit('video', {
+          type: 'add',
+          isLocal: false,
+          id: uid === 'local' && !isMulti ? 'remote' : uid,
+          stream,
+          count: store.state.roomInfo.count,
+          name: name === 'unknown' ? '익명' : name
+        });
       }
       // peer.onicecandidate = e => {
       //   if (e.candidate) {
@@ -113,12 +133,17 @@ class WebRTC {
     });
   }
 
-  exitRoom() {
-    sendMessage('CCC-ExitRoom', { });
-  }
-
-  clearVideo(id) {
-
+  setConstraint(constraints) {
+    let s = store.state.streamInfo;
+    if (s.local) {
+      const tracks = s.local.getTracks();
+      tracks.forEach(async curr => {
+        if (curr.kind === 'video') {
+          await curr.applyConstraints(constraints);
+          console.debug('getConstraints ----------> ', curr.getConstraints());
+        }
+      });
+    }
   }
 
   clear() {

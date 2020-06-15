@@ -7,32 +7,39 @@ import screenShare from "./screenshare";
 export async function on(resp) {
   console.debug(`[ ${resp.eventOp} ] Signal -> Web `, resp);
   switch (resp.eventOp || resp.signalOp) {
-    case 'CCC-CreateRoom':
+    case 'CreateRoom':
       if (resp.code === '200') {
         router.push({ path: `/room/${resp.roomId}` });
       }
       break;
-    case 'CCC-Join':
+    case 'RoomJoin':
       if (resp.code === '400') {
-        // alert('회의 방이 만료되었습니다. 초기 화면으로 이동합니다.');
-        window.location.href = '/';
+        eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '회의 참여',
+          contents: '회의 방이 만료되었습니다. 초기 화면으로 이동합니다.',
+          cancel: () => {
+            window.location.href = '/';
+          }
+        })
       }
       store.commit('setUserInfo', resp.userId);
       if (resp.members) store.commit('setRoomInfo', { members: resp.members, roomId: resp.roomId, count: Object.keys(resp.members).length, type: Object.keys(resp.members).length > 2 ? 'multi' : 'p2p' });
       break;
 
-    case 'CCC-StartSession':
-      sendMessage('CCC-StartSession', { code: '200' });
+    case 'StartSession':
+      sendMessage('StartSession', { code: '200' });
       if (resp.members) store.commit('setRoomInfo', { count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p' });
       if (resp.useMediaSvr === 'Y') {
-        if (resp.changeView) {
+        if (resp.changeView || resp.who === store.state.userInfo) {
           store.commit('removePeerInfo', 'local');
-          await webRTC.createPeer('local', resp.useMediaSvr);
-          webRTC.createOffer('local');
+          await webRTC.createPeer('local', resp.useMediaSvr === 'Y');
+          await webRTC.createOffer('local');
         }
       } else {
-        await webRTC.createPeer('local', resp.useMediaSvr);
-        webRTC.createOffer('local');
+        await webRTC.createPeer('local', resp.useMediaSvr === 'Y');
+        await webRTC.createOffer('local');
       }
       break;
 
@@ -41,20 +48,20 @@ export async function on(resp) {
       if (resp.usage === 'cam') {
         if (resp.sdp.type === 'offer') {
           await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
-          webRTC.createAnswer(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
+          await webRTC.createAnswer(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
           // if (resp.useMediaSvr === 'Y') await webRTC.createPeer(resp.userId);
-          webRTC.setRemoteDescription(resp.sdp, 'local');
+          await webRTC.setRemoteDescription(resp.sdp, 'local');
           sendMessage('SDP', { code: '200' });
         }
       } else if (resp.usage === 'screen') {
         if (resp.sdp.type === 'offer') {
           await screenShare.createPeer('screen');
-          webRTC.createAnswer(resp.sdp, 'screen');
+          await webRTC.createAnswer(resp.sdp, 'screen');
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
-          webRTC.setRemoteDescription(resp.sdp, 'screen');
+          await webRTC.setRemoteDescription(resp.sdp, 'screen');
           sendMessage('SDP', { code: '200' });
         }
       }
@@ -62,7 +69,7 @@ export async function on(resp) {
 
     case 'Candidate':
       if (resp.usage === 'cam') {
-        if (resp.candidate) webRTC.setCandidate(resp.candidate, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
+        if (resp.candidate) await webRTC.setCandidate(resp.candidate, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
         sendMessage('Candidate', { code: '200' });
       }
       break;
@@ -80,7 +87,12 @@ export async function on(resp) {
           count: store.state.roomInfo.count
         })
       } else {
-        return alert('지금은 화면공유를 진행 할 수 없습니다.');
+        return eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '화면 공유',
+          contents: '지금은 화면 공유를 진행할 수 없습니다.'
+        })
       }
       break;
 
@@ -97,15 +109,41 @@ export async function on(resp) {
         eBus.$emit('video', {
           type: 'remove',
           count: store.state.roomInfo.count,
-          id: store.state.roomInfo.count > 2 ? resp.userId : 'remote'
+          id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId
         })
       }
+      break;
+
+    case 'ChangeName':
+      eBus.$emit('video', {
+        type: 'set',
+        id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId,
+        name: resp.name
+      })
+      break;
+
+    case 'SetAudio':
+      eBus.$emit('video', {
+        type: 'set',
+        id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId,
+        isOffMic: resp.status
+      })
+      break;
+
+    case 'SetVideo':
+      eBus.$emit('video', {
+        type: 'set',
+        id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId,
+        isOffVideo: resp.status
+      })
       break;
   }
 }
 
-export function sendMessage(op, data = {}) {
-  Object.assign(data, { eventOp: op });
+export function sendMessage(op, data = {}, type = 'eventOp') {
+  let obj = {};
+  obj[type] = op;
+  Object.assign(data, obj);
   console.debug(`[ ${op} ] Web -> Signal `, data);
   store.state.socket.emit('knowledgetalk', data);
 }

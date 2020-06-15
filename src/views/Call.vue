@@ -37,6 +37,13 @@
             v-bind:isOffMic="v.isOffMic"
             v-bind:isLocal="v.isLocal"
             v-bind:vid="v.id"
+            v-bind:userName="v.userName"
+            @mouseover="handleBtnArea"
+          />
+        </template>
+        <template v-for="(v, idx) in offVideos">
+          <OffVideo
+            :key="idx"
             @mouseover="handleBtnArea"
           />
         </template>
@@ -54,20 +61,24 @@ import webRTC from '../commons/webrtc';
 import Session from '../commons/session';
 
 import Video from '@/components/Video';
+import OffVideo from '@/components/OffVideo';
 import Popup from '@/components/Popup';
 import Buttons from '@/components/Buttons';
 
 export default {
-  components: { Video, Buttons, Popup },
+  components: { Video, OffVideo, Buttons, Popup },
   data () {
     return {
       videos: [],
+      offVideos: [],
+      videoDisplayType: '',
       share: null,
       visibleBtnArea: false,
-      videoDisplayType: '',
       isCollapsedVideo: false,
       constraint: {
-        mWidth: 1280, mHeight: 960
+        width: { min: 128, ideal: 1280 },
+        height: { min: 72, ideal: 720 },
+        aspectRatio: 16/9.0
       },
       popup: {
         on: false,
@@ -84,18 +95,19 @@ export default {
       if (!this.$store.state.socket) new Session();
 
       let stream = await webRTC.createVideoStream();
-      sendMessage('CCC-Join', { roomId: window.location.href.split('/room/')[1]})
+      sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]})
       this.addVideo(true, 'local', stream);
 
       eBus.$on('video', param => {
         if (param.type === 'add') {
-          this.setDisplay(param.count, param.id);
-          this.addVideo(param.isLocal, param.id, param.stream);
+          this.setDisplay(param.count, param.id, this.share);
+          this.addVideo(param.isLocal, param.id, param.stream, param.name);
         } else if (param.type === 'remove') {
-          this.setDisplay(param.count, param.id);
+          this.setDisplay(param.count, param.id, this.share);
           this.removeVideo(param.id);
         } else if (param.type === 'set') {
-          this.setVideo(param);
+          eBus.$emit('setVideo', param)
+          // this.setVideo(param);
         }
       });
 
@@ -104,7 +116,7 @@ export default {
           this.addVideo(param.isLocal, param.id, param.stream);
           this.changeDisplay(param.type === 'add', param.count);
         } else if (param.type === 'remove') {
-          this.handleShareEndBtnClick(false);
+          this.handleShareEndBtnClick(param.isSharer || false);
         }
       });
 
@@ -123,13 +135,12 @@ export default {
   methods: {
     handleBtnArea(e) {
       let style = 'position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;';
-      this.visibleBtnArea =
-        (e.type === 'mouseover' && e.target === this.$refs.btnArea) || e.type !== 'mouseover' && (e.target !== this.$refs.btnArea || e.target !== this.$refs.btn);
-        // e.type !== 'mouseover' && (e.target !== this.$refs.mainVideo || e.target !== this.$refs.share || e.target.tagName !== 'video');
+      this.visibleBtnArea = (e.type === 'mouseover' && e.target === this.$refs.btnArea) || e.type !== 'mouseover' && (e.target !== this.$refs.btnArea || e.target !== this.$refs.btn);
       this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
     },
-    handlePopupOkBtnClick() {
-      if (this.popup.ok) return this.popup.ok();
+    handlePopupOkBtnClick(param) {
+      sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp')
+      if (this.popup.ok) return this.popup.ok(param);
     },
     handlePopupCancelBtnClick() {
       this.popup.on = false;
@@ -147,7 +158,7 @@ export default {
     handleCollapseBtnClick() {
       this.isCollapsedVideo = !this.isCollapsedVideo;
     },
-    addVideo(isLocal, id, stream) {
+    addVideo(isLocal, id, stream, name) {
       if (id === 'screen') {
         this.share = {
           id: 'screen',
@@ -160,6 +171,7 @@ export default {
       } else {
         this.videos.push({
           id: isLocal ? 'local' : id,
+          userName: name ? name : '익명',
           isOffVideo: false,
           isOffMic: false,
           isLocal
@@ -167,17 +179,20 @@ export default {
       }
     },
     setVideo(param) {
-      this.videos.forEach((curr, idx) => {
-        if (curr.id === param.id && param.hasOwnProperty('isOffVideo')) {
-          this.$set(this.videos, idx, Object.assign({}, this.videos[idx], { isOffVideo: param.isOffVideo }));
-        }
-        if (curr.id === param.id && param.hasOwnProperty('isOffMic')) {
-          let list = [...this.videos];
-          let obj = Object.assign({}, this.videos[idx], { isOffMic: param.isOffMic });
-          list.splice(idx, 1, obj);
-          this.videos = list;
-        }
-      })
+      // 200615 ivypark, is NOT working (does not become re-rendering)....................
+      // this.videos.forEach((curr, idx) => {
+      //   if (curr.id === param.id && param.hasOwnProperty('isOffVideo')) {
+      //     this.$set(this.videos, idx, Object.assign({}, this.videos[idx], { isOffVideo: param.isOffVideo }));
+      //   }
+      //   if (curr.id === param.id && param.hasOwnProperty('isOffMic')) {
+      //     let list = [...this.videos];
+      //     let obj = Object.assign({}, this.videos[idx], { isOffMic: param.isOffMic });
+      //     list.splice(idx, 1, obj);
+      //     this.videos = list;
+      //   }
+      //   if (curr.id === param.id && param.hasOwnProperty('name')) {
+      //   }
+      // })
     },
     removeVideo(id) {
       if (id === 'screen') {
@@ -189,7 +204,7 @@ export default {
         this.$store.commit('removePeerInfo', id);
         this.$store.commit('removeStreamInfo', id);
         this.videos = this.videos.filter(c => c.id !== id);
-        console.log(this.videos);
+        if (!id) this.videos = [];
       }
     },
     changeDisplay(isSharing, count) {
@@ -197,75 +212,102 @@ export default {
         // when started screen sharing
         document.getElementById('MainVideoContainer').appendChild(document.getElementById('MainVideo'));
         if (document.getElementById('local')) document.getElementById('local').classList.remove('local');
-        // this.$refs.mainCont.appendChild(this.$refs.mainVideo);
+        this.setDisplay(undefined, undefined, true);
       } else {
         // when stopped screen sharing
         document.getElementById('VideoContainer').appendChild(document.getElementById('MainVideo'));
         if (document.getElementById('local') && count <= 2) document.getElementById('local').classList.add('local');
+        this.setDisplay(this.$store.state.roomInfo.count, undefined, false);
       }
     },
-    setDisplay(count, id) {
+    setDisplay(count, id, isSharing) {
+      this.detachOffVideo();
+
+      if (isSharing) {
+        this.videoDisplayType = '';
+        this.constraint.width.ideal = 640;
+        this.constraint.height.ideal = 360;
+        webRTC.setConstraint(this.constraint);
+        return false;
+      }
+
       if (count > 2) {
         if (document.getElementById('local')) document.getElementById('local').classList.remove('local');
-        this.videos.forEach((c, idx, arr) => {
+        this.videos.forEach((c, idx) => {
           // 기존 1:1에서 나왔던 remote 영상 삭제
           if (c.id === 'remote') {
+            // this.$store.commit('removePeerInfo', 'local');
             this.$store.commit('removeStreamInfo', 'remote');
-            arr.splice(idx, 1);
-            // if (document.getElementById('remote')) {
-            //   while (document.getElementById('remote').hasChildNodes()) {
-            //     document.getElementById('remote').firstChild.srcObject = null;
-            //     document.getElementById('remote').removeChild(document.getElementById('remote').firstChild);
-            //   }
-            // }
+            this.videos.splice(idx, 1);
           }
         })
+      } else if (count <= 2) {
+        if (document.getElementById('local')) document.getElementById('local').classList.add('local');
       }
 
       switch (count) {
         case 1: case 2:
 					this.videoDisplayType = '';
-					this.constraint.mWidth = 1280;
-					this.constraint.mHeight = 720;
+					this.constraint.width.ideal = 1280;
+					this.constraint.height.ideal = 720;
 					break;
 
-				case 3: case 4:
-					this.videoDisplayType = 'four';
-					this.constraint.mWidth = 960;
-					this.constraint.mHeight = 540;
+				case 3: this.attachOffVideo(1);
+        case 4: if (count === 4) this.detachOffVideo();
+          this.videoDisplayType = 'four';
+					this.constraint.width.ideal = 960;
+					this.constraint.height.ideal = 540;
 					break;
 
-				case 5:	case 6:
+				case 5: this.attachOffVideo(1);
+        case 6: if (count === 6) this.detachOffVideo();
 					this.videoDisplayType = 'six';
-					this.constraint.mWidth = 640;
-					this.constraint.mHeight = 360;
+					this.constraint.width.ideal = 640;
+					this.constraint.height.ideal = 360;
 					break;
 
-				case 7: case 8: case 9:
+				case 7: this.attachOffVideo(2);
+        case 8: this.attachOffVideo(1);
+        case 9: if (count === 9) this.detachOffVideo();
 					this.videoDisplayType = 'nine';
-					this.constraint.mWidth = 640;
-					this.constraint.mHeight = 360;
+					this.constraint.width.ideal = 640;
+					this.constraint.height.ideal = 360;
 					break;
 
-				case 10: case 11:	case 12:
+				case 10: this.attachOffVideo(2);
+        case 11: this.attachOffVideo(1);
+        case 12: if (count === 12) this.detachOffVideo();
 					this.videoDisplayType = 'twelve';
-					this.constraint.mWidth = 480;
-					this.constraint.mHeight = 270;
+					this.constraint.width.ideal = 480;
+					this.constraint.height.ideal = 270;
 					break;
 
-				case 13: case 14: case 15: case 16:
+				case 13: this.attachOffVideo(1);
+        case 14: this.attachOffVideo(2);
+        case 15: this.attachOffVideo(3);
+        case 16: if (count === 16) this.detachOffVideo();
 					this.videoDisplayType = 'sixteen';
-					this.constraint.mWidth = 320;
-					this.constraint.mHeight = 180;
+					this.constraint.width.ideal = 320;
+					this.constraint.height.ideal = 180;
 					break;
 
 				default:
 					console.warn(`ambiguous remain value`);
 					this.videoDisplayType = 'sixteen';
-					this.constraint.mWidth = 240;
-					this.constraint.mHeight = 135;
+					this.constraint.width.ideal = 240;
+					this.constraint.height.ideal = 135;
 					break;
       }
+
+      webRTC.setConstraint(this.constraint);
+    },
+    attachOffVideo(cnt) {
+      for (let i = 0; i < cnt && this.offVideos.length < cnt; i++) {
+        this.offVideos.push(`<div class="video off"></div>`);
+      }
+    },
+    detachOffVideo() {
+      this.offVideos = [];
     }
   }
 }

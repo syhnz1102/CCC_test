@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
-    <div class="toast wow animate__animated animate__fadeOut" v-if="isEmitToast">
-      <p>URL이 복사되었습니다.</p>
+    <div class="toast wow animate__animated animate__fadeOut" v-if="toast">
+      <p>{{ toast }}</p>
     </div>
     <div class="modalContainer">
       <div class="modalHeader">
@@ -10,6 +10,7 @@
       </div>
       <ChangeName v-if="contentsType === 'ChangeName'" v-bind:ok="okBtnClick" v-bind:cancel="cancelBtnClick" />
       <Confirm v-if="contentsType === 'Confirm'" v-bind:ok="okBtnClick" v-bind:cancel="cancelBtnClick" v-bind:contents="pContents" />
+      <Alert v-if="contentsType === 'Alert'" v-bind:cancel="cancelBtnClick" v-bind:contents="pContents" />
       <Invite v-if="contentsType === 'Invite'"/>
     </div>
   </div>
@@ -21,10 +22,11 @@ import { eBus } from '../commons/eventBus';
 import ChangeName from './popupElements/ChangeName';
 import Confirm from './popupElements/Confirm';
 import Invite from './popupElements/Invite';
+import Alert from './popupElements/Alert';
 
 export default {
   props: { type: String, title: String, contents: String, ok: Function, cancel: Function },
-  components: { ChangeName, Confirm, Invite },
+  components: { ChangeName, Confirm, Invite, Alert },
   data() {
     return {
       contentsType: this.type,
@@ -32,19 +34,19 @@ export default {
       pContents: this.contents,
       okBtnClick: this.ok,
       cancelBtnClick: this.cancel,
-      isEmitToast: false
+      toast: ''
     }
   },
   mounted() {
-    eBus.$on('toast', () => {
-      this.emitToast()
+    eBus.$on('toast', (content) => {
+      this.emitToast(content)
     })
   },
   methods: {
-    emitToast() {
-      this.isEmitToast = true;
+    emitToast(content) {
+      this.toast = content;
       setTimeout(() => {
-        this.isEmitToast = false;
+        this.toast = '';
       }, 1000)
     }
   }

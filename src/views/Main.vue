@@ -16,7 +16,7 @@
                   <span data-menu="guide">guide</span>
                </a>
                <button>
-                  <span data-menu-btn="화상회의 시작하기">화상회의 시작하기</span>
+                  <span data-menu-btn="화상회의 시작하기" @click="handleBtnClick">화상회의 시작하기</span>
                </button>
             </div>
          </div>
@@ -31,8 +31,6 @@
                   <strong class="wow animate__animated animate__fadeInUp">Knowledge Talk</strong>
                   <span class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">Convenient Conference Call</span>
                   <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="handleBtnClick">화상회의 시작하기</button>
-                  <br />
-                  <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="tempHandleBtnClickTest">화상회의 참여하기 (개발자 테스트 전용)</button>
                </div>
                <button class="scroll"></button>
             </div>
@@ -160,23 +158,19 @@
 </template>
 
 <script>
-import webRTC from '../commons/webrtc';
 import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
 
 export default {
   data () {
     return {
-      
+
     }
   },
   methods: {
     async handleBtnClick() {
       new Session();
-      sendMessage('CCC-CreateRoom', {});
-    },
-    tempHandleBtnClickTest() {
-      this.$router.push({ path: '/room/abcdefg' })
+      sendMessage('CreateRoom', {});
     }
   }
 }
