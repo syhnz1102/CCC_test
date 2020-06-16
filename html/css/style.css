@@ -32,7 +32,7 @@ body,
 .header.fixed::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background-image:linear-gradient(to left, #EA6060, #7117EA);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
 .main .visual {overflow:hidden;position:relative;height:100vh}
 .main .visual .bg {position:absolute;top:0;left:0;width:100%;height:100%}
-.main .visual .bg img {width:100%;height:100%;object-fit:cover;transform:scale(1.1);animation:zoomin 2s}
+.main .visual .bg img {width:100%;height:100%;object-fit:cover;filter:blur(3px);transform:scale(1.1);animation:zoomin 2s}
 .main .visual .bg::after {content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6)}
 .main .visual .content {position:absolute;top:50%;transform:translateY(-50%)}
 .main .visual .content strong {display:block;font-family:'Montserrat',sans-serif;font-size:30px;color:#fff}
@@ -49,21 +49,21 @@ body,
 .main section .container {padding-top:120px;padding-bottom:120px}
 .main section h2 {text-align:center;font-family:'Montserrat',sans-serif;font-size:30px;color:#333}
 .main section h2 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:middle;font-weight:700;font-size:18px;color:#333;border:2px solid #333;border-radius:1.5em}
-.main .infomation {background:#f5f5f5}
-.main .infomation li {position:relative;margin-top:70px}
-.main .infomation li::before {content:'';display:block;width:60%;height:400px;margin-left:40%;background-repeat:no-repeat;background-position:center right;background-size:cover}
-.main .infomation li:nth-child(2n)::before {right:0;margin-left:0}
-.main .infomation li:nth-child(2n) .box {right:0;background:#fff}
-.main .infomation li:nth-child(2n) .box .tit,
-.main .infomation li:nth-child(2n) .box .content p {color:#7117EA}
-.main .infomation li:nth-child(2n) .box strong {-webkit-text-stroke-color:#7117EA}
-.main .infomation li:nth-child(1)::before {background-image:url('../images/img_infomation_03.jpg')}
-.main .infomation li:nth-child(2)::before {background-image:url('../images/img_infomation_02.jpg')}
-.main .infomation li:nth-child(3)::before {background-image:url('../images/img_infomation_01.jpg')}
-.main .infomation .box {position:absolute;top:50%;transform:translateY(-50%);width:50%;padding:50px;background:#7117EA;box-shadow:20px 20px 30px rgba(0,0,0,.2);box-sizing:border-box}
-.main .infomation .box .tit {text-align:center;font-family:'Montserrat',sans-serif;font-weight:300;font-size:30px;color:#fff}
-.main .infomation .box .tit strong {font-family:'Montserrat',sans-serif;font-weight:900;font-size:50px;color:transparent;-webkit-text-stroke:1px #fff}
-.main .infomation .box .content p {margin-top:30px;text-align:center;font-weight:100;font-size:18px;color:#fff}
+.main .information {background:#f5f5f5}
+.main .information li {position:relative;margin-top:70px}
+.main .information li::before {content:'';display:block;width:60%;height:400px;margin-left:40%;background-repeat:no-repeat;background-position:center right;background-size:cover}
+.main .information li:nth-child(2n)::before {right:0;margin-left:0}
+.main .information li:nth-child(2n) .box {right:0;background:#fff}
+.main .information li:nth-child(2n) .box .tit,
+.main .information li:nth-child(2n) .box .content p {color:#7117EA}
+.main .information li:nth-child(2n) .box strong {-webkit-text-stroke-color:#7117EA}
+.main .information li:nth-child(1)::before {background-image:url('../images/img_information_03.jpg')}
+.main .information li:nth-child(2)::before {background-image:url('../images/img_information_02.jpg')}
+.main .information li:nth-child(3)::before {background-image:url('../images/img_information_01.jpg')}
+.main .information .box {position:absolute;top:50%;transform:translateY(-50%);width:50%;padding:50px;background:#7117EA;box-shadow:20px 20px 30px rgba(0,0,0,.2);box-sizing:border-box}
+.main .information .box .tit {text-align:center;font-family:'Montserrat',sans-serif;font-weight:300;font-size:30px;color:#fff}
+.main .information .box .tit strong {font-family:'Montserrat',sans-serif;font-weight:900;font-size:50px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .information .box .content p {margin-top:30px;text-align:center;font-weight:100;font-size:18px;color:#fff}
 .main .function ul {overflow:hidden}
 .main .function li {float:left;width:25%;padding-top:65px;text-align:center;background-repeat:no-repeat;background-position:center 5px;background-size:auto 50px;box-sizing:border-box;transition:background-position .3s}
 .main .function li:hover {background-position-y:0}
@@ -109,7 +109,7 @@ body,
 .video.local .user .name {max-width:calc(100% - 30px)}
 
 .mainVideo {width:100%;height:100%}
-.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
@@ -239,9 +239,9 @@ body,
    .header h1 {float:none;line-height:normal}
    .header .menu {display:none}
    .main .visual .content {text-align:center}
-   .main .infomation li + li {margin-top:120px}
-   .main .infomation li::before {width:80%;height:300px;margin-left:20%}
-   .main .infomation .box {top:auto;bottom:-50px;width:80%;padding:30px;transform:none}
+   .main .information li + li {margin-top:120px}
+   .main .information li::before {width:80%;height:300px;margin-left:20%}
+   .main .information .box {top:auto;bottom:-50px;width:80%;padding:30px;transform:none}
    .main .function li {width:50%}
    .main .function li + li:not(:nth-child(2)) {margin-top:50px}
    .main .guide li {width:100%}
@@ -277,8 +277,8 @@ body,
    .main .visual .content strong span {font-size:14px}
    .main .visual .content span {font-size:45px}
    .main .visual .content button {font-size:16px}
-   .main .infomation .box {padding:20px}
-   .main .infomation .box .content p {font-size:14px}
+   .main .information .box {padding:20px}
+   .main .information .box .content p {font-size:14px}
    .main .function li {width:100%}
    .main .function li + li {margin-top:50px}
 

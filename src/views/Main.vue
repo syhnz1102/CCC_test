@@ -6,8 +6,8 @@
                <a href="#top">Knowledge Talk <span>CCC</span></a>
             </h1>
             <div class="menu">
-               <a href="#infomation">
-                  <span data-menu="infomation">infomation</span>
+               <a href="#information">
+                  <span data-menu="information">information</span>
                </a>
                <a href="#function">
                   <span data-menu="function">function</span>
@@ -35,7 +35,7 @@
                <button class="scroll"></button>
             </div>
          </section>
-         <section id="infomation" class="infomation">
+         <section id="information" class="information">
             <div class="container">
                <h2>Knowledge Talk <span>CCC</span></h2>
                <ul>
@@ -43,7 +43,7 @@
                      <div class="wow box animate__animated animate__zoomIn">
                         <div class="tit"><strong>C</strong>onvenient</div>
                         <div class="content">
-                           <p>프로그램 설치와 회원가입이 필요없어<br /> 편하게 사용할 수 있습니다.</p>
+                           <p>프로그램 설치와 회원가입이 필요 없어<br /> 편하게 사용할 수 있습니다.</p>
                         </div>
                      </div>
                   </li>
@@ -59,7 +59,7 @@
                      <div class="wow box animate__animated animate__zoomIn">
                         <div class="tit"><strong>C</strong>all</div>
                         <div class="content">
-                           <p>누구나 무료로<br /> 화상통화를 즐길 수 있습니다.</p>
+                           <p>누구나 무료로<br /> 화상회의를 즐길 수 있습니다.</p>
                         </div>
                      </div>
                   </li>
@@ -79,11 +79,11 @@
                   </li>
                   <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                      <strong>인터넷 브라우저</strong>
-                     <p>인터넷 브라우저만으로<br /> 화상통화를 할 수 있습니다. <span>*Chrome browser 권장</span></p>
+                     <p>인터넷 브라우저만으로<br /> 화상회의를 할 수 있습니다. <span>*Chrome browser 권장</span></p>
                   </li>
                   <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
                      <strong>최대 16명까지</strong>
-                     <p>최대 16명까지<br /> 화상통화를 할 수 있습니다.</p>
+                     <p>최대 16명까지<br /> 화상회의를 할 수 있습니다.</p>
                   </li>
                </ul>
             </div>
@@ -117,14 +117,14 @@
                         <img src="../assets/images/img_guide_04.jpg" alt="">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">최대 16명까지 화상통화를 할 수 있습니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">최대 16명까지 화상회의를 할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
                         <img src="../assets/images/img_guide_05.jpg" alt="">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 5</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는 대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
                   </li>
                   <li>
                      <div class="img">
