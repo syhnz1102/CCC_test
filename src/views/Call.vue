@@ -92,44 +92,51 @@ export default {
     }
   },
   async created() {
+    // 200616 ivypark, v1.0.1. 이벤트 중복 적용 방어. (통화 종료 후 다시 render 시 $on listener가 중복으로 적용 되는 현상 발견)
+    if (Object.keys(eBus._events).length) eBus._events = {};
+    eBus.$on('video', param => {
+      if (param.type === 'add') {
+        this.setDisplay(param.count, param.id, this.share);
+        this.addVideo(param.isLocal, param.id, param.stream, param.name);
+      } else if (param.type === 'remove') {
+        this.setDisplay(param.count, param.id, this.share);
+        this.removeVideo(param.id);
+      } else if (param.type === 'set') {
+        eBus.$emit('setVideo', param)
+        // this.setVideo(param);
+      }
+    });
+
+    eBus.$on('share', param => {
+      if (param.type === 'add') {
+        this.addVideo(param.isLocal, param.id, param.stream);
+        this.changeDisplay(param.type === 'add', param.count);
+      } else if (param.type === 'remove') {
+        this.handleShareEndBtnClick(param.isSharer || false);
+      }
+    });
+
+    eBus.$on('popup', param => {
+      this.popup.on = param.on;
+      this.popup.type = param.type;
+      this.popup.title = param.title;
+      this.popup.contents = param.contents;
+      this.popup.ok = param.ok;
+      this.popup.cancel = param.cancel;
+    });
+
     if (await webRTC.checkMediaDevices()) {
       if (!this.$store.state.socket) new Session();
-
       let stream = await webRTC.createVideoStream();
+
       sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]})
       this.addVideo(true, 'local', stream);
-
-      eBus.$on('video', param => {
-        if (param.type === 'add') {
-          this.setDisplay(param.count, param.id, this.share);
-          this.addVideo(param.isLocal, param.id, param.stream, param.name);
-        } else if (param.type === 'remove') {
-          this.setDisplay(param.count, param.id, this.share);
-          this.removeVideo(param.id);
-        } else if (param.type === 'set') {
-          eBus.$emit('setVideo', param)
-          // this.setVideo(param);
-        }
-      });
-
-      eBus.$on('share', param => {
-        if (param.type === 'add') {
-          this.addVideo(param.isLocal, param.id, param.stream);
-          this.changeDisplay(param.type === 'add', param.count);
-        } else if (param.type === 'remove') {
-          this.handleShareEndBtnClick(param.isSharer || false);
-        }
-      });
-
-      eBus.$on('popup', param => {
-        this.popup.on = param.on;
-        this.popup.type = param.type;
-        this.popup.title = param.title;
-        this.popup.contents = param.contents;
-        this.popup.ok = param.ok;
-        this.popup.cancel = param.cancel;
-      })
     } else {
+      if (this.$store.state.socket && this.$store.state.roomInfo) {
+        webRTC.destroyRoom();
+        webRTC.clear();
+      }
+
       this.$router.push({ path: '/' });
     }
   },
@@ -140,12 +147,12 @@ export default {
       this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
     },
     handlePopupOkBtnClick(param) {
-      sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp')
-      if (this.popup.ok) return this.popup.ok(param);
+      if (param && param.name) sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp');
+      if (this.popup.ok) this.popup.ok(param);
     },
-    handlePopupCancelBtnClick() {
+    handlePopupCancelBtnClick(param) {
       this.popup.on = false;
-      if (this.popup.cancel) return this.popup.cancel();
+      if (this.popup.cancel) this.popup.cancel(param);
     },
     handleShareEndBtnClick(isSharer) {
       let s = this.$store.state
@@ -202,10 +209,14 @@ export default {
         this.share = null;
         document.getElementById('ShareVideo').srcObject = null;
       } else {
+        if (!id) {
+          this.videos = [];
+          return;
+        }
+
         this.$store.commit('removePeerInfo', id);
         this.$store.commit('removeStreamInfo', id);
         this.videos = this.videos.filter(c => c.id !== id);
-        if (!id) this.videos = [];
       }
     },
     changeDisplay(isSharing, count) {
@@ -294,9 +305,9 @@ export default {
 
 				default:
 					console.warn(`ambiguous remain value`);
-					this.videoDisplayType = 'sixteen';
-					this.constraint.width.ideal = config.constraints.sixteen.width;
-					this.constraint.height.ideal = config.constraints.sixteen.height;
+					// this.videoDisplayType = 'sixteen';
+					// this.constraint.width.ideal = config.constraints.sixteen.width;
+					// this.constraint.height.ideal = config.constraints.sixteen.height;
 					break;
       }
 

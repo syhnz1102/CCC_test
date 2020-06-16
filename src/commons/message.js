@@ -9,6 +9,7 @@ export async function onMessage(resp) {
   switch (resp.eventOp || resp.signalOp) {
     case 'CreateRoom':
       if (resp.code === '200') {
+        store.commit('setRoomInfo', { roomId: resp.roomId });
         router.push({ path: `/room/${resp.roomId}` });
       }
       break;

@@ -1,7 +1,8 @@
 export default {
-  // socketIoUrl: 'https://ktgenie.com:54545',
-  socketIoUrl: 'https://localhost:54545',
-  // socketIoUrl: 'https://knowledgetalk.co.kr:54545',
+  version: 'v1.0.1',
+  // socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
+  socketIoUrl: 'https://localhost:54545/SignalServer',
+  // socketIoUrl: 'https://knowledgetalk.co.kr:54545/SignalServer',
   iceServer: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] },
   constraints: {
     share: { width: 640, height: 360 }, // video constraint when screen sharing

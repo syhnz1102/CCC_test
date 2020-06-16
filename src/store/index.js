@@ -32,7 +32,7 @@ export default new Vuex.Store({
         state.streamInfo[name].getTracks().forEach(track => {
           track.stop();
         });
-        
+
         delete state.streamInfo[name];
       }
     },
@@ -57,6 +57,7 @@ export default new Vuex.Store({
         delete state.peerInfo[c];
       }
 
+      state.userInfo = null;
       state.roomInfo = {}
       state.socket.close();
       state.socket = null;

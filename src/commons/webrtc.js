@@ -115,19 +115,39 @@ class WebRTC {
           console.debug('enumerateDevices : ', devices);
           let cam = devices.some(elem => elem.kind === 'videoinput');
           let mic = devices.some(elem => elem.kind === 'audioinput');
-          // self.setLocalMediaConstraintOptions(cam ? undefined : false, !!mic);
-          if (!cam && !mic) {
-            resolve(confirm(`모든 카메라, 마이크 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`));
-          } else if (!cam || !mic) {
-            resolve(confirm(`${!cam ? '카메라' : '마이크'} 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`));
-          } else {
+          if (cam && mic) {
             resolve(true);
+          } else {
+            eBus.$emit('popup', {
+              on: true,
+              type: 'Confirm',
+              title: '통화 방 입장 오류',
+              contents: `${!cam && !mic ? '카메라, 마이크' : !cam ? '카메라' : '마이크'} 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`,
+              ok: () => {
+                eBus.$emit('popup', { on: false });
+                resolve(true);
+              },
+              cancel: () => {
+                resolve(false);
+              }
+            })
           }
         })
         .catch(e => {
           console.error('## devices are not found: ', e);
-          // self.setLocalMediaConstraintOptions(false, false);
-          resolve(confirm(`모든 카메라, 마이크 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`));
+          eBus.$emit('popup', {
+            on: true,
+            type: 'Confirm',
+            title: '통화 방 입장 오류',
+            contents: `카메라, 마이크 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`,
+            ok: () => {
+              eBus.$emit('popup', { on: false });
+              resolve(true);
+            },
+            cancel: () => {
+              resolve(false);
+            }
+          })
         });
     });
   }
@@ -143,6 +163,10 @@ class WebRTC {
         }
       });
     }
+  }
+
+  destroyRoom() {
+    sendMessage('DestroyRoom', { roomId: store.state.roomInfo.roomId });
   }
 
   clear() {

@@ -9,14 +9,6 @@
 
 <script>
   export default {
-    props: { contents: String, cancel: Function },
-    data() {
-      return {
-
-      }
-    },
-    methods: {
-
-    }
+    props: { contents: String, cancel: Function }
   }
 </script>

@@ -140,7 +140,7 @@
       <footer class="footer">
          <div class="container">
             <div class="company">
-               <strong>Knowledge Talk CCC</strong>
+               <strong>Knowledge Talk CCC ({{ getVersion }})</strong>
                <p>
                   <a href="http://knowledgepoint.co.kr/" target="_blank">(주)날리지포인트</a>
                   <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
@@ -160,6 +160,7 @@
 <script>
 import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
+import config from '../config';
 
 export default {
   data () {
@@ -171,6 +172,11 @@ export default {
     async handleBtnClick() {
       new Session();
       sendMessage('CreateRoom', {});
+    }
+  },
+  computed: {
+    getVersion() {
+      return config.version;
     }
   }
 }
