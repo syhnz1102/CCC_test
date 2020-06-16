@@ -59,6 +59,7 @@ import { eBus } from '../commons/eventBus';
 import { sendMessage } from '../commons/message';
 import webRTC from '../commons/webrtc';
 import Session from '../commons/session';
+import config from '../config';
 
 import Video from '@/components/Video';
 import OffVideo from '@/components/OffVideo';
@@ -76,8 +77,8 @@ export default {
       visibleBtnArea: false,
       isCollapsedVideo: false,
       constraint: {
-        width: { min: 128, ideal: 1280 },
-        height: { min: 72, ideal: 720 },
+        width: { min: 128, ideal: config.constraints.p2p.width },
+        height: { min: 72, ideal: config.constraints.p2p.height },
         aspectRatio: 16/9.0
       },
       popup: {
@@ -225,8 +226,8 @@ export default {
 
       if (isSharing) {
         this.videoDisplayType = '';
-        this.constraint.width.ideal = 640;
-        this.constraint.height.ideal = 360;
+        this.constraint.width.ideal = config.constraints.share.width;
+        this.constraint.height.ideal = config.constraints.share.height;
         webRTC.setConstraint(this.constraint);
         return false;
       }
@@ -248,54 +249,54 @@ export default {
       switch (count) {
         case 1: case 2:
 					this.videoDisplayType = '';
-					this.constraint.width.ideal = 1280;
-					this.constraint.height.ideal = 720;
+					this.constraint.width.ideal = config.constraints.p2p.width;
+					this.constraint.height.ideal = config.constraints.p2p.height;
 					break;
 
 				case 3: this.attachOffVideo(1);
         case 4: if (count === 4) this.detachOffVideo();
           this.videoDisplayType = 'four';
-					this.constraint.width.ideal = 960;
-					this.constraint.height.ideal = 540;
+					this.constraint.width.ideal = config.constraints.four.width;
+					this.constraint.height.ideal = config.constraints.four.height;
 					break;
 
 				case 5: this.attachOffVideo(1);
         case 6: if (count === 6) this.detachOffVideo();
 					this.videoDisplayType = 'six';
-					this.constraint.width.ideal = 640;
-					this.constraint.height.ideal = 360;
+					this.constraint.width.ideal = config.constraints.six.width;
+					this.constraint.height.ideal = config.constraints.six.height;
 					break;
 
 				case 7: this.attachOffVideo(2);
         case 8: this.attachOffVideo(1);
         case 9: if (count === 9) this.detachOffVideo();
 					this.videoDisplayType = 'nine';
-					this.constraint.width.ideal = 640;
-					this.constraint.height.ideal = 360;
+					this.constraint.width.ideal = config.constraints.nine.width;
+					this.constraint.height.ideal = config.constraints.nine.height;
 					break;
 
 				case 10: this.attachOffVideo(2);
         case 11: this.attachOffVideo(1);
         case 12: if (count === 12) this.detachOffVideo();
 					this.videoDisplayType = 'twelve';
-					this.constraint.width.ideal = 480;
-					this.constraint.height.ideal = 270;
+					this.constraint.width.ideal = config.constraints.twelve.width;
+					this.constraint.height.ideal = config.constraints.twelve.height;
 					break;
 
-				case 13: this.attachOffVideo(1);
+				case 13: this.attachOffVideo(3);
         case 14: this.attachOffVideo(2);
-        case 15: this.attachOffVideo(3);
+        case 15: this.attachOffVideo(1);
         case 16: if (count === 16) this.detachOffVideo();
 					this.videoDisplayType = 'sixteen';
-					this.constraint.width.ideal = 320;
-					this.constraint.height.ideal = 180;
+					this.constraint.width.ideal = config.constraints.sixteen.width;
+					this.constraint.height.ideal = config.constraints.sixteen.height;
 					break;
 
 				default:
 					console.warn(`ambiguous remain value`);
 					this.videoDisplayType = 'sixteen';
-					this.constraint.width.ideal = 240;
-					this.constraint.height.ideal = 135;
+					this.constraint.width.ideal = config.constraints.sixteen.width;
+					this.constraint.height.ideal = config.constraints.sixteen.height;
 					break;
       }
 

@@ -1,14 +1,15 @@
 import io from 'socket.io-client';
-import { on } from './message';
 import store from '../store';
+import config from '../config';
+import { onMessage } from './message';
 
 class Session {
   socket = null;
 
   constructor() {
     console.debug('----------------- Opened Session -----------------')
-    this.socket = io.connect('https://ktgenie.com:54545/SignalServer', {});
-    this.socket.on('knowledgetalk', on);
+    this.socket = io.connect(config.socketIoUrl, {});
+    this.socket.on('knowledgetalk', onMessage);
     store.commit('setSocketIo', this.socket);
   }
 }

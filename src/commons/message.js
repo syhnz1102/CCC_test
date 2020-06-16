@@ -4,7 +4,7 @@ import webRTC from './webrtc';
 import { eBus } from "./eventBus";
 import screenShare from "./screenshare";
 
-export async function on(resp) {
+export async function onMessage(resp) {
   console.debug(`[ ${resp.eventOp} ] Signal -> Web `, resp);
   switch (resp.eventOp || resp.signalOp) {
     case 'CreateRoom':
@@ -87,7 +87,7 @@ export async function on(resp) {
           count: store.state.roomInfo.count
         })
       } else {
-        return eBus.$emit('popup', {
+        eBus.$emit('popup', {
           on: true,
           type: 'Alert',
           title: '화면 공유',

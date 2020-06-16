@@ -30,7 +30,7 @@ class WebRTC {
 
   createPeer(uid, isMulti) {
     return new Promise(async (resolve, reject) => {
-      const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
+      const peer = new RTCPeerConnection();
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
         let streamObj = {};
@@ -127,8 +127,7 @@ class WebRTC {
         .catch(e => {
           console.error('## devices are not found: ', e);
           // self.setLocalMediaConstraintOptions(false, false);
-          popup.on(`카메라, 마이크 장치가 인식되지 않습니다.\n 카메라와 마이크 중 한 개 이상의 장치가 필요합니다.`);
-          resolve(false);
+          resolve(confirm(`모든 카메라, 마이크 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`));
         });
     });
   }
