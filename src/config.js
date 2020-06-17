@@ -1,5 +1,5 @@
 export default {
-  version: 'v1.0.1',
+  version: 'v0.9.1',
   socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
   // socketIoUrl: 'https://localhost:54545/SignalServer',
   // socketIoUrl: 'https://knowledgetalk.co.kr:54545/SignalServer',
