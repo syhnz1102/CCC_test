@@ -1,6 +1,6 @@
 <template>
   <div class="buttonContainer" v-if="isVisible">
-      <div class="button">
+      <div class="button wow animate__animated animate__fadeInUp animate__faster">
         <button class="invite" @click="handleInviteBtn"><span>초대하기</span></button>
         <button class="share" @click="handleScreenShareBtn"><span>화면공유</span></button>
         <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>카메라</span></button>
@@ -90,11 +90,20 @@ export default {
       }
     },
     handleEndCallBtn() {
-      webRTC.clear();
-      eBus.$emit('video', {
-        type: 'remove'
+      // 200617 ivypark, v0.9.2. 통화 종료 팝업 추가
+      eBus.$emit('popup', {
+        on: true,
+        type: 'Confirm',
+        title: '통화 종료',
+        contents: `통화를 종료 하시겠습니까?`,
+        ok: () => {
+          webRTC.clear();
+          eBus.$emit('video', {
+            type: 'remove'
+          })
+          this.$router.push({ path: '/' })
+        }
       })
-      this.$router.push({ path: '/' })
     }
   }
 }

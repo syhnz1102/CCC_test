@@ -50,7 +50,7 @@
       </div>
     </div>
     <div ref="btnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" style="position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;"></div>
-    <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" class="wow animate__animated animate__fadeInUp animate__faster" />
+    <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" class="wow animate__animated animate__fadeIn animate__faster" />
   </div>
 </template>
 
@@ -71,7 +71,7 @@ export default {
   data () {
     return {
       videos: [],
-      offVideos: [],
+      offVideos: [''],
       videoDisplayType: '',
       share: null,
       visibleBtnArea: false,
@@ -92,7 +92,7 @@ export default {
     }
   },
   async created() {
-    // 200616 ivypark, v1.0.1. 이벤트 중복 적용 방어. (통화 종료 후 다시 render 시 $on listener가 중복으로 적용 되는 현상 발견)
+    // 200616 ivypark, v0.9.1. 이벤트 중복 적용 방어. (통화 종료 후 다시 render 시 $on listener가 중복으로 적용 되는 현상 발견)
     if (Object.keys(eBus._events).length) eBus._events = {};
     eBus.$on('video', param => {
       if (param.type === 'add') {
@@ -258,7 +258,9 @@ export default {
       }
 
       switch (count) {
-        case 1: case 2:
+        // 200617 ivypark, v0.9.2. 1명일 때 OffVideo 출력 되도록 변경
+        case 1: this.attachOffVideo(1);
+        case 2: if (count === 2) this.detachOffVideo();
 					this.videoDisplayType = '';
 					this.constraint.width.ideal = config.constraints.p2p.width;
 					this.constraint.height.ideal = config.constraints.p2p.height;
