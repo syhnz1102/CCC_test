@@ -9,7 +9,7 @@ export default new Vuex.Store({
     peerInfo: {},
     streamInfo: {},
     roomInfo: {},
-    userInfo: null,
+    userInfo: {},
   },
   mutations: {
     setSocketIo(state, socket) {
@@ -39,8 +39,8 @@ export default new Vuex.Store({
     setRoomInfo(state, info) {
       Object.assign(state.roomInfo, info);
     },
-    setUserInfo(state, uid) {
-      state.userInfo = uid;
+    setUserInfo(state, info) {
+      Object.assign(state.userInfo, info);
     },
     clearAll(state) {
       if (Object.keys(state.streamInfo).length > 0) {
@@ -57,7 +57,7 @@ export default new Vuex.Store({
         delete state.peerInfo[c];
       }
 
-      state.userInfo = null;
+      state.userInfo = {};
       state.roomInfo = {}
       state.socket.close();
       state.socket = null;

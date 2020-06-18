@@ -159,8 +159,8 @@ export default {
       this.removeVideo('screen');
       this.changeDisplay(false, s.roomInfo.count);
       if (isSharer) {
-        sendMessage('SessionReserveEnd', { userId: s.userInfo, roomId: s.roomInfo.roomId })
-        sendMessage('ScreenShareConferenceEnd', { userId: s.userInfo, roomId: s.roomInfo.roomId, useMediaSvr: s.roomInfo.count > 2 ? 'Y' : 'N' })
+        sendMessage('SessionReserveEnd', { userId: s.userInfo.id, roomId: s.roomInfo.roomId })
+        sendMessage('ScreenShareConferenceEnd', { userId: s.userInfo.id, roomId: s.roomInfo.roomId, useMediaSvr: s.roomInfo.count > 2 ? 'Y' : 'N' })
       }
     },
     handleCollapseBtnClick() {

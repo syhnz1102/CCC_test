@@ -48,7 +48,7 @@ class ScreenShare {
       // peer.onicecandidate = e => {
       //   if (e.candidate) {
       //     console.log('candidate 생성');
-      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
       //   }
       // };
       peer.onconnectionstatechange = e => {
@@ -61,7 +61,7 @@ class ScreenShare {
             usage: 'screen',
             roomId: store.state.roomInfo.roomId,
             isSfu: true,
-            userId: store.state.userInfo,
+            userId: store.state.userInfo.id,
             useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N'
           });
         }

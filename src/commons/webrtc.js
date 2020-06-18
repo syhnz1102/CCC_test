@@ -42,7 +42,7 @@ class WebRTC {
         if (Object.keys(store.state.roomInfo.members).length > 2) {
           if (store.state.roomInfo.members[uid]) name = store.state.roomInfo.members[uid].NAME;
         } else if (Object.keys(store.state.roomInfo.members).length === 2) {
-          name = store.state.roomInfo.members[Object.keys(store.state.roomInfo.members).filter(c => c !== store.state.userInfo)[0]].NAME;
+          name = store.state.roomInfo.members[Object.keys(store.state.roomInfo.members).filter(c => c !== store.state.userInfo.id)[0]].NAME;
         }
 
         eBus.$emit('video', {
@@ -57,7 +57,7 @@ class WebRTC {
       // peer.onicecandidate = e => {
       //   if (e.candidate) {
       //     console.log('candidate 생성');
-      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
       //   }
       // };
       peer.onconnectionstatechange = e => {
@@ -65,7 +65,7 @@ class WebRTC {
       };
       peer.onicegatheringstatechange = e => {
         if (peer.iceGatheringState === 'complete') {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         }
       }
 
@@ -84,7 +84,7 @@ class WebRTC {
     try {
       const offer = await store.state.peerInfo[uid].createOffer();
       await store.state.peerInfo[uid].setLocalDescription(offer);
-      // sendMessage('SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+      // sendMessage('SDP', { sdp: offer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
     } catch (e) {
       console.error(e);
     }
@@ -95,7 +95,7 @@ class WebRTC {
       await store.state.peerInfo[uid].setRemoteDescription(sdp);
       const answer = await store.state.peerInfo[uid].createAnswer();
       await store.state.peerInfo[uid].setLocalDescription(answer);
-      // sendMessage('SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo });
+      // sendMessage('SDP', { sdp: answer, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
     } catch (e) {
       console.error(e);
     }

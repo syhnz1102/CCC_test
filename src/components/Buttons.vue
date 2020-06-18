@@ -45,13 +45,13 @@ export default {
         })
       }
 
-      sendMessage('SessionReserve', { userId: s.userInfo, roomId: s.roomInfo.roomId })
+      sendMessage('SessionReserve', { userId: s.userInfo.id, roomId: s.roomInfo.roomId })
     },
     handleCamBtn() {
       this.isOffVideo = !this.isOffVideo;
 
       let s = this.$store.state;
-      sendMessage('SetVideo', { userId: s.userInfo, roomId: s.roomInfo.roomId, status: this.isOffVideo }, 'signalOp');
+      sendMessage('SetVideo', { userId: s.userInfo.id, roomId: s.roomInfo.roomId, status: this.isOffVideo }, 'signalOp');
 
       eBus.$emit('video', {
         type: 'set',
@@ -72,7 +72,7 @@ export default {
       this.isOffMic = !this.isOffMic;
 
       let s = this.$store.state;
-      sendMessage('SetAudio', { userId: s.userInfo, roomId: s.roomInfo.roomId, status: this.isOffMic }, 'signalOp');
+      sendMessage('SetAudio', { userId: s.userInfo.id, roomId: s.roomInfo.roomId, status: this.isOffMic }, 'signalOp');
 
       eBus.$emit('video', {
         type: 'set',

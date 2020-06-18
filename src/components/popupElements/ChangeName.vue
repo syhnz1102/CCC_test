@@ -2,7 +2,7 @@
   <div class="modalContent">
     <div class="userName">
       <div class="input">
-        <input v-model="name" type="text" placeholder="익명">
+        <input v-model="name" type="text" placeholder="이름을 입력하세요." maxlength="12">
         <label></label>
       </div>
     </div>
@@ -14,18 +14,23 @@
 </template>
 
 <script>
-import {eBus} from "../../commons/eventBus";
+import { eBus } from "../../commons/eventBus";
 
 export default {
   props: { ok: Function, cancel: Function },
   data() {
     return {
-      name: ''
+      name: this.$store.state.userInfo.name
     }
   },
   methods: {
     confirmed() {
-      this.ok({ id: this.$store.state.userInfo, name: this.name });
+      if (!this.name) {
+        eBus.$emit('toast', '이름을 입력하세요.');
+        return;
+      }
+      this.$store.commit('setUserInfo', { name: this.name });
+      this.ok({ id: this.$store.state.userInfo.id, name: this.name });
       eBus.$emit('toast', '이름이 변경 되었습니다.');
     }
   }

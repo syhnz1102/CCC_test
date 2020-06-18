@@ -15,7 +15,7 @@ export async function onMessage(resp) {
       break;
     case 'RoomJoin':
       if (resp.code === '400') {
-        eBus.$emit('popup', {
+        return eBus.$emit('popup', {
           on: true,
           type: 'Alert',
           title: '회의 참여',
@@ -25,7 +25,7 @@ export async function onMessage(resp) {
           }
         })
       }
-      store.commit('setUserInfo', resp.userId);
+      store.commit('setUserInfo', { id: resp.userId, name: '익명' });
       if (resp.members) store.commit('setRoomInfo', { members: resp.members, roomId: resp.roomId, count: Object.keys(resp.members).length, type: Object.keys(resp.members).length > 2 ? 'multi' : 'p2p' });
       break;
 
@@ -33,7 +33,7 @@ export async function onMessage(resp) {
       sendMessage('StartSession', { code: '200' });
       if (resp.members) store.commit('setRoomInfo', { count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p' });
       if (resp.useMediaSvr === 'Y') {
-        if (resp.changeView || resp.who === store.state.userInfo) {
+        if (resp.changeView || resp.who === store.state.userInfo.id) {
           store.commit('removePeerInfo', 'local');
           await webRTC.createPeer('local', resp.useMediaSvr === 'Y');
           await webRTC.createOffer('local');
