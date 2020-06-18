@@ -1,6 +1,7 @@
 import store from '../store';
 import { eBus } from './eventBus';
 import { sendMessage } from './message';
+import config from '../config';
 
 class WebRTC {
   constraints = { video: true, audio: true };
@@ -30,7 +31,7 @@ class WebRTC {
 
   createPeer(uid, isMulti) {
     return new Promise(async (resolve, reject) => {
-      const peer = new RTCPeerConnection();
+      const peer = new RTCPeerConnection(config.iceServer);
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
         let streamObj = {};

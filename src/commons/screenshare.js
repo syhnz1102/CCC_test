@@ -1,6 +1,7 @@
 import store from '../store';
 import { sendMessage } from './message';
-import {eBus} from "./eventBus";
+import { eBus } from "./eventBus";
+import config from '../config';
 
 class ScreenShare {
   constructor() {
@@ -30,7 +31,7 @@ class ScreenShare {
 
   createPeer(uid) {
     return new Promise(async (resolve, reject) => {
-      const peer = new RTCPeerConnection({ iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] });
+      const peer = new RTCPeerConnection(config.iceServer);
       peer.onaddstream = ({ stream }) => {
         console.debug(`onaddstream :`, stream);
         let streamObj = {};
