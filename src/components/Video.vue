@@ -28,7 +28,7 @@ export default {
     this.attachVideo();
     eBus.$on('setVideo', param => {
       // 200618 ivypark, v0.9.2. 1:1 공유 중 cam/mic off 시 로컬화면이 분리되는 현상 수정
-      this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2 && this.$store.state.streamInfo.share;
+      this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2 && !this.$store.state.streamInfo.screen;
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
       if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
       if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
