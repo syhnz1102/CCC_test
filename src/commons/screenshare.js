@@ -9,19 +9,22 @@ class ScreenShare {
 
   createShareStream() {
     return new Promise(async (resolve, reject) => {
-      try {
-        let stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+      // 200617 ivypark, v0.9.2. 에러 무시. Stream 안나온 경우 에러팝업 뜨지 않도록 변경
+      let stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+      if (typeof stream === 'object' && stream) {
         store.commit('setStreamInfo', { screen: stream });
         resolve(stream);
-      } catch (err) {
-        console.log(err);
-        return eBus.$emit('popup', {
-          on: true,
-          type: 'Alert',
-          title: '화면 공유',
-          contents: '화면 공유 영상을 불러오는 중 문제가 발생하였습니다.'
-        })
       }
+      // try {
+      // } catch (err) {
+      //   console.log(err);
+      //   return eBus.$emit('popup', {
+      //     on: true,
+      //     type: 'Alert',
+      //     title: '화면 공유',
+      //     contents: '화면 공유 영상을 불러오는 중 문제가 발생하였습니다.'
+      //   })
+      // }
     })
   }
 
