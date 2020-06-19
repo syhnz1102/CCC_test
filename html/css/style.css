@@ -136,8 +136,9 @@ body,
 .shareContainer .content button:hover {background:#5e13bf}
 .shareContainer .content button:active {background:#4b0f99}
 .mainVideoContainer {position:relative;float:left;width:20%;height:100%;transition:width .3s}
-.mainVideoContainer .mainVideo {overflow-y:auto;float:right;width:calc(100% - 24px);height:100%}
+.mainVideoContainer .mainVideo {overflow-y:auto;position:relative;float:right;width:calc(100% - 24px);height:100%;background:#fff}
 .mainVideoContainer .mainVideo .video {width:100%;height:25%}
+.mainVideoContainer .mainVideo .video:only-child {height:100%}
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {height:50%}
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(3),
