@@ -102,6 +102,7 @@ body,
 /* video */
 .videoContainer {overflow:hidden;width:100%;height:100%}
 .video {position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
+.video.camOff {background-image:url('../images/img_camera_off.png')}
 .video video {width:100%;height:100%;object-fit:cover}
 .video .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
 .video .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
