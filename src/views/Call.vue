@@ -92,6 +92,13 @@ export default {
     }
   },
   async created() {
+    // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경. 진행 중인데.. 잘 안됨.
+    // window.onbeforeunload = function() {
+    //   // this.$router.push({ path: '/' });
+    //   window.location.href = '/';
+    //   return false;
+    // }
+
     // 200616 ivypark, v0.9.1. 이벤트 중복 적용 방어. (통화 종료 후 다시 render 시 $on listener가 중복으로 적용 되는 현상 발견)
     if (Object.keys(eBus._events).length) eBus._events = {};
     eBus.$on('video', param => {
