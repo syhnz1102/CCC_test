@@ -1,5 +1,5 @@
 <template>
-  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'off': offVideo }">
+  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'camOff': offVideo }">
     <div class="userContainer">
       <div class="user">
         <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import webRTC from '../commons/webrtc';
 import { eBus } from '../commons/eventBus';
 
 export default {

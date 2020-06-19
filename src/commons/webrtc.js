@@ -67,14 +67,6 @@ class WebRTC {
       //     sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
       //   }
       // };
-      peer.onconnectionstatechange = e => {
-        console.debug(`## ${uid} onconnectionstatechange ## `, e.currentTarget.connectionState)
-      };
-      peer.onicegatheringstatechange = e => {
-        if (peer.iceGatheringState === 'complete') {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
-        }
-      }
 
       let peerObj = {};
       peerObj[uid] = peer;
@@ -83,6 +75,20 @@ class WebRTC {
       let id = uid === 'local' ? 'local' : uid;
       console.log(s)
       s.streamInfo.local.getTracks().forEach(track => s.peerInfo[id].addTrack(track, s.streamInfo.local));
+
+      peer.onconnectionstatechange = e => {
+        console.debug(`## ${uid} onconnectionstatechange ## `, e.currentTarget.connectionState);
+        let state = s.peerInfo[uid].iceConnectionState;
+        if (s.peerInfo[uid] && (state === 'disconnected' || state === 'failed' || state === 'closed')) {
+          store.commit('removeStreamInfo', uid);
+          store.commit('removePeerInfo', uid);
+        }
+      };
+      peer.onicegatheringstatechange = e => {
+        if (peer.iceGatheringState === 'complete') {
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
+        }
+      }
       resolve();
     });
   }
