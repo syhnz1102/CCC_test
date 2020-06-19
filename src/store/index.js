@@ -23,6 +23,8 @@ export default new Vuex.Store({
         state.peerInfo[name].close();
         delete state.peerInfo[name];
       }
+
+      console.log(name, 'ivypark peerInfo ----> ', state.peerInfo);
     },
     setStreamInfo(state, info) {
       Object.assign(state.streamInfo, info);
@@ -35,6 +37,8 @@ export default new Vuex.Store({
 
         delete state.streamInfo[name];
       }
+
+      console.log(name, 'ivypark streaminfo ----> ', state.streamInfo);
     },
     setRoomInfo(state, info) {
       Object.assign(state.roomInfo, info);
