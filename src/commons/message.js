@@ -34,6 +34,12 @@ export async function onMessage(resp) {
       if (resp.members) store.commit('setRoomInfo', { count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p' });
       if (resp.useMediaSvr === 'Y') {
         if (resp.changeView || resp.who === store.state.userInfo.id) {
+          // 200619 ivypark, v0.9.3. 1:1 -> N:N 전환 시 화면공유 종료 (stream이 3번째 사용자에게 전달 되지 않음. 끊는 것이 날리지톡 정책)
+          if (store.state.streamInfo.screen) {
+            eBus.$emit('share', { type: 'remove' });
+            eBus.$emit('popup', { on: true, type: 'Alert', title: '화면 공유', contents: '다자 통화 화면 전환으로 인해 화면공유가 종료됩니다.' });
+          }
+
           store.commit('removePeerInfo', 'local');
           await webRTC.createPeer('local', resp.useMediaSvr === 'Y');
           await webRTC.createOffer('local');

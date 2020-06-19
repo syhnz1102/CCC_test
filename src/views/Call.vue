@@ -112,7 +112,8 @@ export default {
         this.addVideo(param.isLocal, param.id, param.stream);
         this.changeDisplay(param.type === 'add', param.count);
       } else if (param.type === 'remove') {
-        this.handleShareEndBtnClick(param.isSharer || false);
+        let isSharer = param.hasOwnProperty('isSharer') ? param.isSharer : (this.share && this.share.isSharer ? this.share.isSharer : false)
+        this.handleShareEndBtnClick(isSharer);
       }
     });
 
@@ -177,6 +178,8 @@ export default {
         document.getElementById('ShareVideo').srcObject = stream;
         document.getElementById('ShareVideo').autoplay = true;
       } else {
+        // 200618 ivypark, v0.9.3. 기존 참여자가 카메라/마이크를 끈 상태로 신규 참여자 입장 시 Off 화면이 아닌 검정색 화면으로 출력, Mic Off 표시도 없던 문제 수정
+        // Redis에 저장된 각각의 사용자의 이름, 비디오/마이크Off 여부를 Join시 Room 정보와 함께 전달 받아서 이곳에서 Video div로 출력함
         this.videos.push({
           id: isLocal ? 'local' : id,
           userName: info && info.name && info.name !== 'unknown' ? info.name : '익명',
