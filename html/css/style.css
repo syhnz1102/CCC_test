@@ -87,12 +87,17 @@ body,
 .main .guide p span {display:block;font-size:12px;color:#999}
 .footer {background:#151515}
 .footer .container {padding-top:50px;padding-bottom:50px;color:#666}
-.footer a {color:#666}
-.footer a:hover {color:#999}
-.footer .company {margin-top:10px}
-.footer .company strong {display:block;margin-bottom:5px;font-size:16px;color:#666}
-.footer .company span:not(:first-child) {margin-left:10px;color:#666}
-.footer .copyright {margin-top:15px;color:#444}
+.footer .link {overflow:hidden;margin-top:10px}
+.footer .link a {float:left;display:block;color:#999}
+.footer .link a:hover {text-decoration:underline}
+.footer .link a + a::before {content:'';display:inline-block;width:2px;height:2px;margin-left:10px;margin-right:10px;vertical-align:middle;background:#999}
+.footer .company {margin-top:10px;color:#666}
+.footer .company a {color:#666}
+.footer .company a:hover {color:#999}
+.footer .company strong {display:block;margin-bottom:5px;font-size:16px}
+.footer .company strong span {font-size:12px}
+.footer .company span:not(:first-child) {margin-left:10px}
+.footer .copyright {margin-top:5px;color:#666}
 
 /* video */
 .videoContainer {overflow:hidden;width:100%;height:100%}
@@ -118,7 +123,9 @@ body,
 
 .shareContainer {float:left;width:80%;height:100%;transition:width .3s}
 .shareContainer .shareVideo {width:100%;height:100%}
-.shareContainer .shareVideo video {object-fit:contain;background:#111}
+.shareContainer .shareVideo .video {background:#111}
+.shareContainer .shareVideo .video::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
+.shareContainer .shareVideo .video video {position:relative;object-fit:contain}
 .shareContainer .share {position:relative;display:flex;width:100%;height:100%;justify-content:center;align-items:center;flex-direction:column;background:#111}
 .shareContainer .share::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
 .shareContainer .content {position:relative;padding:0 10%;text-align:center}
