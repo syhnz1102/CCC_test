@@ -97,7 +97,7 @@ export default {
     eBus.$on('video', param => {
       if (param.type === 'add') {
         this.setDisplay(param.count, param.id, this.share);
-        this.addVideo(param.isLocal, param.id, param.stream, param.name);
+        this.addVideo(param.isLocal, param.id, param.stream, param.info);
       } else if (param.type === 'remove') {
         this.setDisplay(param.count, param.id, this.share);
         this.removeVideo(param.id);
@@ -166,7 +166,7 @@ export default {
     handleCollapseBtnClick() {
       this.isCollapsedVideo = !this.isCollapsedVideo;
     },
-    addVideo(isLocal, id, stream, name) {
+    addVideo(isLocal, id, stream, info) {
       if (id === 'screen') {
         this.share = {
           id: 'screen',
@@ -179,9 +179,9 @@ export default {
       } else {
         this.videos.push({
           id: isLocal ? 'local' : id,
-          userName: name ? name : '익명',
-          isOffVideo: false,
-          isOffMic: false,
+          userName: info && info.name && info.name !== 'unknown' ? info.name : '익명',
+          isOffVideo: info && info.isOffVideo ? info.isOffVideo : false,
+          isOffMic: info && info.isOffMic ? info.isOffMic : false,
           isLocal
         })
       }

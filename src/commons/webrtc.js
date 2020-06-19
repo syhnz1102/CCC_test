@@ -38,11 +38,18 @@ class WebRTC {
         streamObj[uid === 'local' && !isMulti ? 'remote' : uid] = stream;
         store.commit('setStreamInfo', streamObj);
 
-        let name = '';
+        let info = {};
         if (Object.keys(store.state.roomInfo.members).length > 2) {
-          if (store.state.roomInfo.members[uid]) name = store.state.roomInfo.members[uid].NAME;
+          if (store.state.roomInfo.members[uid]) {
+            info.name = store.state.roomInfo.members[uid].NAME;
+            info.isOffVideo = store.state.roomInfo.members[uid].VIDEO;
+            info.isOffMic = store.state.roomInfo.members[uid].AUDIO;
+          }
         } else if (Object.keys(store.state.roomInfo.members).length === 2) {
-          name = store.state.roomInfo.members[Object.keys(store.state.roomInfo.members).filter(c => c !== store.state.userInfo.id)[0]].NAME;
+          let remoteId = Object.keys(store.state.roomInfo.members).filter(c => c !== store.state.userInfo.id)[0];
+          info.name = store.state.roomInfo.members[remoteId].NAME;
+          info.isOffVideo = store.state.roomInfo.members[remoteId].VIDEO;
+          info.isOffMic = store.state.roomInfo.members[remoteId].AUDIO;
         }
 
         eBus.$emit('video', {
@@ -51,7 +58,7 @@ class WebRTC {
           id: uid === 'local' && !isMulti ? 'remote' : uid,
           stream,
           count: store.state.roomInfo.count,
-          name: name === 'unknown' ? '익명' : name
+          info,
         });
       }
       // peer.onicecandidate = e => {
