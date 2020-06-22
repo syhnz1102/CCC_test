@@ -95,8 +95,8 @@ export default {
   async created() {
     // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
     Object.assign(window, { kpCCC_Android: {} });
-    window.kpCCC_Android.showExitPopup = mobile.showExitPopup;
-    window.kpCCC_Android.exitRoom = mobile.exitRoom;
+    window.showExitPopup = mobile.showExitPopup;
+    window.exitRoom = mobile.exitRoom;
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경. 진행 중인데.. 잘 안됨.
     // window.onbeforeunload = function() {
