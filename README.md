@@ -4,6 +4,9 @@
 
 ## Release Note
 ```
+# v0.9.4 (20/06/22)
+- Android Java 연동 메소드 추가 (back 버튼, 방 나가기, 방 만들기)
+
 # v0.9.3b (20/06/19 beta)
 - Cam Off 시 이미지 변경
 - (#5) 다자 연결에서 타 사용자 종료 시 Video 가 정상적으로 사라지지 않는 현상 수정 (Signal Server 수정 - processLeaveRoom)
