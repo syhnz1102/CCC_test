@@ -1,7 +1,7 @@
 export default {
-  version: 'v0.9.3b (0619b)',
-  socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
-  // socketIoUrl: 'https://localhost:54545/SignalServer',
+  version: 'v0.9.4 (0622)',
+  // socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
+  socketIoUrl: 'https://localhost:54545/SignalServer',
   // socketIoUrl: 'https://knowledgetalk.co.kr:54545/SignalServer',
   iceServer: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] },
   constraints: {
