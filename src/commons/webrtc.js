@@ -22,7 +22,10 @@ class WebRTC {
           on: true,
           type: 'Alert',
           title: '영상 통화',
-          contents: '카메라, 마이크 장치를 불러오는 중 오류가 발생하였습니다.'
+          contents: '카메라, 마이크 장치를 불러오는 중 오류가 발생하였습니다.\n카메라, 마이크 권한 설정을 확인해주세요.',
+          cancel: () => {
+            window.location.href = '/';
+          }
         })
         // reject(err);
       }
