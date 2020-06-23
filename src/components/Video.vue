@@ -39,7 +39,7 @@ export default {
   methods: {
     attachVideo() {
       let video = document.createElement('video');
-      video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.count === 2 ? 'remote' : this.id)];
+      video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.type === 'p2p' ? 'remote' : this.id)];
       video.autoplay = true;
       video.muted = this.isLocalVideo;
       if (this.$refs.video.firstChild) this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
