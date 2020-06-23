@@ -12,6 +12,7 @@
 
 <script>
 import webRTC from '../commons/webrtc';
+import mobile from "../commons/mobile";
 import { sendMessage } from '../commons/message';
 import { eBus } from '../commons/eventBus';
 
@@ -35,6 +36,16 @@ export default {
       })
     },
     async handleScreenShareBtn() {
+      // 200623 ivypark, v1.0.0. 모바일 기기에서는 화면공유 block
+      if (mobile.isMobile) {
+        return eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '화면 공유',
+          contents: '모바일 기기에서는 화면공유를 진행할 수 없습니다.'
+        })
+      }
+
       let s = this.$store.state;
       if (s.roomInfo.count <= 1 || s.streamInfo.screen) {
         return eBus.$emit('popup', {
