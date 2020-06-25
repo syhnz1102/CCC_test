@@ -29,7 +29,7 @@
           <button @click="handleCollapseBtnClick">열기</button>
         </div>
       </div>
-      <div id="MainVideo" class="mainVideo" v-bind:class="videoDisplayType" ref="mainVideo" @mouseover="handleBtnArea">
+      <div id="MainVideo" class="mainVideo" v-bind:class="videoDisplayType" ref="mainVideo" @mouseover="handleBtnArea" @click="handleBtnArea">
         <template v-for="v in videos">
           <Video
             :key="v.id"
@@ -39,18 +39,20 @@
             v-bind:vid="v.id"
             v-bind:userName="v.userName"
             @mouseover="handleBtnArea"
+            @click="handleBtnArea"
           />
         </template>
         <template v-for="(v, idx) in offVideos">
           <OffVideo
             :key="idx"
             @mouseover="handleBtnArea"
+            @click="handleBtnArea"
           />
         </template>
       </div>
     </div>
     <div ref="btnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" style="position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;"></div>
-    <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" class="wow animate__animated animate__fadeIn animate__faster" />
+    <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" class="wow animate__animated animate__fadeIn animate__faster" />
   </div>
 </template>
 
@@ -105,9 +107,12 @@ export default {
     window.showExitPopup = mobile.showExitPopup;
     window.exitRoom = mobile.exitRoom;
 
-    // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경. 진행 중인데.. 잘 안됨.
-    // window.onbeforeunload = function() {
-    //   // this.$router.push({ path: '/' });
+    // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
+    // if (window.performance) {
+    //   console.info("window.performance is supported");
+    // }
+    // if (performance.navigation.type === 1) {
+    //   webRTC.clear();
     //   window.location.href = '/';
     //   return false;
     // }
@@ -163,9 +168,14 @@ export default {
   },
   methods: {
     handleBtnArea(e) {
-      let style = 'position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;';
-      this.visibleBtnArea = (e.type === 'mouseover' && e.target === this.$refs.btnArea) || e.type !== 'mouseover' && (e.target !== this.$refs.btnArea || e.target !== this.$refs.btn);
-      this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
+      // 200625 ivypark, v1.0.0. 모바일과 버튼 이벤트 분리. 모바일은 화면 터치 시 버튼 나오도록 출력 개선
+      if (mobile.isMobile && e.type === 'click') {
+        this.visibleBtnArea = !this.visibleBtnArea;
+      } else if (!mobile.isMobile && e.type !== 'click') {
+        let style = 'position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;';
+        this.visibleBtnArea = (e.type === 'mouseover' && e.target === this.$refs.btnArea) || e.type !== 'mouseover' && (e.target !== this.$refs.btnArea || e.target !== this.$refs.btn);
+        this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
+      }
     },
     handlePopupOkBtnClick(param) {
       if (param && param.name) sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp');
