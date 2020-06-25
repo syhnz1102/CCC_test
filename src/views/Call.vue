@@ -95,10 +95,10 @@ export default {
     }
   },
   async created() {
-    // 200625 ivypark, v1.0.0. deeplink 추가
+    // 200625 ivypark, v1.0.0a deeplink 추가
     if (mobile.isMobile && !mobile.isWebView) {
-      // console.log(`Intent://cococall.net?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
-      location.href = `Intent://cococall.net?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+      // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
+      location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
       return false;
     }
 
@@ -168,7 +168,7 @@ export default {
   },
   methods: {
     handleBtnArea(e) {
-      // 200625 ivypark, v1.0.0. 모바일과 버튼 이벤트 분리. 모바일은 화면 터치 시 버튼 나오도록 출력 개선
+      // 200625 ivypark, v1.0.0a 모바일과 버튼 이벤트 분리. 모바일은 화면 터치 시 버튼 나오도록 출력 개선
       if (mobile.isMobile && e.type === 'click') {
         this.visibleBtnArea = !this.visibleBtnArea;
       } else if (!mobile.isMobile && e.type !== 'click') {

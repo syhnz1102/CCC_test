@@ -36,7 +36,7 @@ export default {
       })
     },
     async handleScreenShareBtn() {
-      // 200623 ivypark, v1.0.0. 모바일 기기에서는 화면공유 block
+      // 200623 ivypark, v1.0.0a 모바일 기기에서는 화면공유 block
       if (mobile.isMobile) {
         return eBus.$emit('popup', {
           on: true,
