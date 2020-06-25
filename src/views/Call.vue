@@ -93,6 +93,13 @@ export default {
     }
   },
   async created() {
+    // 200625 ivypark, v1.0.0. deeplink 추가
+    if (mobile.isMobile && !mobile.isWebView) {
+      // console.log(`Intent://cococall.net?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
+      location.href = `Intent://cococall.net?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+      return false;
+    }
+
     // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
     Object.assign(window, { kpCCC_Android: {} });
     window.showExitPopup = mobile.showExitPopup;
