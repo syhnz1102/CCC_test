@@ -83,8 +83,11 @@ class WebRTC {
         console.debug(`## ${uid} onconnectionstatechange ## `, e.currentTarget.connectionState);
         let state = s.peerInfo[uid].iceConnectionState;
         if (s.peerInfo[uid] && (state === 'disconnected' || state === 'failed' || state === 'closed')) {
-          store.commit('removeStreamInfo', uid);
-          store.commit('removePeerInfo', uid);
+          eBus.$emit('video', {
+            type: 'remove',
+            count: store.state.roomInfo.count,
+            id: store.state.roomInfo.type === 'p2p' ? 'remote' : uid
+          })
         }
       };
       peer.onicegatheringstatechange = e => {
