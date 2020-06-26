@@ -9,7 +9,7 @@
       v-bind:cancel="handlePopupCancelBtnClick"
     />
     <div id="VideoContainer"  class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
-      <div class="shareContainer" v-bind:style="{display: (share ? 'block' : 'none')}" ref="share" @mouseover="handleBtnArea">
+      <div class="shareContainer" v-bind:style="{display: (share ? 'block' : 'none')}" ref="share" @mouseover="handleBtnArea" @click="handleBtnArea">
         <div class="shareVideo">
           <div class="video" v-bind:style="{display: (share && !share.isSharer ? 'block' : 'none')}">
             <video id="ShareVideo"></video>
