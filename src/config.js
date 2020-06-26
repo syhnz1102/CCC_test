@@ -1,5 +1,5 @@
 export default {
-  version: 'v1.0.0a (0625 alpha)',
+  version: 'v1.0.0b (0626 beta)',
   // socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
   // socketIoUrl: 'https://localhost:7103/SignalServer',
   socketIoUrl: 'https://cococall.net:7103/SignalServer',
