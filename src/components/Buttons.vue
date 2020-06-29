@@ -112,7 +112,8 @@ export default {
           eBus.$emit('video', {
             type: 'remove'
           })
-          this.$router.push({ path: '/' })
+          // this.$router.push({ path: '/' })
+          window.location.href = '/';
         }
       })
     }
