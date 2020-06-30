@@ -96,16 +96,16 @@ export default {
   },
   async created() {
     // 200625 ivypark, v1.0.0a deeplink 추가
-    if (mobile.isMobile && !mobile.isWebView) {
-      // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
-      location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
-    }
+    // if (mobile.isMobile && !mobile.isWebView) {
+    //   // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
+    //   location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+    //   return false;
+    // }
 
     // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
-    Object.assign(window, { kpCCC_Android: {} });
-    window.showExitPopup = mobile.showExitPopup;
-    window.exitRoom = mobile.exitRoom;
+    // Object.assign(window, { kpCCC_Android: {} });
+    // window.showExitPopup = mobile.showExitPopup;
+    // window.exitRoom = mobile.exitRoom;
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
     // if (window.performance) {
