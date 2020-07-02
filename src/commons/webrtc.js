@@ -91,6 +91,7 @@ class WebRTC {
         }
       };
       peer.onicegatheringstatechange = e => {
+        console.debug(`## ${uid} iceGatheringState ## `, peer.iceGatheringState);
         if (peer.iceGatheringState === 'complete') {
           sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         }
