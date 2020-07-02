@@ -1,9 +1,10 @@
 export default {
   version: 'v1.0.0b (0626 beta)',
-  // socketIoUrl: 'https://ktgenie.com:54545/SignalServer',
-  // socketIoUrl: 'https://localhost:7103/SignalServer',
-  socketIoUrl: 'https://cococall.net:7103/SignalServer',
-  iceServer: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] },
+  // socketIoUrl: 'https://ktgenie.com:54545/SignalServer', // TB
+  // socketIoUrl: 'https://localhost:7103/SignalServer', // LOCAL
+  socketIoUrl: 'https://cococall.net:7103/SignalServer', // RELEASED
+  // iceServer: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] }, // TB, LOCAL
+  iceServer: { iceServers: [{ urls: 'turn:13.125.217.175:46000', username: 'kpoint', credential: 'kpoint01' }] }, // RELEASED
   constraints: {
     share: { width: 640, height: 360 }, // video constraint when screen sharing
     p2p: { width: 1280, height: 720 }, // 1 by 1
