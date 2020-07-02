@@ -109,9 +109,8 @@ export default {
         contents: `통화를 종료 하시겠습니까?`,
         ok: () => {
           webRTC.clear();
-          eBus.$emit('video', {
-            type: 'remove'
-          })
+          eBus.$emit('video', { type: 'remove' });
+          // eBus.$emit('popup', { on: false });
           // this.$router.push({ path: '/' })
           window.location.href = '/';
         }

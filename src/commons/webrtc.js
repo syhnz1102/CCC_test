@@ -144,7 +144,7 @@ class WebRTC {
               title: '통화 방 입장 오류',
               contents: `${!cam && !mic ? '카메라, 마이크' : !cam ? '카메라' : '마이크'} 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`,
               ok: () => {
-                eBus.$emit('popup', { on: false });
+                // eBus.$emit('popup', { on: false });
                 resolve(true);
               },
               cancel: () => {
@@ -161,7 +161,7 @@ class WebRTC {
             title: '통화 방 입장 오류',
             contents: `카메라, 마이크 장치가 인식되지 않습니다.\n회의실에 입장 하시겠습니까?`,
             ok: () => {
-              eBus.$emit('popup', { on: false });
+              // eBus.$emit('popup', { on: false });
               resolve(true);
             },
             cancel: () => {

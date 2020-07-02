@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     handleUrlCopyBtnClick() {
-      var t = document.createElement("textarea");
+      let t = document.createElement("textarea");
       document.body.appendChild(t);
       t.value = window.location.href;
       t.select();
@@ -36,12 +36,14 @@ export default {
       document.body.removeChild(t);
 
       eBus.$emit('toast', 'URL이 복사 되었습니다.');
+      // 200702 ivypark, v1.0.1. 버튼 클릭 시 팝업 종료
+      eBus.$emit('popup', { on: false });
     },
     handleTalkBtnClick() {
-      alert('현재 준비중인 기능입니다.');
+      eBus.$emit('toast', '현재 준비중인 기능입니다.');
     },
     handleSMSBtnClick() {
-      alert('현재 준비중인 기능입니다.');
+      eBus.$emit('toast', '현재 준비중인 기능입니다.');
     }
   }
 }

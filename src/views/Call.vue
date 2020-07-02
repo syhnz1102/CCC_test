@@ -8,6 +8,9 @@
       v-bind:ok="handlePopupOkBtnClick"
       v-bind:cancel="handlePopupCancelBtnClick"
     />
+    <div class="toast wow animate__animated animate__fadeOut" data-wow-duration="1.5s" v-if="toast">
+      <p>{{ toast }}</p>
+    </div>
     <div id="VideoContainer"  class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
       <div class="shareContainer" v-bind:style="{display: (share ? 'block' : 'none')}" ref="share" @mouseover="handleBtnArea" @click="handleBtnArea">
         <div class="shareVideo">
@@ -91,7 +94,8 @@ export default {
         contents: '',
         ok: null,
         cancel: null
-      }
+      },
+      toast: ''
     }
   },
   async created() {
@@ -151,6 +155,11 @@ export default {
       this.popup.cancel = param.cancel;
     });
 
+    // 200702 ivypark, v1.0.1. 토스트 <-> 팝업 분리 (확인 버튼 클릭 시 팝업 창 종료를 위해)
+    eBus.$on('toast', (content) => {
+      this.emitToast(content)
+    })
+
     if (await webRTC.checkMediaDevices()) {
       if (!this.$store.state.socket) new Session();
       let stream = await webRTC.createVideoStream();
@@ -177,8 +186,19 @@ export default {
         this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
       }
     },
+    emitToast(content) {
+      // 200702 ivypark, v1.0.1. 토스트 <-> 팝업 분리 (확인 버튼 클릭 시 팝업 창 종료를 위해)
+      clearTimeout(this.timeout);
+      this.toast = content;
+      // 200702 ivypark, v1.0.1. 토스트 팝업 출력 1.5초로 변경
+      // 200617 ivypark, v0.9.2. 토스트 팝업 출력 3초로 변경
+      this.timeout = setTimeout(() => {
+        this.toast = '';
+      }, 1500)
+    },
     handlePopupOkBtnClick(param) {
       if (param && param.name) sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp');
+      this.popup.on = false;
       if (this.popup.ok) this.popup.ok(param);
     },
     handlePopupCancelBtnClick(param) {
