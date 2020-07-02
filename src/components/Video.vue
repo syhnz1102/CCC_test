@@ -31,7 +31,9 @@ export default {
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
       if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
       if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
-        param.isOffVideo ? this.$refs.video.querySelector('video').remove() : this.attachVideo();
+        // 200702 ivypark, v1.0.1. 비디오 off 시 소리 들리지 않는 현상 수정. (기존 비디오 삭제 -> display: none, block으로 변경되도록 수정)
+        this.$refs.video.querySelector('video').style = param.isOffVideo ? `display: none` : `display: block`;
+        // this.$refs.video.querySelector('video').remove() : this.attachVideo();
         this.offVideo = param.isOffVideo;
       }
     })
