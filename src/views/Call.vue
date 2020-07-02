@@ -107,9 +107,9 @@ export default {
     // }
 
     // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
-    // Object.assign(window, { kpCCC_Android: {} });
-    // window.showExitPopup = mobile.showExitPopup;
-    // window.exitRoom = mobile.exitRoom;
+    Object.assign(window, { kpCCC_Android: {} });
+    window.showExitPopup = mobile.showExitPopup;
+    window.exitRoom = mobile.exitRoom;
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
     // if (window.performance) {
