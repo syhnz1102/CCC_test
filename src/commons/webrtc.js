@@ -64,12 +64,6 @@ class WebRTC {
           info,
         });
       }
-      // peer.onicecandidate = e => {
-      //   if (e.candidate) {
-      //     console.log('candidate 생성');
-      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
-      //   }
-      // };
 
       let peerObj = {};
       peerObj[uid] = peer;
@@ -91,11 +85,18 @@ class WebRTC {
         }
       };
       peer.onicegatheringstatechange = e => {
-        console.debug(`## ${uid} iceGatheringState ## `, peer.iceGatheringState);
-        if (peer.iceGatheringState === 'complete') {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
-        }
+        // 200703 ivypark, v1.0.2. gatheringstate -> candidate null 일때 SDP 전송으로 변경
+        // console.debug(`## ${uid} iceGatheringState ## `, peer.iceGatheringState);
+        // if (peer.iceGatheringState === 'complete') {
+        //   sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
+        // }
       }
+      peer.onicecandidate = e => {
+        if (!e.candidate) {
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
+          // sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
+        }
+      };
       resolve();
     });
   }

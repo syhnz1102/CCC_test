@@ -45,17 +45,26 @@ class ScreenShare {
           count: store.state.roomInfo.count
         })
       }
-      // peer.onicecandidate = e => {
-      //   if (e.candidate) {
-      //     console.log('candidate 생성');
-      //     sendMessage('Candidate', { candidate: e.candidate, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
-      //   }
-      // };
+
       peer.onconnectionstatechange = e => {
         console.debug(`## ${uid} onconnectionstatechange ## `, e.currentTarget.connectionState);
       };
       peer.onicegatheringstatechange = e => {
+        // 200703 ivypark, v1.0.2. gatheringstate -> candidate null 일때 SDP 전송으로 변경
         if (peer.iceGatheringState === 'complete') {
+          // sendMessage('SDP', {
+          //   sdp: peer.localDescription,
+          //   usage: 'screen',
+          //   roomId: store.state.roomInfo.roomId,
+          //   isSfu: true,
+          //   userId: store.state.userInfo.id,
+          //   useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N'
+          // });
+        }
+      }
+      peer.onicecandidate = e => {
+        if (!e.candidate) {
+          // sendMessage('Candidate', { candidate: e.candidate, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
           sendMessage('SDP', {
             sdp: peer.localDescription,
             usage: 'screen',
@@ -65,7 +74,7 @@ class ScreenShare {
             useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N'
           });
         }
-      }
+      };
 
       let peerObj = {};
       peerObj[uid] = peer;
