@@ -54,9 +54,9 @@ export default {
           title: '화면 공유',
           contents: '지금은 화면 공유를 진행할 수 없습니다.'
         })
+      } else {
+        sendMessage('SessionReserve', { userId: s.userInfo.id, roomId: s.roomInfo.roomId })
       }
-
-      sendMessage('SessionReserve', { userId: s.userInfo.id, roomId: s.roomInfo.roomId })
     },
     handleCamBtn() {
       this.isOffVideo = !this.isOffVideo;

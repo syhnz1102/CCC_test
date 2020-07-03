@@ -10,22 +10,18 @@ class ScreenShare {
 
   createShareStream() {
     return new Promise(async (resolve, reject) => {
+      // 200703 ivypark, v1.0.2. getDisplayMedia 데이터 없는 경우 SessionReserve 해제되도록 변경
       // 200617 ivypark, v0.9.2. 에러 무시. Stream 안나온 경우 에러팝업 뜨지 않도록 변경
-      let stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
-      if (typeof stream === 'object' && stream) {
-        store.commit('setStreamInfo', { screen: stream });
-        resolve(stream);
-      }
-      // try {
-      // } catch (err) {
-      //   console.log(err);
-      //   return eBus.$emit('popup', {
-      //     on: true,
-      //     type: 'Alert',
-      //     title: '화면 공유',
-      //     contents: '화면 공유 영상을 불러오는 중 문제가 발생하였습니다.'
-      //   })
-      // }
+      navigator.mediaDevices.getDisplayMedia({ video: true, audio: false })
+        .then(stream => {
+          if (typeof stream === 'object' && stream) {
+            store.commit('setStreamInfo', { screen: stream });
+            resolve(stream);
+          }
+        })
+        .catch(e => {
+          sendMessage('SessionReserveEnd', { userId: store.state.userInfo.id, roomId: store.state.roomInfo.roomId })
+        })
     })
   }
 
