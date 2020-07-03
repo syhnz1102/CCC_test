@@ -1,9 +1,15 @@
 # KnowledgeTalk-CCC
 
-> KnowledgeTalk Convenient Conference Call
+> KnowledgeTalk Convenient Conference Call (CoCoCall)
 
 ## Release Note
+##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.2 (20/07/03)
+- 메인 특정 단어 강조, 앱 다운로드 화면 추가
+- 특정 Device에서 연결 시 화면 출력이 매우 느린 현상 개선 (#31)
+- 화면공유 -> 취소 후 다른 사람의 화면공유 시작되지 않는 문제 개선 (#23)
+
 # v1.0.1a (20/07/02 alpha)
 - 화면 off 시 소리가 나지 않던 문제 수정 (#30)
 - 이름 변경 등 팝업 확인 시 팝업 종료되도록 수정 (#27)

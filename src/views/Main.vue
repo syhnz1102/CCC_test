@@ -7,13 +7,13 @@
             </h1>
             <div class="menu">
                <a href="#information">
-                  <span data-menu="information">information</span>
+                  <span data-menu="information">Information</span>
                </a>
                <a href="#function">
-                  <span data-menu="function">function</span>
+                  <span data-menu="function">Function</span>
                </a>
                <a href="#guide">
-                  <span data-menu="guide">guide</span>
+                  <span data-menu="guide">Guide</span>
                </a>
                <a href="#download">
                   <span data-menu="Download">Download</span>
@@ -147,11 +147,11 @@
                   <strong class="logo">KnowledgeTalk <span>CCC</span></strong>
                   <div class="text">
                      <strong>APP 다운로드</strong>
-                     <p>날리지톡CCC를 APP으로 만나보세요!</p>
+                     <p>날리지톡 CCC를 APP으로 만나보세요!</p>
                      <span>*안드로이드에서만 제공됩니다.</span>
                   </div>
                   <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
-                     <img src="images/img_app_download.png" alt="GET IT ON Google Play">
+                     <img src="../assets/images/img_app_download.png" alt="GET IT ON Google Play">
                   </a>
                </div>
             </div>
