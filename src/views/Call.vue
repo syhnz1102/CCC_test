@@ -313,11 +313,8 @@ export default {
       switch (count) {
         // 200617 ivypark, v0.9.2. 1명일 때 OffVideo 출력 되도록 변경
         case 1: this.attachOffVideo(1);
-        case 2:
-          if (count === 2) {
-            this.detachOffVideo();
-            this.videoDisplayType = 'two';
-          }
+        case 2: if (count === 2) this.detachOffVideo();
+					this.videoDisplayType = '';
 					this.constraint.width.ideal = config.constraints.p2p.width;
 					this.constraint.height.ideal = config.constraints.p2p.height;
 					break;
