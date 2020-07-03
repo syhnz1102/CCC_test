@@ -86,6 +86,18 @@ body,
 .main .guide strong {display:block;margin-top:30px;font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:20px;color:#7117EA}
 .main .guide p {min-height:45px;margin-top:10px}
 .main .guide p span {display:block;font-size:12px;color:#999}
+.main .download {position:relative;background:#7117EA}
+.main .download::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:url('../images/bg_app_download.png') no-repeat center center;background-size:cover}
+.main .download .container {position:relative;padding-top:60px;padding-bottom:0;text-align:center}
+.main .download .content {display:inline-block;height:400px;padding-top:80px;padding-left:350px;text-align:left;background:url('../images/img_app_phone.png') no-repeat left top;background-size:270px auto;box-sizing:border-box}
+.main .download .content .logo {display:block;font-family:'Montserrat','Noto Sans KR';font-size:20px;color:#fff}
+.main .download .content .logo span {display:inline-block;margin-left:2px;padding:3px 10px;line-height:normal;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-weight:500;font-size:14px;color:#fff;border:2px solid #fff;border-radius:1.5em}
+.main .download .content .text {margin-top:10px;color:#fff}
+.main .download .content .text strong {font-size:30px}
+.main .download .content .text p {font-size:20px}
+.main .download .content .text span {color:rgba(255,255,255,0.5)}
+.main .download .content a {display:inline-block;width:160px;margin-top:40px}
+.main .download .content a img {width:100%}
 .footer {background:#151515}
 .footer .container {padding-top:50px;padding-bottom:50px;color:#666}
 .footer .link {overflow:hidden;margin-top:10px}
@@ -114,6 +126,13 @@ body,
 .video .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
 .video.local .user .name {max-width:calc(100% - 30px)}
 .video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
+.video.speaker {position:relative}
+.video.speaker::before,
+.video.speaker::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
+.video.speaker::before {top:0;right:0}
+.video.speaker::after {bottom:0;left:0}
+.video.speaker::before {border-width:5px 0 0 5px;border-color:red;animation:borderDrawBefore 1.5s}
+.video.speaker::after {border-width:0 5px 5px 0;border-color:blue;animation:borderDrawAfter 1.5s}
 
 .mainVideo {width:100%;height:100%}
 .mainVideo .video.local {position:absolute;width:100%;height:100%}
