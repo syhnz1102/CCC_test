@@ -13,11 +13,11 @@ body,
 .container {position:relative;width:100%;max-width:1000px;height:100%;margin:0 auto;box-sizing:border-box}
 .header {overflow:hidden;position:absolute;top:0;left:0;width:100%;height:70px;z-index:1}
 .header.fixed::before {animation:fadein .3s}
-.header h1 {float:left;line-height:70px;font-family:'Montserrat',sans-serif;font-size:20px;color:#fff}
-.header h1 a {display:block;font-family:'Montserrat',sans-serif;color:#fff}
-.header h1 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:text-bottom;font-family:'Montserrat',sans-serif;font-weight:500;font-size:14px;color:#fff;border:2px solid #fff;border-radius:1.5em}
+.header h1 {float:left}
+.header h1 a {display:block;line-height:70px;font-family:'Montserrat','Noto Sans KR';font-size:20px;color:#fff}
+.header h1 span {display:inline-block;margin-left:2px;padding:3px 10px;line-height:normal;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-weight:500;font-size:14px;color:#fff;border:2px solid #fff;border-radius:1.5em}
 .header .menu {overflow:hidden;float:right;height:40px;margin-top:15px}
-.header .menu a {display:inline-block;height:40px;margin-right:30px;vertical-align:middle;font-family:'Montserrat',sans-serif;font-size:16px}
+.header .menu a {display:inline-block;height:40px;margin-right:25px;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-size:16px}
 .header .menu a span {display:block;height:40px;line-height:40px;color:#fff;transition:transform .3s}
 .header .menu a span::after {content:attr(data-menu);display:block;height:40px;line-height:40px;color:#fff;transition:color .3s}
 .header .menu a:hover span {transform:translateY(-40px)}
@@ -37,7 +37,8 @@ body,
 .main .visual .content {position:absolute;top:50%;transform:translateY(-50%)}
 .main .visual .content strong {display:block;font-family:'Montserrat',sans-serif;font-size:30px;color:#fff}
 .main .visual .content strong span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:middle;font-family:'Montserrat',sans-serif;font-weight:500;font-size:18px;color:#fff;border:2px solid #fff;border-radius:1.5em}
-.main .visual .content span {display:block;font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .visual .content p {display:block;font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:60px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .visual .content p span {font-weight:900;color:#fff;-webkit-text-stroke:0}
 .main .visual .content button {position:relative;height:60px;margin-top:40px;padding:0 50px;font-size:20px;color:#fff;border-radius:60px;background-color:#7117EA}
 .main .visual .content button:hover {background:#5e13bf;transition:background-color .3s}
 .main .visual .content button:active {background:#4b0f99;transition:background-color .3s}
@@ -47,7 +48,7 @@ body,
 .main .visual .scroll::before {content:'';position:absolute;bottom:-2px;left:4px;display:block;width:1px;height:12px;transform:rotate(45deg);background:rgba(255,255,255,0.6)}
 .main section {width:100%}
 .main section .container {padding-top:120px;padding-bottom:120px}
-.main section h2 {text-align:center;font-family:'Montserrat',sans-serif;font-size:30px;color:#333}
+.main section h2 {text-align:center;font-family:'Montserrat','Noto Sans KR';font-size:30px;color:#333}
 .main section h2 span {display:inline-block;margin-left:2px;padding:2px 10px;line-height:normal;vertical-align:middle;font-weight:700;font-size:18px;color:#333;border:2px solid #333;border-radius:1.5em}
 .main .information {background:#f5f5f5}
 .main .information li {position:relative;margin-top:70px}
@@ -61,8 +62,8 @@ body,
 .main .information li:nth-child(2)::before {background-image:url('../images/img_information_02.jpg')}
 .main .information li:nth-child(3)::before {background-image:url('../images/img_information_01.jpg')}
 .main .information .box {position:absolute;top:50%;transform:translateY(-50%);width:50%;padding:50px;background:#7117EA;box-shadow:20px 20px 30px rgba(0,0,0,.2);box-sizing:border-box}
-.main .information .box .tit {text-align:center;font-family:'Montserrat',sans-serif;font-weight:300;font-size:30px;color:#fff}
-.main .information .box .tit strong {font-family:'Montserrat',sans-serif;font-weight:900;font-size:50px;color:transparent;-webkit-text-stroke:1px #fff}
+.main .information .box .tit {text-align:center;font-family:'Montserrat','Noto Sans KR';font-weight:300;font-size:30px;color:#fff}
+.main .information .box .tit strong {font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:50px;color:transparent;-webkit-text-stroke:1px #fff}
 .main .information .box .content p {margin-top:30px;text-align:center;font-weight:100;font-size:18px;color:#fff}
 .main .function ul {overflow:hidden}
 .main .function li {float:left;width:25%;padding-top:65px;text-align:center;background-repeat:no-repeat;background-position:center 5px;background-size:auto 50px;box-sizing:border-box;transition:background-position .3s}
@@ -82,7 +83,7 @@ body,
 .main .guide li .img {overflow:hidden;width:100%}
 .main .guide li .img img {width:100%;transition:transform .3s}
 .main .guide li:hover .img img {transform:scale(1.05)}
-.main .guide strong {display:block;margin-top:30px;font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;color:#7117EA}
+.main .guide strong {display:block;margin-top:30px;font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:20px;color:#7117EA}
 .main .guide p {min-height:45px;margin-top:10px}
 .main .guide p span {display:block;font-size:12px;color:#999}
 .footer {background:#151515}
@@ -90,11 +91,11 @@ body,
 .footer .link {overflow:hidden;margin-top:10px}
 .footer .link a {float:left;display:block;color:#999}
 .footer .link a:hover {text-decoration:underline}
-.footer .link a + a::before {content:'';display:inline-block;width:2px;height:2px;margin-left:10px;margin-right:10px;vertical-align:middle;background:#999}
+.footer .link a + a::before {content:'';display:inline-block;width:1px;height:8px;margin-left:10px;margin-right:10px;vertical-align:middle;background:#666}
 .footer .company {margin-top:10px;color:#666}
 .footer .company a {color:#666}
 .footer .company a:hover {color:#999}
-.footer .company strong {display:block;margin-bottom:5px;font-size:16px}
+.footer .company strong {display:block;font-size:16px}
 .footer .company strong span {font-size:12px}
 .footer .company span:not(:first-child) {margin-left:10px}
 .footer .copyright {margin-top:5px;color:#666}
@@ -102,7 +103,6 @@ body,
 /* video */
 .videoContainer {overflow:hidden;width:100%;height:100%}
 .video {position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
-.video.camOff {background-image:url('../images/img_camera_off.png')}
 .video video {width:100%;height:100%;object-fit:cover}
 .video .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
 .video .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
@@ -113,9 +113,11 @@ body,
 .video .user button:active {background:rgba(0,0,0,0.2)}
 .video .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
 .video.local .user .name {max-width:calc(100% - 30px)}
+.video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
 
 .mainVideo {width:100%;height:100%}
-.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
+.mainVideo .video.local {position:absolute;width:100%;height:100%}
+.mainVideo.two .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
@@ -124,7 +126,9 @@ body,
 
 .shareContainer {float:left;width:80%;height:100%;transition:width .3s}
 .shareContainer .shareVideo {width:100%;height:100%}
-.shareContainer .shareVideo video {object-fit:contain;background:#111}
+.shareContainer .shareVideo .video {background:#111}
+.shareContainer .shareVideo .video::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
+.shareContainer .shareVideo .video video {position:relative;object-fit:contain}
 .shareContainer .share {position:relative;display:flex;width:100%;height:100%;justify-content:center;align-items:center;flex-direction:column;background:#111}
 .shareContainer .share::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
 .shareContainer .content {position:relative;padding:0 10%;text-align:center}
@@ -165,6 +169,8 @@ body,
 .buttonContainer .button button.camera.off::before {background-image:url('../images/icon_camera_off.png')}
 .buttonContainer .button button.share::before {background-image:url('../images/icon_screen_share.png')}
 .buttonContainer .button button.invite::before {background-image:url('../images/icon_invite.png')}
+.buttonContainer .button button.enter::before {background-image:url('../images/icon_enter.png')}
+.buttonContainer .button button.setting::before {background-image:url('../images/icon_setting.png')}
 .buttonContainer .button button.endCall {font-size:0;background-color:#ea1717}
 .buttonContainer .button button.endCall::before {background-image:url('../images/icon_endcall.png');transition:transform .3s}
 .buttonContainer .button button.endCall:active {background-color:#cc1414}
@@ -175,18 +181,19 @@ body,
 
 .modal {position:fixed;top:0;left:0;width:100%;height:100%;z-index:100}
 .modal::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.5)}
-.modalContainer {position:absolute;top:50%;left:50%;width:auto;min-width:470px;transform:translate(-50%,-50%);background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.modalContainer {position:absolute;top:50%;left:50%;width:auto;min-width:470px;transform:translate(-50%,-50%)}
 .modalHeader {position:relative;width:100%;height:60px;line-height:60px;padding:0 20px;font-size:18px;color:#fff;background:linear-gradient(to left, #EA6060, #7117EA);box-sizing:border-box}
 .modalHeader button {overflow:hidden;position:absolute;top:15px;right:20px;display:block;width:30px;height:30px;text-indent:-999px;background:url('../images/icon_close.png') no-repeat center center;background-size:20px 20px;transition:transform 0.3s}
 .modalHeader button:hover {transform:rotate(90deg)}
 .modalHeader .name::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_name_modity.png') no-repeat 0 0;background-size:cover}
 .modalHeader .invite::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_invite.png') no-repeat 0 0;background-size:cover}
-.modalContent {padding:50px 30px}
+.modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
+.modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
+.modalContent {padding:50px 30px;background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
 .modalContent > p {text-align:center;font-size:16px}
 .modalContent .input {position:relative}
 .modalContent .input input {width:100%;padding:0 10px;line-height:37px;font-size:16px;border-bottom:1px solid #ccc;outline:none;box-sizing:border-box}
 .modalContent .input input + label::after {content:'';position:absolute;bottom:0;left:0;display:block;width:0;height:2px;background:#7117EA}
-.modalContent .input input:focus + label::after {width:100%;transition:all .3s}
 .modalContent .input input:focus + label::after {width:100%;transition:all .3s}
 .modalContent .invite {text-align:center}
 .modalContent .invite .btn {position:relative;display:inline-block}
@@ -203,6 +210,9 @@ body,
 .modalContent .invite button.talk::before {background-image:url('../images/icon_kakaotalk.png')}
 .modalContent .invite button.message {background-color:#2ecc71}
 .modalContent .invite button.message::before {background-image:url('../images/icon_message.png')}
+.modalContent .setting .select li + li {margin-top:15px}
+.modalContent .setting .select label {display:block;margin-bottom:5px;font-size:12px;color:#7117EA}
+.modalContent .setting .select select {width:100%;height:36px;padding:0 10px;border:1px solid #ddd}
 .modalContent .button {margin-top:30px;text-align:center}
 .modalContent .button button {display:inline-block;padding:8px 25px;font-size:16px;color:#fff;border-radius:1.5em}
 .modalContent .button button + button {margin-left:5px}
@@ -213,6 +223,9 @@ body,
 .modalContent .button button.cancel {padding:6px 23px;color:#999;border:2px solid #999}
 .modalContent .button button.cancel:hover {color:#fff;border-color:#999;background:#999}
 .modalContent .button button.cancel:active {border-color:#777;background:#777}
+.modalCheck .checkbox {margin-top:10px}
+.modalCheck .checkbox input[type="checkbox"] {background:transparent}
+.modalCheck .checkbox label {color:#fff}
 
 .toast {position:fixed;top:50px;width:100%;text-align:center;z-index:101}
 .toast p {display:inline-block;padding:8px 25px;color:#fff;border-radius:1.5em;background:rgba(0,0,0,0.6)}
@@ -236,16 +249,34 @@ body,
   100% {transform:translateY(0)}
 }
 
+
+@keyframes borderDrawBefore {
+  0% {width:0;height:0}
+  25% {width:100%;height:0}
+  50% {width:100%;height:100%}
+  75% {width:100%;height:100%}
+  100% {width:100%;height:100%}
+}
+@keyframes borderDrawAfter {
+  0% {width:0;height:0;visibility:hidden}
+  25% {width:0;height:0;visibility:hidden}
+  50% {width:0;height:0;visibility:hidden}
+  75% {width:100%;height:0}
+  100% {width:100%;height:100%}
+}
+
 /* media */
 @media screen and (max-width: 1200px) {
    .container {width:90%}
-   .header .menu a {margin-right:15px}
+   .header .menu a {margin-right:10px}
 }
 
 @media screen and (max-width: 767px) {
    .header {height:auto;text-align:center;padding:15px 0}
-   .header h1 {float:none;line-height:normal}
-   .header .menu {display:none}
+   .header h1 a {line-height:30px;font-size:16px}
+   .header h1 span {font-size:12px}
+   .header .menu {height:auto;margin:0}
+   .header .menu a {display:none}
    .main .visual .content {text-align:center}
    .main .information li + li {margin-top:120px}
    .main .information li::before {width:80%;height:300px;margin-left:20%}
@@ -256,7 +287,8 @@ body,
    .main .guide li + li {margin-top:20px}
    .main .guide li:nth-child(2n) {margin-left:0}
    .main .guide li p {min-height:auto}
-   .footer .company span {display:block;margin-left:0 !important}
+   .main .download .content {height:600px;padding:0;text-align:center;background-position:center 280px}
+   .footer .company p span {display:block;margin-left:0 !important}
 
    .mainVideo .video.local {width:40%}
    .mainVideo.six .video {width:50%;height:33.33%}
