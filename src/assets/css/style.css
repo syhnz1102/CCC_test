@@ -116,16 +116,7 @@ body,
 .videoContainer {overflow:hidden;width:100%;height:100%}
 .video {position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
 .video video {width:100%;height:100%;object-fit:cover}
-.video .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
-.video .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
-.video .user .name {overflow:hidden;float:left;display:block;max-width:200px;height:30px;line-height:30px;padding:0 15px;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:#fff;box-sizing:border-box}
-.video .user .name:only-child {border-radius:1.5em}
-.video .user .name.micOff::before {content:'';display:inline-block;width:12px;height:12px;margin-right:5px;background:url('../images/icon_mic_off.png') no-repeat left center;background-size:cover}
-.video .user button {float:right;display:block;width:30px;height:30px;vertical-align:middle;font-size:0;border-left:1px solid rgba(255,255,255,0.1);border-top-right-radius:1.5em;border-bottom-right-radius:1.5em;box-sizing:border-box}
-.video .user button:active {background:rgba(0,0,0,0.2)}
-.video .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
-.video.local .user .name {max-width:calc(100% - 30px)}
-.video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
+.video.local {position:absolute}
 .video.speaker {position:relative}
 .video.speaker::before,
 .video.speaker::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
@@ -133,9 +124,21 @@ body,
 .video.speaker::after {bottom:0;left:0}
 .video.speaker::before {border-width:5px 0 0 5px;border-color:red;animation:borderDrawBefore 1.5s}
 .video.speaker::after {border-width:0 5px 5px 0;border-color:blue;animation:borderDrawAfter 1.5s}
+.video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
+
+.userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
+.userContainer .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
+.userContainer .user .name {overflow:hidden;float:left;display:block;max-width:200px;height:30px;line-height:30px;padding:0 15px;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:#fff;box-sizing:border-box}
+.userContainer .user .name:only-child {border-radius:1.5em}
+.userContainer .user .name.micOff::before {content:'';display:inline-block;width:12px;height:12px;margin-right:5px;background:url('../images/icon_mic_off.png') no-repeat left center;background-size:cover}
+.userContainer .user button {float:right;display:block;width:30px;height:30px;vertical-align:middle;font-size:0;border-left:1px solid rgba(255,255,255,0.1);border-top-right-radius:1.5em;border-bottom-right-radius:1.5em;box-sizing:border-box}
+.userContainer .user button:active {background:rgba(0,0,0,0.2)}
+.userContainer .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
+.video.local .userContainer .user .name {max-width:calc(100% - 30px)}
 
 .mainVideo {width:100%;height:100%}
-.mainVideo .video.local {position:absolute;bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
+.mainVideo.one .video.local .userContainer {bottom:75px}
+.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
@@ -173,9 +176,9 @@ body,
 .videoContainer.close .mainVideoContainer {width:24px}
 .videoContainer.close .mainVideoContainer .button button::before {transform:scaleX(-1)}
 
-.buttonContainer {position:fixed;bottom:0;left:0;display:flex;justify-content:center;align-items:flex-end;width:100%;height:40%;padding-bottom:50px;box-sizing:border-box;z-index:10}
-.buttonContainer::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(to bottom,  rgba(0,0,0,0) 0%,  rgba(0,0,0,0.5) 100%)}
-.buttonContainer .button {position:relative;padding:15px;border-radius:5em;background:rgba(0,0,0,0.7)}
+.buttonContainer {position:fixed;bottom:0;left:0;display:flex;justify-content:center;align-items:flex-end;width:100%;height:30%;padding-bottom:50px;box-sizing:border-box;z-index:10}
+.buttonContainer::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(to bottom,  rgba(0,0,0,0) 0%,  rgba(0,0,0,0.3) 100%)}
+.buttonContainer .button {position:relative;padding:15px;border-radius:5em;background:rgba(0,0,0,0.8)}
 .buttonContainer .button::after {content:'';display:block;clear:both}
 .buttonContainer .button button {position:relative;float:left;display:block;width:56px;height:56px;margin-left:10px;border-radius:100%}
 .buttonContainer .button button::before {content:'';display:block;width:26px;height:26px;margin:0 auto;background-repeat:no-repeat;background-position:center center;background-size:cover;transition:opacity .3s}
@@ -196,6 +199,10 @@ body,
 .buttonContainer .button button span {display:none;position:absolute;top:-30px;left:50%;transform:translateX(-50%);padding:4px 12px;white-space:nowrap;font-size:12px;color:#333;border-radius:1.5em;background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
 .buttonContainer .button button:hover span {display:block;animation:fadein .3s}
 .buttonContainer .button button span::before {content:'';position:absolute;bottom:-4px;left:50%;margin-left:-4px;display:block;width:8px;height:8px;transform:rotate(45deg);background:#fff}
+.buttonInfo {position:absolute;left:50px;bottom:50px;padding:15px 20px;border-radius:10px;background:linear-gradient(to left, #EA6060, #7117EA);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.buttonInfo::before {content:'';position:absolute;bottom:-16px;left:20px;display:block;border:8px solid transparent;border-top-color:#7117EA}
+.buttonInfo strong {padding-left:24px;font-size:20px;color:#fff;background:url('../images/icon_menu.png') no-repeat 0 center;background-size:16px 16px}
+.buttonInfo p {margin-top:10px;color:rgba(255,255,255,0.7)}
 
 .modal {position:fixed;top:0;left:0;width:100%;height:100%;z-index:100}
 .modal::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.5)}
@@ -291,10 +298,10 @@ body,
 
 @media screen and (max-width: 767px) {
    .header {height:auto;text-align:center;padding:15px 0}
+   .header h1 {float:none}
    .header h1 a {line-height:30px;font-size:16px}
    .header h1 span {font-size:12px}
-   .header .menu {height:auto;margin:0}
-   .header .menu a {display:none}
+   .header .menu {display:none}
    .main .visual .content {text-align:center}
    .main .information li + li {margin-top:120px}
    .main .information li::before {width:80%;height:300px;margin-left:20%}
@@ -308,7 +315,7 @@ body,
    .main .download .content {height:600px;padding:0;text-align:center;background-position:center 280px}
    .footer .company p span {display:block;margin-left:0 !important}
 
-   .mainVideo .video.local {width:40%}
+   .mainVideo.two .video.local {width:40%}
    .mainVideo.six .video {width:50%;height:33.33%}
    .mainVideo.twelve .video {width:33.33%;height:25%}
    .modalContainer {min-width:90%}
