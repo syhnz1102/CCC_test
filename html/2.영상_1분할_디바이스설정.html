@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width">
+   <title>KnowledgeTalk CCC</title>
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+   <div class="wrapper">
+      <div class="modal">
+         <div class="modalContainer">
+            <div class="modalHeader">
+               <span class="setting">디바이스 설정</span>
+               <button>닫기</button>
+            </div>
+            <div class="modalContent">
+               <div class="setting">
+                  <ul class="select">
+                     <li>
+                        <label>Camera</label>
+                        <select required>
+                           <option value="">HP HD Camera (05c8:03b1)</option>
+                           <option value="">Camera1</option>
+                           <option value="">Camera2</option>
+                        </select>
+                     </li>
+                     <li>
+                        <label>Speaker</label>
+                        <select required>
+                           <option value="">기본값 - 헤드폰(Conexant ISST Audio)</option>
+                           <option value="">Speaker1</option>
+                           <option value="">Speaker2</option>
+                        </select>
+                     </li>
+                     <li>
+                        <label>Microphone</label>
+                        <select required>
+                           <option value="">기본값 - 외장 마이크(Conexant ISST Audio)</option>
+                           <option value="">Microphone1</option>
+                           <option value="">Microphone2</option>
+                        </select>
+                     </li>
+                  </ul>
+               </div>
+               <div class="button">
+                  <button class="submit">확인</button>
+                  <button class="cancel">취소</button>
+               </div>
+            </div>
+            <div class="modalCheck">
+               <div class="checkbox">
+                  <input id="checkbox" type="checkbox">
+                  <label for="checkbox">다시 보지 않기</label>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="videoContainer">
+         <div class="mainVideo">
+            <div class="video local">
+               <video style="background:url('images/sample02.jpg') no-repeat center center;background-size:cover"></video>
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name micOff">익명</span>
+                     <button>이름변경</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+</html>

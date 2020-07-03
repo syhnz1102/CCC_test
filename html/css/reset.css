@@ -4,7 +4,7 @@ html, body, div,
 h1, h2, h3, h4, h5, h6, p,
 a, strong,
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
+fieldset, form, label, legend, input, select,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside,
 button,
@@ -51,4 +51,61 @@ table th,table td{vertical-align:middle;text-align:center}
 table caption {display:none}
 
 /* input */
-input {width:auto;height:auto;padding:0;border:none;background:none}
+.input input {
+   width:auto;
+   height:auto;
+   padding:0;
+   border:none;
+   background:none
+}
+
+.checkbox {
+   position:relative;
+   display:inline-block
+}
+.checkbox input[type="checkbox"] {
+   -webkit-appearance:none;
+   position: absolute;
+   width:18px;
+   height:18px;
+   margin:0;
+   top:0;
+   left:0;
+   outline:0
+}
+.checkbox input[type="checkbox"] + label {
+   position:relative;
+   display:block;
+   padding-left:25px;
+   line-height:18px;
+   font-weight:normal !important
+}
+.checkbox input[type="checkbox"] + label:before {
+   content:'';
+   position:absolute;
+   top:0;
+   left:0;
+   width:18px;
+   height:18px;
+   text-align:center;
+   background:transparent;
+   border:1px solid #ddd;
+   border-radius:3px;
+   box-sizing:border-box
+}
+.checkbox input[type="checkbox"]:checked + label:before {
+   border:none;
+   background:#7117EA !important;
+}
+.checkbox input[type="checkbox"]:checked + label:after {
+   content:'✔';
+   position:absolute;
+   top:0;
+   left:0;
+   width:18px;
+   height:18px;
+   font-size:12px;
+   line-height:18px;
+   text-align:center;
+   color:#fff;
+}

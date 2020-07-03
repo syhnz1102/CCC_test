@@ -9,26 +9,10 @@
    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-   <div class="modal">
-      <div class="modalContainer">
-         <div class="modalHeader">
-            <span>통화 종료</span>
-            <button>닫기</button>
-         </div>
-         <div class="modalContent">
-            <p>영상통화를 종료하시겠습니까?</p>
-            <div class="button">
-               <button class="submit">확인</button>
-               <button class="cancel">취소</button>
-            </div>
-         </div>
-      </div>
-   </div>
    <div class="wrapper">
-      <div class="videoContainer">
+      <div class="videoContainer deviceCheck">
          <div class="mainVideo">
             <div class="video">
-               <video style="background:url('images/sample01.jpg') no-repeat center center;background-size:cover"></video>
                <div class="userContainer">
                   <div class="user">
                      <span class="name">익명</span>
@@ -44,6 +28,19 @@
                   </div>
                </div>
             </div>
+         </div>
+      </div>
+      <div class="buttonContainer">
+         <div class="button">
+            <button class="enter"><span>참여하기</span></button>
+            <button class="invite"><span>초대하기</span></button>
+            <button class="share"><span>화면공유</span></button>
+            <button class="camera"><span>카메라</span></button>
+            <!-- <button class="camera off"><span>카메라</span></button> -->
+            <button class="mic"><span>마이크</span></button>
+            <!-- <button class="mic off"><span>마이크</span></button> -->
+            <button class="setting"><span>설정</span></button>
+            <button class="endCall">통화종료</button>
          </div>
       </div>
    </div>
