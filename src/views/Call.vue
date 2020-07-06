@@ -77,7 +77,7 @@ export default {
   data () {
     return {
       videos: [],
-      offVideos: [''],
+      offVideos: [],
       videoDisplayType: '',
       share: null,
       visibleBtnArea: false,
@@ -313,9 +313,15 @@ export default {
 
       switch (count) {
         // 200617 ivypark, v0.9.2. 1명일 때 OffVideo 출력 되도록 변경
-        case 1: this.attachOffVideo(1);
-        case 2: if (count === 2) this.detachOffVideo();
-					this.videoDisplayType = '';
+        case 1:
+          if (count === 1) {
+            this.videoDisplayType = 'one';
+          }
+        case 2:
+          if (count === 2) {
+            this.videoDisplayType = 'two';
+          }
+
 					this.constraint.width.ideal = config.constraints.p2p.width;
 					this.constraint.height.ideal = config.constraints.p2p.height;
 					break;

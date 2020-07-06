@@ -148,7 +148,7 @@
                <div class="content">
                   <div class="logo">COCOcall</div>
                   <div class="text">
-                     <p>COCOcall을 APP을 만나보세요!</p>
+                     <p>COCOcall을 APP으로 만나보세요!</p>
                      <span>*안드로이드에서만 제공됩니다.</span>
                   </div>
                   <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">

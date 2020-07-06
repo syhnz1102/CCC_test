@@ -5,6 +5,10 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.3 (20/07/06)
+- 메인 화면 변경 (로고, 문구 변경)
+- 지원 되지 않는 브라우저 (IE, Firefox, Opera, Safari 등)에서 접속 시 안내 페이지 추가
+
 # v1.0.2 (20/07/03)
 - 메인 특정 단어 강조, 앱 다운로드 화면 추가
 - 특정 Device에서 연결 시 화면 출력이 매우 느린 현상 개선 (#31)
