@@ -7,16 +7,16 @@
             </h1>
             <div class="menu">
                <a href="#information">
-                  <span data-menu="information">Information</span>
+                  <span data-menu="information">information</span>
                </a>
                <a href="#function">
-                  <span data-menu="function">Function</span>
+                  <span data-menu="function">function</span>
                </a>
                <a href="#guide">
-                  <span data-menu="guide">Guide</span>
+                  <span data-menu="guide">guide</span>
                </a>
                <a href="#download">
-                  <span data-menu="Download">Download</span>
+                  <span data-menu="download">download</span>
                </a>
                <button>
                   <span data-menu-btn="화상회의 시작하기" @click="handleBtnClick">화상회의 시작하기</span>

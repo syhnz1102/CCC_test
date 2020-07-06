@@ -4,7 +4,8 @@ import { sendMessage } from './message';
 import config from '../config';
 
 class WebRTC {
-  constraints = { video: true, audio: true };
+  // constraints = { video: true, audio: true };
+  constraints = { video: { width: config.constraints.p2p.width, height: config.constraints.p2p.height, frameRate: { ideal: 20, max: 20 } }, audio: true };
 
   constructor() {
 

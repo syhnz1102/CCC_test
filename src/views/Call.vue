@@ -85,6 +85,7 @@ export default {
       constraint: {
         width: { min: 128, ideal: config.constraints.p2p.width },
         height: { min: 72, ideal: config.constraints.p2p.height },
+        frameRate: { ideal: 20, max: 20 },
         aspectRatio: 16/9.0
       },
       popup: {
