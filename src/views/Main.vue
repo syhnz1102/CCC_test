@@ -3,7 +3,7 @@
       <header class="header">
          <div class="container">
             <h1>
-               <a href="#top">KnowledgeTalk <span>CCC</span></a>
+               <a href="#top" class="logo">COCOcall</a>
             </h1>
             <div class="menu">
                <a href="#information">
@@ -31,10 +31,12 @@
             </div>
             <div class="container">
                <div class="content">
-                  <strong class="wow animate__animated animate__fadeInUp">KnowledgeTalk</strong>
-                  <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
-                     <span>Co</span>nvenient <span>Co</span>nference <span>Call</span>
-                  </p>
+                  <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">간편하게 즐기는 무료 화상 회의,</p>
+                  <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                     <span><i>CO</i>nvenient</span>
+                     <span><i>CO</i>nference</span>
+                     <span><i>call</i></span>
+                  </strong>
                   <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="handleBtnClick">화상회의 시작하기</button>
                </div>
                <button class="scroll"></button>
@@ -42,11 +44,11 @@
          </section>
          <section id="information" class="information">
             <div class="container">
-               <h2>KnowledgeTalk <span>CCC</span></h2>
+               <h2><div class="logo">COCOcall</div></h2>
                <ul>
                   <li>
                      <div class="wow box animate__animated animate__zoomIn">
-                        <div class="tit"><strong>Co</strong>nvenient</div>
+                        <div class="tit"><strong>CO</strong>nvenient</div>
                         <div class="content">
                            <p>프로그램 설치와 회원가입이 필요 없어<br /> 편하게 사용할 수 있습니다.</p>
                         </div>
@@ -54,7 +56,7 @@
                   </li>
                   <li>
                      <div class="wow box animate__animated animate__zoomIn">
-                        <div class="tit"><strong>Co</strong>nference</div>
+                        <div class="tit"><strong>CO</strong>nference</div>
                         <div class="content">
                            <p>회의실이 아니어도<br /> 화상으로 회의를 진행할 수 있습니다.</p>
                         </div>
@@ -62,7 +64,7 @@
                   </li>
                   <li>
                      <div class="wow box animate__animated animate__zoomIn">
-                        <div class="tit"><strong>Call</strong></div>
+                        <div class="tit"><strong>call</strong></div>
                         <div class="content">
                            <p>누구나 무료로<br /> 화상회의를 즐길 수 있습니다.</p>
                         </div>
@@ -144,10 +146,9 @@
          <section id="download" class="download">
             <div class="container">
                <div class="content">
-                  <strong class="logo">KnowledgeTalk <span>CCC</span></strong>
+                  <div class="logo">COCOcall</div>
                   <div class="text">
-                     <strong>APP 다운로드</strong>
-                     <p>날리지톡 CCC를 APP으로 만나보세요!</p>
+                     <p>COCOcall을 APP을 만나보세요!</p>
                      <span>*안드로이드에서만 제공됩니다.</span>
                   </div>
                   <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
@@ -165,7 +166,7 @@
                <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">APP다운로드</a>
             </div>
             <div class="company">
-               <strong>KnowledgeTalk CCC <span>[{{ getVersion }}]</span></strong>
+               <strong>COCOcall <span>[{{ getVersion }}]</span></strong>
                <p>
                   <span>(주)날리지포인트</span>
                   <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
