@@ -295,8 +295,6 @@ body,
 }
 
 @media screen and (max-width: 767px) {
-   .browser .container {position:relative;top:0;left:0;transform:translate(0,0);padding:50px 0}
-
    .header {height:auto;padding:15px 0;text-align:center}
    .header h1 {float:none}
    .header h1 a {margin-top:0;font-size:16px}
