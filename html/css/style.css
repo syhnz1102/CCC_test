@@ -146,7 +146,7 @@ body,
 .shareContainer {float:left;width:80%;height:100%;transition:width .3s}
 .shareContainer .shareVideo {width:100%;height:100%}
 .shareContainer .shareVideo .video {background:#111}
-.shareContainer .shareVideo .video::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
+.shareContainer .shareVideo .video::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:#111}
 .shareContainer .shareVideo .video video {position:relative;object-fit:contain}
 .shareContainer .share {position:relative;display:flex;width:100%;height:100%;justify-content:center;align-items:center;flex-direction:column;background:#111}
 .shareContainer .share::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:linear-gradient(-30deg, #EA6060, #7117EA);opacity:0.15}
@@ -236,6 +236,11 @@ body,
 .modalContent .setting .select li + li {margin-top:15px}
 .modalContent .setting .select label {display:block;margin-bottom:5px;font-size:12px;color:#7117EA}
 .modalContent .setting .select select {width:100%;height:36px;padding:0 10px;border:1px solid #ddd}
+.modalContent .setting .select .speaker {overflow:hidden}
+.modalContent .setting .select .speaker select {float:left;width:calc(100% - 50px)}
+.modalContent .setting .select .speaker button {overflow:hidden;float:right;width:45px;height:36px;text-indent:-999px;font-size:0;border-radius:2px;background:url('../images/icon_speaker.png') no-repeat center center #999;background-size:22px 22px;transition:background-color .3s}
+.modalContent .setting .select .speaker button:active {background-color:#777}
+.modalContent .setting .select .speaker button.on {background-color:#7117EA}
 .modalContent .button {margin-top:30px;text-align:center}
 .modalContent .button button {display:inline-block;padding:8px 25px;font-size:16px;color:#fff;border-radius:1.5em}
 .modalContent .button button + button {margin-left:5px}
