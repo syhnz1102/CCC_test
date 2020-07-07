@@ -5,6 +5,7 @@
         <button class="share" @click="handleScreenShareBtn"><span>화면공유</span></button>
         <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>카메라</span></button>
         <button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>마이크</span></button>
+        <button class="setting" @click="handleSettingBtn"><span>설정</span></button>
         <button class="endCall" @click="handleEndCallBtn">통화종료</button>
       </div>
   </div>
@@ -99,6 +100,25 @@ export default {
           }
         });
       }
+    },
+    handleSettingBtn() {
+      // 200706 ivypark, v1.0.3. 디바이스 세팅 팝업 추가
+      eBus.$emit('popup', {
+        on: true,
+        type: 'Settings',
+        title: '디바이스 설정',
+        contents: `입장 후에는 디바이스 설정을 변경할 수 없습니다.`,
+        option: { inCall: true },
+        ok: () => {
+          eBus.$emit('setVideo', {
+            type: 'set',
+            id: 'local',
+            deviceSetting: {
+              done: true
+            }
+          });
+        }
+      })
     },
     handleEndCallBtn() {
       // 200617 ivypark, v0.9.2. 통화 종료 팝업 추가

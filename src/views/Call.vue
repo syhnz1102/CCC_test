@@ -5,6 +5,7 @@
       v-bind:type="popup.type"
       v-bind:title="popup.title"
       v-bind:contents="popup.contents"
+      v-bind:option="popup.option"
       v-bind:ok="handlePopupOkBtnClick"
       v-bind:cancel="handlePopupCancelBtnClick"
     />
@@ -93,6 +94,7 @@ export default {
         type: '',
         title: '',
         contents: '',
+        option: {},
         ok: null,
         cancel: null
       },
@@ -152,6 +154,7 @@ export default {
       this.popup.type = param.type;
       this.popup.title = param.title;
       this.popup.contents = param.contents;
+      this.popup.option = param.option;
       this.popup.ok = param.ok;
       this.popup.cancel = param.cancel;
     });
@@ -161,12 +164,33 @@ export default {
       this.emitToast(content)
     })
 
-    if (await webRTC.checkMediaDevices()) {
-      if (!this.$store.state.socket) new Session();
-      let stream = await webRTC.createVideoStream();
+    let stream = await webRTC.createVideoStream();
+    this.addVideo(true, 'local', stream);
 
-      sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]})
-      this.addVideo(true, 'local', stream);
+    if (await webRTC.checkMediaDevices()) {
+      // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
+      let isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') && JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase())
+      if (isChecked || mobile.isMobile) {
+        if (!this.$store.state.socket) new Session();
+        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+      } else {
+        this.popup.on = true;
+        this.popup.type = 'Settings';
+        this.popup.title = '디바이스 설정';
+        this.popup.contents = `통화 시작 전 카메라와 마이크가 정상 동작하는지 확인하세요.`;
+        this.popup.option.inCall = false;
+        this.popup.ok = () => {
+          if (!this.$store.state.socket) new Session();
+          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+          eBus.$emit('setVideo', {
+            type: 'set',
+            id: 'local',
+            deviceSetting: {
+              done: true
+            }
+          });
+        }
+      }
     } else {
       if (this.$store.state.socket && this.$store.state.roomInfo) {
         webRTC.destroyRoom();

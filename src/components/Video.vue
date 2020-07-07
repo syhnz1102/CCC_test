@@ -36,6 +36,10 @@ export default {
         // this.$refs.video.querySelector('video').remove() : this.attachVideo();
         this.offVideo = param.isOffVideo;
       }
+      if (param.id === this.id && param.hasOwnProperty('deviceSetting')) {
+        if (param.deviceSetting.stream) this.$refs.video.querySelector('video').srcObject = param.deviceSetting.stream;
+        if (param.deviceSetting.hasOwnProperty('done')) this.$refs.video.querySelector('video').muted = param.deviceSetting.done;
+      }
     })
   },
   methods: {
