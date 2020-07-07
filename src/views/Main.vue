@@ -18,9 +18,6 @@
                <a href="#download">
                   <span data-menu="download">download</span>
                </a>
-               <button>
-                  <span data-menu-btn="화상회의 시작하기" @click="handleBtnClick">화상회의 시작하기</span>
-               </button>
             </div>
          </div>
       </header>
@@ -100,45 +97,73 @@
                <ul>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_01.jpg" alt="">
+                        <img src="images/img_guide_01.jpg" alt="STEP 1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 1</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 바로 시작됩니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인화면에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 시작됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_02.jpg" alt="">
+                        <img src="images/img_guide_02.jpg" alt="STEP 2">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 2</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">하단에서 '초대하기' 버튼을 클릭하면 사용자를 초대할 수 있습니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">회의가 시작되기 전에 원하는 디바이스로 설정할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_03.jpg" alt="">
+                        <img src="images/img_guide_03.jpg" alt="STEP 3">
                      </div>
-                     <strong class="wow animate__animated animate__fadeInUp">STEP 3</strong>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 3</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">화면 하단에 마우스를 가져가면 메뉴를 확인하실 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_04.jpg" alt="STEP 4">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '초대하기' 버튼을 클릭 후 URL을 공유하여 사용자를 초대할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_05-1.jpg" alt="STEP 5-1">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 5-1</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 URL을 입력하면 바로 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_04.jpg" alt="">
+                        <img src="images/img_guide_05-2.jpg" alt="STEP 5-2">
                      </div>
-                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">최대 16명까지 화상회의를 할 수 있습니다.</p>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 5-2</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">COCOcall을 실행 중이라면 메뉴에서 참여하기 버튼을 클릭 후 URL을 입력하면 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_05.jpg" alt="">
+                        <img src="images/img_guide_06.jpg" alt="STEP 6">
                      </div>
-                     <strong class="wow animate__animated animate__fadeInUp">STEP 5</strong>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 6</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">최대 16명까지 화상회의가 가능합니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_07.jpg" alt="STEP 7">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 7</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 카메라/오디오를 On/Off 할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_08.jpg" alt="STEP 8">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 8</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는 대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="../assets/images/img_guide_06.jpg" alt="">
+                        <img src="images/img_guide_09.jpg" alt="STEP 9">
                      </div>
-                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 6</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">하단에서 '화면공유' 버튼을 클릭하면 본인의 컴퓨터 화면을 공유할 수 있습니다.</p>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 9</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '화면공유' 버튼을 클릭하면 본인의 화면을 공유할 수 있습니다. <span>*PC에서만 제공됩니다.</span></p>
                   </li>
                </ul>
             </div>
