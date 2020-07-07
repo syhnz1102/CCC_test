@@ -171,7 +171,7 @@
                   <span>(주)날리지포인트</span>
                   <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
                   <span>전화 : <a href="tel:070-4325-4033">070-4325-4033</a></span>
-                  <span>메일주소 : <a href="mailto:kpointnotice@gmail.com">kpointnotice@gmail.com</a></span>
+                  <span>메일주소 : <a href="mailto:maverick@knowledgepoint.co.kr">maverick@knowledgepoint.co.kr</a></span>
                </p>
             </div>
             <div class="copyright">Copyright All rights reserved. Knowledgepoint Co., Ltd.</div>
