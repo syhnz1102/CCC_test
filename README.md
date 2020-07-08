@@ -5,7 +5,11 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
-# v1.0.4 (20/07/08)
+# v1.0.4b (20/07/08 beta)
+- 디바이스 설정 팝업에서 스피커 정보도 세팅되도록 수정 (#35)
+- 모바일에서 회의 종료가 정상적으로 되지 않던 문제 수정 (1.0.4 side effect)
+
+# v1.0.4 (20/07/08) *** DID NOT RELEASED ***
 - 디바이스 설정 팝업 추가, 회의 시작 전 디바이스 설정 팝업 나타나도록 수정 (#35)
 
 # v1.0.3 (20/07/06)
