@@ -104,8 +104,13 @@
               } else {
                 console.log("Some other kind of source/device: ", deviceInfo);
               }
+
+              if (i === devices.length - 1 && !this.option.inCall) {
+                // 새로고침 시 default 데이터로 변경
+                this.onChange();
+                this.onChangeOutput();
+              }
             }
-            // this.onChange();
           })
           .catch(e => {
             console.error(e);
@@ -133,7 +138,7 @@
           .catch(err => { console.error(err) });
       },
       onChangeOutput(e) {
-        this.outputDeviceId = e.target.value;
+        this.outputDeviceId = e ? e.target.value : 'default';
         store.commit('setUserInfo', { sinkId: this.outputDeviceId });
         eBus.$emit('video', {
           type: 'set',
