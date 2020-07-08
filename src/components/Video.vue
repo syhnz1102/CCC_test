@@ -37,7 +37,17 @@ export default {
         this.offVideo = param.isOffVideo;
       }
       if (param.id === this.id && param.hasOwnProperty('deviceSetting')) {
-        if (param.deviceSetting.stream) this.$refs.video.querySelector('video').srcObject = param.deviceSetting.stream;
+        console.log(param.deviceSetting);
+        this.$refs.video.querySelector('video').muted = true;
+        if (param.deviceSetting.stream) {
+          console.log(param.deviceSetting.stream.getAudioTracks());
+          console.log('1 ', this.$refs.video.querySelector('video').srcObject)
+          this.$refs.video.querySelector('video').srcObject = null;
+          console.log('2 ', this.$refs.video.querySelector('video').srcObject)
+          this.$refs.video.querySelector('video').srcObject = param.deviceSetting.stream;
+          console.log('3 ', this.$refs.video.querySelector('video').srcObject)
+          this.$refs.video.querySelector('video').play();
+        }
         if (param.deviceSetting.hasOwnProperty('done')) this.$refs.video.querySelector('video').muted = param.deviceSetting.done;
       }
     })

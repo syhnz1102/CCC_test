@@ -23,6 +23,7 @@
     <br />
     <p>{{ contents }}</p>
     <div class="button">
+      <button class="cancel" v-if="!this.option.inCall" @click="init">새로고침</button>
       <button class="submit" @click="ok">{{ this.option.inCall ? '확인' : '시작' }}</button>
     </div>
     <div class="modalCheck">
@@ -59,6 +60,7 @@
 
       // 다시 보지 않기
       this.isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') ? JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase()) : false;
+      this.init();
 
       if (this.option.inCall) {
         const audioInput = this.$refs.audioInput;
@@ -71,40 +73,47 @@
           if (curr.kind === 'video') videoInput.appendChild(option);
         })
       }
-
-      navigator.mediaDevices
-        .enumerateDevices()
-        .then(devices => {
-          const audioInput = this.$refs.audioInput;
-          const audioOutput = this.$refs.audioOutput;
-          const videoInput = this.$refs.videoInput;
-
-          for (let i = 0; i !== devices.length; ++i) {
-            const deviceInfo = devices[i];
-            const option = document.createElement("option");
-            option.value = deviceInfo.deviceId;
-            if (deviceInfo.kind === "audioinput") {
-              option.text = deviceInfo.label || `microphone ${audioInput.length + 1}`;
-              audioInput.appendChild(option);
-            } else if (deviceInfo.kind === "audiooutput") {
-              option.text = deviceInfo.label || `speaker ${audioOutput.length + 1}`;
-              audioOutput.appendChild(option);
-            } else if (deviceInfo.kind === "videoinput") {
-              option.text = deviceInfo.label || `camera ${videoInput.length + 1}`;
-              videoInput.appendChild(option);
-            } else {
-              console.log("Some other kind of source/device: ", deviceInfo);
-            }
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
     },
     methods: {
+      init() {
+        const audioInput = this.$refs.audioInput;
+        const audioOutput = this.$refs.audioOutput;
+        const videoInput = this.$refs.videoInput;
+
+        while (audioInput.hasChildNodes()) audioInput.removeChild(audioInput.firstChild);
+        while (audioOutput.hasChildNodes()) audioOutput.removeChild(audioOutput.firstChild);
+        while (videoInput.hasChildNodes()) videoInput.removeChild(videoInput.firstChild);
+
+        navigator.mediaDevices
+          .enumerateDevices()
+          .then(devices => {
+            for (let i = 0; i !== devices.length; ++i) {
+              const deviceInfo = devices[i];
+              const option = document.createElement("option");
+              option.value = deviceInfo.deviceId;
+              if (deviceInfo.kind === "audioinput") {
+                option.text = deviceInfo.label || `microphone ${audioInput.length + 1}`;
+                if (!this.option.inCall) audioInput.appendChild(option);
+              } else if (deviceInfo.kind === "audiooutput") {
+                option.text = deviceInfo.label || `speaker ${audioOutput.length + 1}`;
+                audioOutput.appendChild(option);
+              } else if (deviceInfo.kind === "videoinput") {
+                option.text = deviceInfo.label || `camera ${videoInput.length + 1}`;
+                if (!this.option.inCall) videoInput.appendChild(option);
+              } else {
+                console.log("Some other kind of source/device: ", deviceInfo);
+              }
+            }
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      },
       onChange() {
         const audioInput = this.$refs.audioInput.value;
         const videoInput = this.$refs.videoInput.value;
+
+        console.log('ivypark ====> ', audioInput);
 
         navigator.mediaDevices.getUserMedia({
           audio: audioInput ? { deviceId: { exact: audioInput } } : false,

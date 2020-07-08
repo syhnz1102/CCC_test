@@ -5,7 +5,7 @@
         <button class="share" @click="handleScreenShareBtn"><span>화면공유</span></button>
         <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>카메라</span></button>
         <button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>마이크</span></button>
-        <button class="setting" @click="handleSettingBtn"><span>설정</span></button>
+        <button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>설정</span></button>
         <button class="endCall" @click="handleEndCallBtn">통화종료</button>
       </div>
   </div>
@@ -21,6 +21,7 @@ export default {
   props: { isVisible: Boolean },
   data() {
     return {
+      isMobile: mobile.isMobile,
       isOffVideo: false,
       isOffMic: false
     }
