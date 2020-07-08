@@ -169,8 +169,15 @@ export default {
 
     if (await webRTC.checkMediaDevices()) {
       // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
+      if (mobile.isMobile) {
+        // 200708 ivypark. v1.0.4. 모바일 화면에서 연결이 되지 않는 문제 수정
+        if (!this.$store.state.socket) new Session();
+        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+        return false;
+      }
+
       let isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') && JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase())
-      if (isChecked || mobile.isMobile) {
+      if (isChecked) {
         if (!this.$store.state.socket) new Session();
         sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
       } else {
