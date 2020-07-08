@@ -12,10 +12,11 @@
           <select ref="audioInput" @change="onChange" :disabled="this.option.inCall" required>
           </select>
         </li>
-        <li>
+        <li class="speaker">
           <label>Speaker</label>
-          <select ref="audioOutput" :disabled="this.option.inCall" required>
+          <select ref="audioOutput" @change="onChangeOutput($event)" :disabled="this.option.inCall" required>
           </select>
+          <button v-bind:class="{ on: isPlayTestSound }" @click="handlePlayTestSound" :disabled="this.option.inCall">테스트</button>
         </li>
       </ul>
     </div>
@@ -27,7 +28,7 @@
     <div class="modalCheck">
       <div class="checkbox">
         <input id="checkbox" type="checkbox" @change="onChangeCheckbox($event)" v-model="isChecked">
-        <label for="checkbox">입장 시 다시 보지 않기</label>
+        <label for="checkbox">다음 부터 다시 보지 않기</label>
       </div>
     </div>
   </div>
@@ -42,11 +43,21 @@
     data() {
       return {
         isChecked: false,
-        video: false,
-        audio: false,
+        isPlayTestSound: false,
+        outputDeviceId: '', // if you click sound test button.
       }
     },
     mounted() {
+      // local mic on
+      eBus.$emit('setVideo', {
+        type: 'set',
+        id: 'local',
+        deviceSetting: {
+          done: false
+        }
+      });
+
+      // 다시 보지 않기
       this.isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') ? JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase()) : false;
 
       if (this.option.inCall) {
@@ -112,9 +123,25 @@
           })
           .catch(err => { console.error(err) });
       },
+      onChangeOutput(e) {
+        this.outputDeviceId = e.target.value;
+      },
       onChangeCheckbox(e) {
         window.localStorage.setItem('IS_CHECKED_DEVICE', e.target.checked);
         this.isChecked = e.target.checked;
+      },
+      async handlePlayTestSound() {
+        if (!this.isPlayTestSound) {
+          this.isPlayTestSound = true;
+          const audio = document.createElement('audio');
+          await audio.setSinkId(this.outputDeviceId);
+          audio.src = `/static/audio/harp_run_${Math.floor(Math.random() * 2) + 1}.wav`;
+          audio.onended = () => {
+            audio.remove();
+            this.isPlayTestSound = false;
+          }
+          await audio.play();
+        }
       }
     }
   }

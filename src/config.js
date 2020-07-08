@@ -1,6 +1,6 @@
 export default {
-  version: 'v1.0.3 (0706)',
-  // socketIoUrl: 'https://ktgenie.com:54545/SignalServer', // TB
+  version: 'v1.0.4 (0708)',
+  // socketIoUrl: 'https://ktgenie.com:7103/SignalServer', // TB
   // socketIoUrl: 'https://localhost:7103/SignalServer', // LOCAL
   socketIoUrl: 'https://cococall.net:7103/SignalServer', // RELEASED
   // iceServer: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] }, // TB, LOCAL

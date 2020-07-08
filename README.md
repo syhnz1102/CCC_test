@@ -5,6 +5,9 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.4 (20/07/08)
+- 디바이스 설정 팝업 추가, 회의 시작 전 디바이스 설정 팝업 나타나도록 수정 (#35)
+
 # v1.0.3 (20/07/06)
 - 메인 화면 변경 (로고, 문구 변경)
 - 지원 되지 않는 브라우저 (IE, Firefox, Opera, Safari 등)에서 접속 시 안내 페이지 추가

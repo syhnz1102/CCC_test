@@ -26,18 +26,28 @@
             <div class="bg">
                <img src="../assets/images/bg.jpg">
             </div>
-            <div class="container">
-               <div class="content">
-                  <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">간편하게 즐기는 무료 화상 회의,</p>
-                  <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
-                     <span><i>CO</i>nvenient</span>
-                     <span><i>CO</i>nference</span>
-                     <span><i>call</i></span>
-                  </strong>
-                  <button class="wow animate__animated animate__fadeInUp" data-wow-delay=".8s" @click="handleBtnClick">화상회의 시작하기</button>
+           <div class="container">
+             <div class="content">
+               <div class="title">
+                 <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">간편하게 즐기는 무료 화상 회의,</p>
+                 <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                   <span><i>CO</i>nvenient</span>
+                   <span><i>CO</i>nference</span>
+                   <span><i>call</i></span>
+                 </strong>
                </div>
-               <button class="scroll"></button>
-            </div>
+               <div class="button wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
+                 <div class="make">
+                   <button @click="handleMakeBtnClick">회의시작</button>
+                 </div>
+<!--                 <div class="enter">-->
+<!--                   <input type="text" placeholder="초대 받은 URL을 입력하세요.">-->
+<!--                   <button>회의참여</button>-->
+<!--                 </div>-->
+               </div>
+             </div>
+             <button class="scroll"></button>
+           </div>
          </section>
          <section id="information" class="information">
             <div class="container">
@@ -97,70 +107,70 @@
                <ul>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_01.jpg" alt="STEP 1">
+                        <img src="../assets/images/img_guide_01.jpg" alt="STEP 1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 1</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인화면에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 시작됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_02.jpg" alt="STEP 2">
+                        <img src="../assets/images/img_guide_02.jpg" alt="STEP 2">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 2</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">회의가 시작되기 전에 원하는 디바이스로 설정할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_03.jpg" alt="STEP 3">
+                        <img src="../assets/images/img_guide_03.jpg" alt="STEP 3">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 3</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">화면 하단에 마우스를 가져가면 메뉴를 확인하실 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_04.jpg" alt="STEP 4">
+                        <img src="../assets/images/img_guide_04.jpg" alt="STEP 4">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '초대하기' 버튼을 클릭 후 URL을 공유하여 사용자를 초대할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_05-1.jpg" alt="STEP 5-1">
+                        <img src="../assets/images/img_guide_05-1.jpg" alt="STEP 5-1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 5-1</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 URL을 입력하면 바로 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_05-2.jpg" alt="STEP 5-2">
+                        <img src="../assets/images/img_guide_05-2.jpg" alt="STEP 5-2">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 5-2</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">COCOcall을 실행 중이라면 메뉴에서 참여하기 버튼을 클릭 후 URL을 입력하면 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_06.jpg" alt="STEP 6">
+                        <img src="../assets/images/img_guide_06.jpg" alt="STEP 6">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 6</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">최대 16명까지 화상회의가 가능합니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_07.jpg" alt="STEP 7">
+                        <img src="../assets/images/img_guide_07.jpg" alt="STEP 7">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 7</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 카메라/오디오를 On/Off 할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_08.jpg" alt="STEP 8">
+                        <img src="../assets/images/img_guide_08.jpg" alt="STEP 8">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 8</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는 대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
                   </li>
                   <li>
                      <div class="img">
-                        <img src="images/img_guide_09.jpg" alt="STEP 9">
+                        <img src="../assets/images/img_guide_09.jpg" alt="STEP 9">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 9</strong>
                      <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '화면공유' 버튼을 클릭하면 본인의 화면을 공유할 수 있습니다. <span>*PC에서만 제공됩니다.</span></p>
@@ -217,7 +227,7 @@ export default {
     }
   },
   methods: {
-    async handleBtnClick() {
+    async handleMakeBtnClick() {
       new Session();
       sendMessage('CreateRoom', {});
     }
