@@ -79,6 +79,7 @@
         const audioInput = this.$refs.audioInput;
         const audioOutput = this.$refs.audioOutput;
         const videoInput = this.$refs.videoInput;
+        this.outputDeviceId = store.state.userInfo.sinkId ? store.state.userInfo.sinkId : '';
 
         while (audioInput.hasChildNodes()) audioInput.removeChild(audioInput.firstChild);
         while (audioOutput.hasChildNodes()) audioOutput.removeChild(audioOutput.firstChild);
@@ -96,7 +97,7 @@
                 if (!this.option.inCall) audioInput.appendChild(option);
               } else if (deviceInfo.kind === "audiooutput") {
                 option.text = deviceInfo.label || `speaker ${audioOutput.length + 1}`;
-                audioOutput.appendChild(option);
+                if (!this.option.inCall || this.option.inCall && this.outputDeviceId === deviceInfo.deviceId) audioOutput.appendChild(option);
               } else if (deviceInfo.kind === "videoinput") {
                 option.text = deviceInfo.label || `camera ${videoInput.length + 1}`;
                 if (!this.option.inCall) videoInput.appendChild(option);
@@ -104,6 +105,7 @@
                 console.log("Some other kind of source/device: ", deviceInfo);
               }
             }
+            // this.onChange();
           })
           .catch(e => {
             console.error(e);
@@ -112,8 +114,6 @@
       onChange() {
         const audioInput = this.$refs.audioInput.value;
         const videoInput = this.$refs.videoInput.value;
-
-        console.log('ivypark ====> ', audioInput);
 
         navigator.mediaDevices.getUserMedia({
           audio: audioInput ? { deviceId: { exact: audioInput } } : false,
@@ -134,6 +134,15 @@
       },
       onChangeOutput(e) {
         this.outputDeviceId = e.target.value;
+        store.commit('setUserInfo', { sinkId: this.outputDeviceId });
+        eBus.$emit('video', {
+          type: 'set',
+          id: 'local',
+          deviceSetting: {
+            sinkId: this.outputDeviceId,
+            done: false
+          }
+        })
       },
       onChangeCheckbox(e) {
         window.localStorage.setItem('IS_CHECKED_DEVICE', e.target.checked);

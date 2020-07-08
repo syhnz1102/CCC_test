@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     if (!this.isOffVideo) this.attachVideo();
-    eBus.$on('setVideo', param => {
+    eBus.$on('setVideo', async param => {
       // 200618 ivypark, v0.9.2. 1:1 공유 중 cam/mic off 시 로컬화면이 분리되는 현상 수정
       this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2 && !this.$store.state.streamInfo.screen;
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
@@ -46,9 +46,10 @@ export default {
           console.log('2 ', this.$refs.video.querySelector('video').srcObject)
           this.$refs.video.querySelector('video').srcObject = param.deviceSetting.stream;
           console.log('3 ', this.$refs.video.querySelector('video').srcObject)
-          this.$refs.video.querySelector('video').play();
+          await this.$refs.video.querySelector('video').play();
         }
         if (param.deviceSetting.hasOwnProperty('done')) this.$refs.video.querySelector('video').muted = param.deviceSetting.done;
+        if (param.deviceSetting.hasOwnProperty('sinkId')) await this.$refs.video.querySelector('video').setSinkId(param.deviceSetting.sinkId);
       }
     })
   },
