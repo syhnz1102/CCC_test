@@ -263,7 +263,7 @@ export default {
           // URL을 입력 한 경우
           let domain = this.url.split('/')[2];
           let roomId = this.url.split('/')[4];
-          if (config.listOfDomains.some(c => c === domain) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
+          if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
             if (mobile.isMobile) {
               mobile.onStartConference(roomId);
             } else {

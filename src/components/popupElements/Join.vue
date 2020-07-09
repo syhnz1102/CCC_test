@@ -17,7 +17,6 @@
 import { eBus } from "../../commons/eventBus";
 import config from "../../config";
 import mobile from "../../commons/mobile";
-import router from "../../router";
 import webRTC from "../../commons/webrtc";
 
 export default {
@@ -38,7 +37,7 @@ export default {
           // URL을 입력 한 경우
           let domain = this.url.split('/')[2];
           let roomId = this.url.split('/')[4];
-          if (config.listOfDomains.some(c => c === domain) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
+          if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
             eBus.$emit('toast', '잠시 후 다른 회의로 이동합니다.');
             this.ok();
 
