@@ -50,7 +50,7 @@
                    <button @click="handleMakeBtnClick">회의시작</button>
                  </div>
                  <div class="enter" v-bind:class="{ open: isCollapsedJoinBtn }">
-                   <input v-model="url" type="text" placeholder="전달 받은 URL 또는 번호를 입력하세요." v-on:keyup.enter="handleJoinBtnClick">
+                   <input v-model="url" type="text" placeholder="URL 또는 방 번호(8자리)를 입력하세요." v-on:keyup.enter="handleJoinBtnClick">
                    <button v-on:mouseover="handleMouseoverJoinBtn" @click="handleJoinBtnClick">회의참여</button>
                  </div>
                </div>
@@ -268,7 +268,7 @@ export default {
 
       // 200709 ivypark, v1.0.5. 회의 참여 버튼 추가
       if (!this.url) {
-        this.onPopup(`참여 하실 URL 또는 번호를 입력하세요.`);
+        this.onPopup(`참여 하실 URL 또는 방 번호(${config.lengthOfRoomId}자리)를 입력하세요.`);
         return false;
       } else {
         if (this.url.indexOf('https://') === 0 && this.url.indexOf('/room/') > -1) {

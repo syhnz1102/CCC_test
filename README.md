@@ -5,6 +5,11 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.5 (20/07/09)
+- 회의 참여하기 기능 추가 (#32)
+- 기능 개선: input enter 키, 디바이스 세팅 팝업 닫기 버튼, 이름 레이블 위치 변경 (#36)
+- RoomId를 기존 12자에서 8자로 변경
+
 # v1.0.4b (20/07/08 beta)
 - 디바이스 설정 팝업에서 스피커 정보도 세팅되도록 수정 (#35)
 - 모바일에서 회의 종료가 정상적으로 되지 않던 문제 수정 (1.0.4 side effect)
