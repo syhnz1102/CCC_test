@@ -2,7 +2,7 @@
   <div class="modalContent">
     <div class="userName">
       <div class="input">
-        <input v-model="name" type="text" placeholder="이름을 입력하세요." maxlength="8">
+        <input v-model="name" type="text" placeholder="이름을 입력하세요." maxlength="8" v-on:keyup.enter="confirmed">
         <label></label>
       </div>
     </div>

@@ -79,7 +79,7 @@ export default {
     return {
       videos: [],
       offVideos: [],
-      videoDisplayType: '',
+      videoDisplayType: 'one',
       share: null,
       visibleBtnArea: false,
       isCollapsedVideo: false,
@@ -196,6 +196,9 @@ export default {
               done: true
             }
           });
+        }
+        this.popup.cancel = () => {
+          window.location.href = '/';
         }
       }
     } else {
