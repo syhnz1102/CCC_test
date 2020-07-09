@@ -251,7 +251,7 @@ body,
 .modalContent .setting .select .speaker button {overflow:hidden;float:right;width:45px;height:36px;text-indent:-999px;font-size:0;border-radius:2px;background:url('../images/icon_speaker.png') no-repeat center center #999;background-size:22px 22px;transition:background-color .3s}
 .modalContent .setting .select .speaker button:active {background-color:#777}
 .modalContent .setting .select .speaker button.on {background-color:#7117EA}
-.modalContent .setting + p {color:#7117EA}
+.modalContent .setting + p {margin-top:10px;color:#7117EA}
 .modalContent .button {margin-top:30px;text-align:center}
 .modalContent .button button {display:inline-block;padding:8px 25px;font-size:15px;color:#fff;border-radius:1.5em}
 .modalContent .button button + button {margin-left:5px}
