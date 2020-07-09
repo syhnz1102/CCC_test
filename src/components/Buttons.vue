@@ -1,6 +1,7 @@
 <template>
   <div class="buttonContainer" v-if="isVisible">
       <div class="button wow animate__animated animate__fadeInUp animate__faster">
+        <button class="enter" @click="handleJoinBtn"><span>다른 회의 참여하기</span></button>
         <button class="invite" @click="handleInviteBtn"><span>초대하기</span></button>
         <button class="share" @click="handleScreenShareBtn"><span>화면공유</span></button>
         <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>카메라</span></button>
@@ -30,6 +31,13 @@ export default {
 
   },
   methods: {
+    handleJoinBtn() {
+      eBus.$emit('popup', {
+        on: true,
+        type: 'Join',
+        title: '다른 회의 참여하기'
+      })
+    },
     handleInviteBtn() {
       eBus.$emit('popup', {
         on: true,
@@ -118,6 +126,9 @@ export default {
               done: true
             }
           });
+        },
+        cancel: () => {
+
         }
       })
     },

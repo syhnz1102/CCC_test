@@ -1,5 +1,14 @@
 <template>
    <div class="wrapper">
+      <Popup
+       v-if="popup.on"
+       v-bind:type="popup.type"
+       v-bind:title="popup.title"
+       v-bind:contents="popup.contents"
+       v-bind:option="popup.option"
+       v-bind:ok="handlePopupOkBtnClick"
+       v-bind:cancel="handlePopupCancelBtnClick"
+      />
       <header class="header">
          <div class="container">
             <h1>
@@ -40,10 +49,10 @@
                  <div class="make">
                    <button @click="handleMakeBtnClick">회의시작</button>
                  </div>
-<!--                 <div class="enter">-->
-<!--                   <input type="text" placeholder="초대 받은 URL을 입력하세요.">-->
-<!--                   <button>회의참여</button>-->
-<!--                 </div>-->
+                 <div class="enter">
+                   <input v-model="url" type="text" placeholder="전달 받은 URL 또는 번호를 입력하세요.">
+                   <button @click="handleJoinBtnClick">회의참여</button>
+                 </div>
                </div>
              </div>
              <button class="scroll"></button>
@@ -219,17 +228,77 @@
 import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
 import config from '../config';
+import Popup from '@/components/Popup';
+import mobile from '../commons/mobile';
+import router from "../router";
 
 export default {
+  components: { Popup },
   data () {
     return {
-
+      url: '',
+      popup: {
+        on: false,
+        type: '',
+        title: '',
+        contents: '',
+        option: {},
+        ok: null,
+        cancel: null
+      },
     }
   },
   methods: {
     async handleMakeBtnClick() {
       new Session();
       sendMessage('CreateRoom', {});
+    },
+    handleJoinBtnClick() {
+      // 200709 ivypark, v1.0.5. 회의 참여 버튼 추가
+      if (!this.url) {
+        this.onPopup(`참여 하실 URL 또는 번호를 입력하세요.`);
+        return false;
+      } else {
+        if (this.url.indexOf('https://') === 0 && this.url.indexOf('/room/') > -1) {
+          // URL을 입력 한 경우
+          let domain = this.url.split('/')[2];
+          let roomId = this.url.split('/')[4];
+          if (config.listOfDomains.some(c => c === domain) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
+            if (mobile.isMobile) {
+              mobile.onStartConference(roomId);
+            } else {
+              router.push({ path: `/room/${roomId}` });
+            }
+          } else {
+            this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
+          }
+        } else {
+          // Room 번호만 입력 한 경우
+          if (Number(this.url) && this.url.length === config.lengthOfRoomId) {
+            if (mobile.isMobile) {
+              mobile.onStartConference(this.url);
+            } else {
+              router.push({ path: `/room/${this.url}` });
+            }
+          } else {
+            this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
+          }
+        }
+      }
+    },
+    onPopup(contents) {
+      this.popup.on = true;
+      this.popup.type = 'Alert';
+      this.popup.title = '회의 참여 실패';
+      this.popup.contents = contents;
+    },
+    handlePopupOkBtnClick(param) {
+      this.popup.on = false;
+      if (this.popup.ok) this.popup.ok(param);
+    },
+    handlePopupCancelBtnClick(param) {
+      this.popup.on = false;
+      if (this.popup.cancel) this.popup.cancel(param);
     }
   },
   computed: {

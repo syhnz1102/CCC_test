@@ -12,7 +12,7 @@ class Mobile {
     console.debug(`----- device: ${this.isMobile ? 'Android' : 'Web'} // Web View : ${this.isWebView} -----`);
   }
 
-  createRoomRespCall(roomId) {
+  onStartConference(roomId) {
     console.log('mobile - onStartConference', roomId);
     window.kpCCC_Android.onStartConference(roomId);
   }

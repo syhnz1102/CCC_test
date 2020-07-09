@@ -14,7 +14,7 @@ export async function onMessage(resp) {
 
         // 200622 ivypark, v0.9.4. mobile 입장 코드 추가 (가로모드 관련 이슈로 인해 redirect를 android에서 직접 하도록 함)
         if (mobile.isMobile) {
-          mobile.createRoomRespCall(resp.roomId);
+          mobile.onStartConference(resp.roomId);
         } else {
           router.push({ path: `/room/${resp.roomId}` });
         }
