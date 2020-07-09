@@ -49,8 +49,8 @@ body,
 .main .visual .button .enter button {position:absolute;top:0;right:-1px;background:#EA6060;transition:background-color .5s}
 .main .visual .button .enter:hover {width:474px;background:#fff}
 .main .visual .button .enter:hover input {visibility:visible;width:calc(100% - 174px)}
-.main .visual .button .enter button:hover {background:#d95959}
-.main .visual .button .enter button:active {background:#bf4e4e}
+.main .visual .button .enter button:hover {background:#de4e4e}
+.main .visual .button .enter button:active {background:#d14444}
 
 .main .visual .scroll {position:absolute;bottom:40px;left:50%;display:block;width:1px;height:30px;background:rgba(255,255,255,0.6);animation:scrolldown .8s infinite linear}
 .main .visual .scroll::before {content:'';position:absolute;bottom:-2px;left:4px;display:block;width:1px;height:12px;transform:rotate(45deg);background:rgba(255,255,255,0.6)}
@@ -221,7 +221,9 @@ body,
 .modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
 .modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
 .modalContent {padding:50px 30px;background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
-.modalContent > p {text-align:center;font-size:16px}
+.modalContent > p:only-child {text-align:center;font-size:16px}
+.modalContent p {text-align:center}
+.modalContent p.error {margin-top:5px;color:#f00}
 .modalContent .input {position:relative}
 .modalContent .input input {width:100%;padding:0 10px;line-height:37px;font-size:16px;border-bottom:1px solid #ccc;outline:none;box-sizing:border-box}
 .modalContent .input input + label::after {content:'';position:absolute;bottom:0;left:0;display:block;width:0;height:2px;background:#7117EA}
@@ -250,7 +252,7 @@ body,
 .modalContent .setting .select .speaker button:active {background-color:#777}
 .modalContent .setting .select .speaker button.on {background-color:#7117EA}
 .modalContent .button {margin-top:30px;text-align:center}
-.modalContent .button button {display:inline-block;padding:8px 25px;font-size:16px;color:#fff;border-radius:1.5em}
+.modalContent .button button {display:inline-block;padding:8px 25px;font-size:15px;color:#fff;border-radius:1.5em}
 .modalContent .button button + button {margin-left:5px}
 .modalContent .button button:hover {transition:color .3s, background-color .3s, border-color .3s}
 .modalContent .button button.submit {background:#7117EA}

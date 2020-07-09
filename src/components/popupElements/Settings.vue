@@ -19,8 +19,7 @@
           <button v-bind:class="{ on: isPlayTestSound }" @click="handlePlayTestSound" :disabled="this.option.inCall">테스트</button>
         </li>
       </ul>
-    </div>
-    <br />
+    </div>    
     <p>{{ contents }}</p>
     <div class="button">
       <button class="cancel" v-if="!this.option.inCall" @click="init">새로고침</button>
