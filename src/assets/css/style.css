@@ -47,8 +47,8 @@ body,
 .main .visual .button .enter {position:relative;width:174px;height:60px;margin-left:15px;border-radius:60px;transition:width .3s}
 .main .visual .button .enter input {visibility:hidden;display:inline-block;width:0;height:60px;padding:0;padding-left:30px;vertical-align:middle;border:0;background:transparent;outline:none;box-sizing:border-box}
 .main .visual .button .enter button {position:absolute;top:0;right:-1px;background:#EA6060;transition:background-color .5s}
-.main .visual .button .enter:hover {width:474px;background:#fff}
-.main .visual .button .enter:hover input {visibility:visible;width:calc(100% - 174px)}
+.main .visual .button .enter.open {width:474px;background:#fff}
+.main .visual .button .enter.open input {visibility:visible;width:calc(100% - 174px)}
 .main .visual .button .enter button:hover {background:#de4e4e}
 .main .visual .button .enter button:active {background:#d14444}
 
@@ -326,8 +326,8 @@ body,
    .main .visual .button button::after,
    .main .visual .button button::before {display:none !important}
    .main .visual .button .enter {width:120px;margin:10px auto 0;text-align:left}
-   .main .visual .button .enter:hover {width:100%;max-width:474px}
-   .main .visual .button .enter:hover input {width:calc(100% - 120px)}
+   .main .visual .button .enter.open {width:100%;max-width:474px}
+   .main .visual .button .enter.open input {width:calc(100% - 120px)}
    .main .information li + li {margin-top:120px}
    .main .information li::before {width:80%;height:300px;margin-left:20%}
    .main .information .box {top:auto;bottom:-50px;width:80%;padding:30px;transform:none}

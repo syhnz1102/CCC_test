@@ -47,8 +47,8 @@ body,
 .main .visual .button .enter {position:relative;width:174px;height:60px;margin-left:15px;border-radius:60px;transition:width .3s}
 .main .visual .button .enter input {visibility:hidden;display:inline-block;width:0;height:60px;padding:0;padding-left:30px;vertical-align:middle;border:0;background:transparent;outline:none;box-sizing:border-box}
 .main .visual .button .enter button {position:absolute;top:0;right:-1px;background:#EA6060;transition:background-color .5s}
-.main .visual .button .enter:hover {width:474px;background:#fff}
-.main .visual .button .enter:hover input {visibility:visible;width:calc(100% - 174px)}
+.main .visual .button .enter.open {width:474px;background:#fff}
+.main .visual .button .enter.open input {visibility:visible;width:calc(100% - 174px)}
 .main .visual .button .enter button:hover {background:#de4e4e}
 .main .visual .button .enter button:active {background:#d14444}
 
@@ -221,9 +221,9 @@ body,
 .modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
 .modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
 .modalContent {padding:50px 30px;background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
-.modalContent > p:only-child {text-align:center;font-size:16px}
 .modalContent p {text-align:center}
 .modalContent p.error {margin-top:5px;color:#f00}
+.modalContent > p:only-child {font-size:16px}
 .modalContent .input {position:relative}
 .modalContent .input input {width:100%;padding:0 10px;line-height:37px;font-size:16px;border-bottom:1px solid #ccc;outline:none;box-sizing:border-box}
 .modalContent .input input + label::after {content:'';position:absolute;bottom:0;left:0;display:block;width:0;height:2px;background:#7117EA}
@@ -251,6 +251,7 @@ body,
 .modalContent .setting .select .speaker button {overflow:hidden;float:right;width:45px;height:36px;text-indent:-999px;font-size:0;border-radius:2px;background:url('../images/icon_speaker.png') no-repeat center center #999;background-size:22px 22px;transition:background-color .3s}
 .modalContent .setting .select .speaker button:active {background-color:#777}
 .modalContent .setting .select .speaker button.on {background-color:#7117EA}
+.modalContent .setting + p {color:#7117EA}
 .modalContent .button {margin-top:30px;text-align:center}
 .modalContent .button button {display:inline-block;padding:8px 25px;font-size:15px;color:#fff;border-radius:1.5em}
 .modalContent .button button + button {margin-left:5px}
@@ -325,8 +326,8 @@ body,
    .main .visual .button button::after,
    .main .visual .button button::before {display:none !important}
    .main .visual .button .enter {width:120px;margin:10px auto 0;text-align:left}
-   .main .visual .button .enter:hover {width:100%;max-width:474px}
-   .main .visual .button .enter:hover input {width:calc(100% - 120px)}
+   .main .visual .button .enter.open {width:100%;max-width:474px}
+   .main .visual .button .enter.open input {width:calc(100% - 120px)}
    .main .information li + li {margin-top:120px}
    .main .information li::before {width:80%;height:300px;margin-left:20%}
    .main .information .box {top:auto;bottom:-50px;width:80%;padding:30px;transform:none}
