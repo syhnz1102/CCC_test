@@ -117,10 +117,14 @@ export default {
       return false;
     }
 
-    // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
-    Object.assign(window, { kpCCC_Android: {} });
-    window.showExitPopup = mobile.showExitPopup;
-    window.exitRoom = mobile.exitRoom;
+    if (mobile.isMobile) {
+      // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
+      Object.assign(window, { kpCCC_Android: {} });
+      window.showExitPopup = mobile.showExitPopup;
+      window.exitRoom = mobile.exitRoom;
+      // 200713 ivypark. v1.0.6. 모바일 화면에서 메뉴가이드 메시지 변경
+      this.buttonInfo.message = '화면을 터치하면';
+    }
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
     // if (window.performance) {
@@ -181,8 +185,6 @@ export default {
         // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정
         if (!this.$store.state.socket) new Session();
         sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
-        // 200713 ivypark. v1.0.6. 모바일 화면에서 메뉴가이드 메시지 변경
-        this.buttonInfo.message = '화면을 터치하면';
         return false;
       }
 
