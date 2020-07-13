@@ -19,7 +19,7 @@
           <button v-bind:class="{ on: isPlayTestSound }" @click="handlePlayTestSound" :disabled="this.option.inCall">테스트</button>
         </li>
       </ul>
-    </div>    
+    </div>
     <p>{{ contents }}</p>
     <div class="button">
       <button class="cancel" v-if="!this.option.inCall" @click="init">새로고침</button>
@@ -71,8 +71,22 @@
           if (curr.kind === 'audio') audioInput.appendChild(option);
           if (curr.kind === 'video') videoInput.appendChild(option);
         })
+
+        if (!this.$refs.audioOutput.hasChildNodes()) {
+          navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+              devices.forEach(curr => {
+                if (curr.deviceId === 'default' && curr.kind === 'audiooutput') {
+                  const option = document.createElement("option");
+                  option.value = curr.id;
+                  option.text = curr.label;
+                  this.$refs.audioOutput.appendChild(option)
+                }
+              })
+            })
+        }
       }
-    },
+   },
     methods: {
       init() {
         const audioInput = this.$refs.audioInput;
