@@ -205,8 +205,9 @@
       <footer class="footer">
          <div class="container">
             <div class="link">
-               <a href="http://knowledgepoint.co.kr/" target="_blank">회사소개</a>
-               <a href="http://knowledgepoint.co.kr/developer/qna/list" target="_blank">문의사항</a>
+               <a href="https://knowledgepoint.co.kr/" target="_blank">회사소개</a>
+               <a href="https://knowledgepoint.co.kr/developer/qna/list" target="_blank">문의사항</a>
+               <a href="https://knowledgepoint.co.kr/developer/update/list" target="_blank">공지/업데이트</a>
                <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">APP다운로드</a>
             </div>
             <div class="company">

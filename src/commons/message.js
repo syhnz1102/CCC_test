@@ -119,6 +119,18 @@ export async function onMessage(resp) {
     case 'Presence':
       if (resp.action === 'exit') {
         store.commit('setRoomInfo', { count: store.state.roomInfo.count - 1 });
+        if (store.state.roomInfo.count <= 1 && store.state.peerInfo.hasOwnProperty('screen')) {
+          eBus.$emit('share', {
+            type: 'remove',
+            isSharer: true
+          })
+          eBus.$emit('popup', {
+            on: true,
+            type: 'Alert',
+            title: '화면 공유',
+            contents: '다른 모든 사용자가 통화를 종료하여 화면공유가 종료됩니다.'
+          })
+        }
 
         eBus.$emit('video', {
           type: 'remove',
