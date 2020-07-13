@@ -55,6 +55,10 @@
         </template>
       </div>
     </div>
+    <div class="buttonInfo" v-if="buttonInfo">
+      <strong>MENU</strong>
+      <p><span>{{ buttonInfo.message }}</span><br />  메뉴를 확인 하실 수 있습니다.</p>
+    </div>
     <div ref="btnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" style="position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;"></div>
     <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" class="wow animate__animated animate__fadeIn animate__faster" />
   </div>
@@ -98,7 +102,11 @@ export default {
         ok: null,
         cancel: null
       },
-      toast: ''
+      toast: '',
+      buttonInfo: {
+        on: true,
+        message: '화면 하단에 마우스를 가져가면'
+      }
     }
   },
   async created() {
@@ -173,6 +181,8 @@ export default {
         // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정
         if (!this.$store.state.socket) new Session();
         sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+        // 200713 ivypark. v1.0.6. 모바일 화면에서 메뉴가이드 메시지 변경
+        this.buttonInfo.message = '화면을 터치하면';
         return false;
       }
 
@@ -220,6 +230,8 @@ export default {
         this.visibleBtnArea = (e.type === 'mouseover' && e.target === this.$refs.btnArea) || e.type !== 'mouseover' && (e.target !== this.$refs.btnArea || e.target !== this.$refs.btn);
         this.$refs.btnArea.style = e.target !== this.$refs.mainVideo ? style + 'z-index:9' : style + 'z-index:11';
       }
+
+      if (this.buttonInfo && this.visibleBtnArea) this.buttonInfo = false;
     },
     emitToast(content) {
       // 200702 ivypark, v1.0.1. 토스트 <-> 팝업 분리 (확인 버튼 클릭 시 팝업 창 종료를 위해)
