@@ -55,7 +55,7 @@
         </template>
       </div>
     </div>
-    <div class="buttonInfo" v-if="buttonInfo">
+    <div @click="handleBtnArea" class="buttonInfo" v-if="buttonInfo">
       <strong>MENU</strong>
       <p><span>{{ buttonInfo.message }}</span><br />  메뉴를 확인 하실 수 있습니다.</p>
     </div>
