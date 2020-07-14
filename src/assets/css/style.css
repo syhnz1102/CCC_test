@@ -47,7 +47,7 @@ body,
 .main .visual .button .enter {position:relative;width:174px;height:60px;margin-left:15px;border-radius:60px;transition:width .3s}
 .main .visual .button .enter input {visibility:hidden;display:inline-block;width:0;height:60px;padding:0;padding-left:30px;vertical-align:middle;border:0;background:transparent;outline:none;box-sizing:border-box}
 .main .visual .button .enter button {position:absolute;top:0;right:-1px;background:#EA6060;transition:background-color .5s}
-.main .visual .button .enter.open {width:474px;background:#fff}
+.main .visual .button .enter.open {width:440px;background:#fff}
 .main .visual .button .enter.open input {visibility:visible;width:calc(100% - 174px)}
 .main .visual .button .enter button:hover {background:#de4e4e}
 .main .visual .button .enter button:active {background:#d14444}
@@ -243,14 +243,28 @@ body,
 .modalContent .invite button.talk::before {background-image:url('../images/icon_kakaotalk.png')}
 .modalContent .invite button.message {background-color:#2ecc71}
 .modalContent .invite button.message::before {background-image:url('../images/icon_message.png')}
+.modalContent .setting .select li {overflow:hidden}
 .modalContent .setting .select li + li {margin-top:15px}
 .modalContent .setting .select label {display:block;margin-bottom:5px;font-size:12px;color:#7117EA}
 .modalContent .setting .select select {width:100%;height:36px;padding:0 10px;border:1px solid #ddd}
-.modalContent .setting .select .speaker {overflow:hidden}
-.modalContent .setting .select .speaker select {float:left;width:calc(100% - 50px)}
-.modalContent .setting .select .speaker button {overflow:hidden;float:right;width:45px;height:36px;text-indent:-999px;font-size:0;border-radius:2px;background:url('../images/icon_speaker.png') no-repeat center center #999;background-size:22px 22px;transition:background-color .3s}
-.modalContent .setting .select .speaker button:active {background-color:#777}
-.modalContent .setting .select .speaker button.on {background-color:#7117EA}
+.modalContent .setting .speaker select {float:left;width:calc(100% - 50px)}
+.modalContent .setting .speaker button {overflow:hidden;float:right;width:45px;height:36px;text-indent:-999px;font-size:0;border-radius:2px;background:url('../images/icon_speaker.png') no-repeat center center #999;background-size:22px 22px;transition:background-color .3s}
+.modalContent .setting .speaker button:active {background-color:#777}
+.modalContent .setting .speaker button.on {background-color:#7117EA}
+.modalContent .setting .mic select {float:left;width:calc(100% - 50px)}
+.modalContent .setting .mic .volume {position:relative;float:right;width:45px;height:36px;box-sizing:border-box}
+.modalContent .setting .mic .volume .percent {overflow:hidden;position:absolute;bottom:0;left:5px;height:3px;min-height:10% !important;max-height:80% !important}
+.modalContent .setting .mic .volume span {position:relative;float:left;display:block;width:4px;height:100%}
+.modalContent .setting .mic .volume span + span {margin-left:2px}
+.modalContent .setting .mic .volume span::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:#7117EA;animation-name:volume;animation-duration:.5s;animation-play-state:running;animation-direction:alternate;animation-timing-function:linear;animation-iteration-count:infinite}
+.modalContent .setting .mic .volume span:nth-child(1)::before {height:80%;animation-duration:0}
+.modalContent .setting .mic .volume span:nth-child(2)::before {height:50%;animation-duration:.3s}
+.modalContent .setting .mic .volume span:nth-child(3)::before {height:100%;animation-duration:.6s}
+.modalContent .setting .mic .volume span:nth-child(4)::before {height:70%;animation-duration:.9s}
+.modalContent .setting .mic .volume span:nth-child(5)::before {height:60%;animation-duration:.6s}
+.modalContent .setting .mic .volume span:nth-child(6)::before {height:90%;animation-duration:.3s}
+.modalContent .setting .mic .volume.none .percent {height:3px !important}
+.modalContent .setting .mic .volume.none .percent span::before {height:100% !important;background:#999}
 .modalContent .setting + p {margin-top:10px;color:#7117EA}
 .modalContent .button {margin-top:30px;text-align:center}
 .modalContent .button button {display:inline-block;padding:8px 25px;font-size:15px;color:#fff;border-radius:1.5em}
@@ -287,8 +301,6 @@ body,
   50% {transform:translateY(5px)}
   100% {transform:translateY(0)}
 }
-
-
 @keyframes borderDrawBefore {
   0% {width:0;height:0}
   25% {width:100%;height:0}
@@ -303,6 +315,11 @@ body,
   75% {width:100%;height:0}
   100% {width:100%;height:100%}
 }
+@keyframes volume {
+  0% {height:1px}
+  100% {height:100%}
+}
+
 
 /* media */
 @media screen and (max-width: 1200px) {
@@ -326,7 +343,7 @@ body,
    .main .visual .button button::after,
    .main .visual .button button::before {display:none !important}
    .main .visual .button .enter {width:120px;margin:10px auto 0;text-align:left}
-   .main .visual .button .enter.open {width:100%;max-width:474px}
+   .main .visual .button .enter.open {width:100%;max-width:440px}
    .main .visual .button .enter.open input {width:calc(100% - 120px)}
    .main .information li + li {margin-top:120px}
    .main .information li::before {width:80%;height:300px;margin-left:20%}

@@ -27,13 +27,35 @@
                            <option value="">Camera2</option>
                         </select>
                      </li>
-                     <li>
+                     <li class="mic">
                         <label>Microphone</label>
                         <select required>
                            <option value="">기본값 - 외장 마이크(Conexant ISST Audio)</option>
                            <option value="">Microphone1</option>
                            <option value="">Microphone2</option>
                         </select>
+                        <div class="volume">
+                           <div class="percent" style="height:50%">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                           </div>
+                        </div>
+                        <!--
+                        <div class="volume none">
+                           <div class="percent">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                           </div>
+                        </div>
+                        -->
                      </li>
                      <li class="speaker">
                         <label>Speaker</label>
@@ -48,8 +70,8 @@
                   </ul>
                </div>
                <div class="button">
+                  <button class="cancel">새로고침</button>
                   <button class="submit">확인</button>
-                  <button class="cancel">취소</button>
                </div>
                <div class="modalCheck">
                   <div class="checkbox">
