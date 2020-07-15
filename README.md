@@ -5,6 +5,12 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.7 (20/07/15)
+- 디바이스 설정 팝업에서 mic test시 visualized volume meter 추가
+- 회의 도중 디바이스 설정 팝업을 띄운 후 X버튼을 누르면 여전히 자신의 목소리가 들리던 문제 수정 (#40)
+- 다자 화면 공유 중 디바이스 설정 버튼을 누르면 자신의 영상화면이 사라지던 현상 수정 (#41)
+- 1:1 통화 중 신규 참가자 입장 시 이름, 카메라 off, 마이크 off 상태가 제대로 보이지 않던 문제 (#42)
+
 # v1.0.6 (20/07/13)
 - 메인화면 Release Note 링크 (공지/업데이트) 추가
 - 화면공유 진행 중 회의에 혼자만 남게 된 경우 화면 공유 종료되도록 수정 (#38)
