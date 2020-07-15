@@ -7,16 +7,29 @@
           <select ref="videoInput" @change="onChange" :disabled="this.option.inCall" required>
           </select>
         </li>
-        <li>
+        <li v-bind:class="{ mic: !this.option.inCall }">
           <label>Microphone</label>
           <select ref="audioInput" @change="onChange" :disabled="this.option.inCall" required>
+            <option value="">기본값 - 외장 마이크(Conexant ISST Audio)</option>
+            <option value="">Microphone1</option>
+            <option value="">Microphone2</option>
           </select>
+          <div class="volume" v-bind:class="{ none: !isPlayTestMic }">
+            <div class="percent" v-bind:style="volumeHeight">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </li>
-        <li class="speaker">
+        <li v-bind:class="{ speaker: !this.option.inCall }">
           <label>Speaker</label>
           <select ref="audioOutput" @change="onChangeOutput($event)" :disabled="this.option.inCall" required>
           </select>
-          <button v-bind:class="{ on: isPlayTestSound }" @click="handlePlayTestSound" :disabled="this.option.inCall">테스트</button>
+          <button v-if="!this.option.inCall" v-bind:class="{ on: isPlayTestSound }" @click="handlePlayTestSound" :disabled="this.option.inCall">테스트</button>
         </li>
       </ul>
     </div>
@@ -43,8 +56,11 @@
     data() {
       return {
         isChecked: false,
+        isPlayTestMic: false,
         isPlayTestSound: false,
         outputDeviceId: '', // if you click sound test button.
+        meter: null,
+        volumeHeight: ''
       }
     },
     mounted() {
@@ -139,6 +155,8 @@
         })
           .then(stream => {
             store.commit('setStreamInfo', { local: stream });
+            this.checkMic();
+
             eBus.$emit('video', {
               type: 'set',
               id: 'local',
@@ -178,6 +196,79 @@
           }
           await audio.play();
         }
+      },
+      checkMic() {
+        let audioContext = new AudioContext();
+        let mediaStreamSource = audioContext.createMediaStreamSource(store.state.streamInfo.local);
+        this.meter = createAudioMeter(audioContext);
+        mediaStreamSource.connect(this.meter);
+        this.onLevelChange();
+
+        function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
+          var processor = audioContext.createScriptProcessor(512);
+          processor.onaudioprocess = volumeAudioProcess;
+          processor.clipping = false;
+          processor.lastClip = 0;
+          processor.volume = 0;
+          processor.clipLevel = clipLevel || 0.98;
+          processor.averaging = averaging || 0.95;
+          processor.clipLag = clipLag || 750;
+
+          // this will have no effect, since we don't copy the input to the output,
+          // but works around a current Chrome bug.
+          processor.connect(audioContext.destination);
+
+          processor.checkClipping =
+            function(){
+              if (!this.clipping)
+                return false;
+              if ((this.lastClip + this.clipLag) < window.performance.now())
+                this.clipping = false;
+              return this.clipping;
+            };
+
+          processor.shutdown =
+            function(){
+              this.disconnect();
+              this.onaudioprocess = null;
+            };
+
+          return processor;
+        }
+
+        function volumeAudioProcess( event ) {
+          var buf = event.inputBuffer.getChannelData(0);
+          var bufLength = buf.length;
+          var sum = 0;
+          var x;
+
+          // Do a root-mean-square on the samples: sum up the squares...
+          for (var i=0; i<bufLength; i++) {
+            x = buf[i];
+            if (Math.abs(x)>=this.clipLevel) {
+              this.clipping = true;
+              this.lastClip = window.performance.now();
+            }
+            sum += x * x;
+          }
+
+          // ... then take the square root of the sum.
+          var rms =  Math.sqrt(sum / bufLength);
+
+          // Now smooth this out with the averaging factor applied
+          // to the previous sample - take the max here because we
+          // want "fast attack, slow release."
+          this.volume = Math.max(rms, this.volume*this.averaging);
+        }
+      },
+      onLevelChange(time) {
+        let volume = this.meter.volume * 100;
+        this.isPlayTestMic = volume > 1;
+        this.volumeHeight = `height:${volume * 2}%`;
+        // if (volume > 1) console.log(volume);
+
+        // set up the next callback
+        let rafID = window.requestAnimationFrame(this.onLevelChange);
       }
     }
   }
