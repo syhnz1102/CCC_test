@@ -86,7 +86,7 @@
             })
         }
       }
-   },
+    },
     methods: {
       init() {
         const audioInput = this.$refs.audioInput;

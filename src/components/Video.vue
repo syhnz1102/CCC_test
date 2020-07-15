@@ -24,7 +24,8 @@ export default {
     }
   },
   mounted() {
-    if (!this.isOffVideo) this.attachVideo();
+    this.attachVideo(this.isOffVideo);
+    // if (!this.isOffVideo) this.attachVideo();
     eBus.$on('setVideo', async param => {
       // 200618 ivypark, v0.9.2. 1:1 공유 중 cam/mic off 시 로컬화면이 분리되는 현상 수정
       this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2 && !this.$store.state.streamInfo.screen;
@@ -50,12 +51,14 @@ export default {
     })
   },
   methods: {
-    attachVideo() {
+    attachVideo(isOff) {
       let video = document.createElement('video');
       video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.type === 'p2p' ? 'remote' : this.id)];
       video.autoplay = true;
       video.muted = this.isLocalVideo;
       if (this.$refs.video.firstChild) this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
+      // 200714 ivypark, v1.0.7. 화면 off후 신규 참가자 입장 시 카메라 화면이 출력되지 않는 문제 수정
+      this.$refs.video.querySelector('video').style = isOff ? `display: none` : `display: block`;
     },
     handleChangeName() {
       eBus.$emit('popup', {
