@@ -128,7 +128,14 @@ export default {
           });
         },
         cancel: () => {
-
+          // 200715 ivypark, v1.0.7. 디바이스 설정 팝업에서 X 버튼 누를 시 본인의 목소리가 나오던 문제 수정
+          eBus.$emit('setVideo', {
+            type: 'set',
+            id: 'local',
+            deviceSetting: {
+              done: true
+            }
+          });
         }
       })
     },
