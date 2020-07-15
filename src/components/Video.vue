@@ -38,7 +38,6 @@ export default {
         this.offVideo = param.isOffVideo;
       }
       if (param.id === this.id && param.hasOwnProperty('deviceSetting')) {
-        this.isLocalVideo = true;
         this.$refs.video.querySelector('video').muted = true;
         if (param.deviceSetting.stream) {
           this.$refs.video.querySelector('video').srcObject = null;
