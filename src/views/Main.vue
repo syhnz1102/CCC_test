@@ -119,14 +119,14 @@
                         <img src="../assets/images/img_guide_01.jpg" alt="STEP 1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 1</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인화면에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 시작됩니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인화면에서 '회의시작' 버튼을 클릭하면 화상회의가 시작됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
                         <img src="../assets/images/img_guide_02.jpg" alt="STEP 2">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 2</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">회의가 시작되기 전에 원하는 디바이스로 설정할 수 있습니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">화상회의에 필요한 카메라, 마이크, 스피커 디바이스를 확인 할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
@@ -147,7 +147,7 @@
                         <img src="../assets/images/img_guide_05-1.jpg" alt="STEP 5-1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 5-1</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 URL을 입력하면 바로 회의에 참석됩니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 바로 URL을 입력하거나 COCOcall 메인에서 '회의참여'에 URL을 입력하면 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
@@ -168,7 +168,7 @@
                         <img src="../assets/images/img_guide_07.jpg" alt="STEP 7">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 7</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 카메라/오디오를 On/Off 할 수 있습니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 카메라, 오디오를 On/Off 할 수 있습니다.</p>
                   </li>
                   <li>
                      <div class="img">
