@@ -18,7 +18,6 @@ class WebRTC {
         store.commit('setStreamInfo', { local: stream });
         resolve(stream);
       } catch (err) {
-        console.log(err);
         return eBus.$emit('popup', {
           on: true,
           type: 'Alert',
@@ -33,7 +32,7 @@ class WebRTC {
     })
   }
 
-  createPeer(uid, isMulti) {
+  createPeer(uid, isMulti, pluginId) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection(config.iceServer);
       peer.onaddstream = ({ stream }) => {
@@ -94,7 +93,7 @@ class WebRTC {
       }
       peer.onicecandidate = e => {
         if (!e.candidate) {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId });
           // sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         }
       };

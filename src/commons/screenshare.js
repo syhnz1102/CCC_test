@@ -25,7 +25,7 @@ class ScreenShare {
     })
   }
 
-  createPeer(uid) {
+  createPeer(uid, pluginId) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection(config.iceServer);
       peer.onaddstream = ({ stream }) => {
@@ -65,9 +65,10 @@ class ScreenShare {
             sdp: peer.localDescription,
             usage: 'screen',
             roomId: store.state.roomInfo.roomId,
-            isSfu: true,
+            // isSfu: true,
             userId: store.state.userInfo.id,
-            useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N'
+            useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N',
+            pluginId: pluginId
           });
         }
       };

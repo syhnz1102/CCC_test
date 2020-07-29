@@ -61,7 +61,7 @@ export async function onMessage(resp) {
       if (resp.code === '200') return;
       if (resp.usage === 'cam') {
         if (resp.sdp.type === 'offer') {
-          await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
+          await webRTC.createPeer(resp.useMediaSvr === 'N' ? 'local' : resp.displayId, resp.useMediaSvr === 'Y', resp.pluginId);
           await webRTC.createAnswer(resp.sdp, resp.useMediaSvr === 'N' ? 'local' : resp.displayId);
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
@@ -71,7 +71,7 @@ export async function onMessage(resp) {
         }
       } else if (resp.usage === 'screen') {
         if (resp.sdp.type === 'offer') {
-          await screenShare.createPeer('screen');
+          await screenShare.createPeer('screen', resp.pluginId);
           await webRTC.createAnswer(resp.sdp, 'screen');
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
@@ -86,6 +86,19 @@ export async function onMessage(resp) {
         if (resp.candidate) await webRTC.setCandidate(resp.candidate, resp.useMediaSvr === 'N' ? 'local' : resp.userId);
         sendMessage('Candidate', { code: '200' });
       }
+      break;
+
+    case 'ReceiveFeed':
+      // sendMessage('ReceiveFeed', { code: '200' });
+
+      // TODO: 200728 ivypark, functionalization
+      resp.feeds.forEach(curr => {
+        sendMessage('SendFeed', { roomId: resp.roomId, feedId: curr.id, display: curr.display });
+      })
+      break;
+
+    case 'SendFeed':
+      // TODO.
       break;
 
     case 'SessionReserve':
