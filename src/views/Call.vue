@@ -76,6 +76,7 @@ import Video from '@/components/Video';
 import OffVideo from '@/components/OffVideo';
 import Popup from '@/components/Popup';
 import Buttons from '@/components/Buttons';
+import axios from "axios";
 
 export default {
   components: { Video, OffVideo, Buttons, Popup },
@@ -178,10 +179,16 @@ export default {
       this.emitToast(content)
     })
 
-    let stream = await webRTC.createVideoStream();
-    this.addVideo(true, 'local', stream);
-
     if (await webRTC.checkMediaDevices()) {
+      let stream = await webRTC.createVideoStream();
+      this.addVideo(true, 'local', stream);
+      // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
+      // const result = await axios.get('https://www.cloudflare.com/cdn-cgi/trace')
+      // let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
+      // let ip = r.substring(0, r.length - 1);
+      // let payload = { ip, cp: this.$route.params.cp };
+      // this.$store.commit('setUserInfo', payload);
+
       // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
       if (mobile.isMobile) {
         // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정

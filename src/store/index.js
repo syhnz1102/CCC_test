@@ -63,7 +63,7 @@ export default new Vuex.Store({
 
       state.userInfo = {};
       state.roomInfo = {}
-      state.socket.close();
+      if (state.socket) state.socket.close();
       state.socket = null;
     }
   }

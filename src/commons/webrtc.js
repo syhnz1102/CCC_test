@@ -27,7 +27,6 @@ class WebRTC {
             window.location.href = '/';
           }
         })
-        // reject(err);
       }
     })
   }
@@ -137,6 +136,10 @@ class WebRTC {
           console.debug('enumerateDevices : ', devices);
           let cam = devices.some(elem => elem.kind === 'videoinput');
           let mic = devices.some(elem => elem.kind === 'audioinput');
+
+          this.constraints.video = cam ? this.constraints.video : false;
+          this.constraints.audio = mic ? this.constraints.audio : false;
+
           if (cam && mic) {
             resolve(true);
           } else {

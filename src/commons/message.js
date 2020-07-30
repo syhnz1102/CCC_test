@@ -182,6 +182,8 @@ export async function onMessage(resp) {
 export function sendMessage(op, data = {}, type = 'eventOp') {
   let obj = {};
   obj[type] = op;
+  // obj['cp'] = store.state.userInfo.cp;
+  // obj['ip'] = store.state.userInfo.ip;
   Object.assign(data, obj);
   console.debug(`[ ${op} ] Web -> Signal `, data);
   store.state.socket.emit('knowledgetalk', data);
