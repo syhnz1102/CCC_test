@@ -224,6 +224,10 @@ export default {
       this.$router.push({ path: '/' });
     }
   },
+  destroyed() {
+    // 200730 ivypark, v1.0.8. 통화 중 브라우저 뒤로 가기 버튼 누를 시 연결이 끊기지 않는 문제 수정
+    webRTC.clear();
+  },
   methods: {
     handleBtnArea(e) {
       // 200625 ivypark, v1.0.0a 모바일과 버튼 이벤트 분리. 모바일은 화면 터치 시 버튼 나오도록 출력 개선
