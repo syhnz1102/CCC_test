@@ -229,6 +229,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
 import config from '../config';
@@ -254,10 +255,28 @@ export default {
     }
   },
   mounted() {
-    // 200721 ivypark, v1.1.0. 영문화 적용. initialize
+    // 200721 ivypark, v1.0.8. 메인페이지 deeplink 추가
+    if (mobile.isMobile && !mobile.isWebView) {
+      location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+      return false;
+    }
+
+    // 200721 ivypark, v1.1.0b. 영문화 적용. initialize
     this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
     window.localStorage.setItem('LOCALE', this.$i18n.locale);
     console.log(this.$i18n.locale)
+
+    // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
+    // axios.get('https://www.cloudflare.com/cdn-cgi/trace')
+    // .then(result => {
+    //   let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
+    //   let ip = r.substring(0, r.length - 1);
+    //   let payload = { ip, cp: this.$route.params.cp };
+    //   this.$store.commit('setUserInfo', payload);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
   },
   methods: {
     async handleMakeBtnClick() {
