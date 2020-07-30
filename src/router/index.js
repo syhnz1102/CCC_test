@@ -10,6 +10,8 @@ export default new Router({
   mode: 'history',
   routes: [
     { path: '/', component: Main },
-    { path: '/room/:id', component: Call }
+    { path: '/:cp/', component: Main },
+    { path: '/room/:id', component: Call },
+    { path: '/:cp/room/:id', component: Call },
   ]
 })

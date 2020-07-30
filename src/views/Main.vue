@@ -27,6 +27,9 @@
                <a href="#download">
                   <span data-menu="download">download</span>
                </a>
+<!--               <button @click="onChangeLanguage" class="lang">-->
+<!--                 <span>{{ this.$i18n.locale === 'ko' ? 'KOR' : 'ENG' }}</span>-->
+<!--               </button>-->
             </div>
          </div>
       </header>
@@ -38,7 +41,7 @@
            <div class="container">
              <div class="content">
                <div class="title">
-                 <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">간편하게 즐기는 무료 화상 회의,</p>
+                 <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">{{ $t('main-title-description') }}</p>
                  <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
                    <span><i>CO</i>nvenient</span>
                    <span><i>CO</i>nference</span>
@@ -47,11 +50,11 @@
                </div>
                <div class="button wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
                  <div class="make">
-                   <button @click="handleMakeBtnClick">회의시작</button>
+                   <button @click="handleMakeBtnClick">{{ $t('main-button-start') }}</button>
                  </div>
                  <div class="enter" v-bind:class="{ open: isCollapsedJoinBtn }">
                    <input v-model="url" type="text" placeholder="URL 또는 방 번호(8자리)를 입력하세요." v-on:keyup.enter="handleJoinBtnClick">
-                   <button v-on:mouseover="handleMouseoverJoinBtn" @click="handleJoinBtnClick">회의참여</button>
+                   <button v-on:mouseover="handleMouseoverJoinBtn" @click="handleJoinBtnClick">{{ $t('main-button-join') }}</button>
                  </div>
                </div>
              </div>
@@ -250,6 +253,12 @@ export default {
       },
     }
   },
+  mounted() {
+    // 200721 ivypark, v1.1.0. 영문화 적용. initialize
+    this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
+    window.localStorage.setItem('LOCALE', this.$i18n.locale);
+    console.log(this.$i18n.locale)
+  },
   methods: {
     async handleMakeBtnClick() {
       new Session();
@@ -312,6 +321,15 @@ export default {
     handlePopupCancelBtnClick(param) {
       this.popup.on = false;
       if (this.popup.cancel) this.popup.cancel(param);
+    },
+    onChangeLanguage() {
+      if (this.$i18n.locale === 'ko')
+        this.$i18n.locale = 'en';
+      else
+        this.$i18n.locale = 'ko';
+
+      window.localStorage.setItem('LOCALE', this.$i18n.locale);
+      // return this.$i18n.locale;
     }
   },
   computed: {

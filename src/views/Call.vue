@@ -110,6 +110,8 @@ export default {
     }
   },
   async created() {
+    this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
+
     // 200625 ivypark, v1.0.0a deeplink 추가
     if (mobile.isMobile && !mobile.isWebView) {
       // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
