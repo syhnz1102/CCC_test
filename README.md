@@ -5,6 +5,11 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.0.8 (20/07/30)
+- 안드로이드 브라우저에서 cococall.net으로 직접 접속 시 App Redirect 되지 않는 문제 수정 (#45)
+- 카메라 없는 경우 회의 입장 되지않는 현상 수정 (#43)
+- 통화 중 브라우저 뒤로 가기 버튼 누를 시 연결이 끊기지 않는 문제 수정 (#44)
+
 # v1.0.7 (20/07/15)
 - 디바이스 설정 팝업에서 mic test시 visualized volume meter 추가
 - 회의 도중 디바이스 설정 팝업을 띄운 후 X버튼을 누르면 여전히 자신의 목소리가 들리던 문제 수정 (#40)
