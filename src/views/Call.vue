@@ -127,6 +127,9 @@ export default {
       window.exitRoom = mobile.exitRoom;
       // 200713 ivypark. v1.0.6. 모바일 화면에서 메뉴가이드 메시지 변경
       this.buttonInfo.message = '화면을 터치하면';
+
+      let stream = await webRTC.createVideoStream();
+      this.addVideo(true, 'local', stream);
     }
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
@@ -179,9 +182,13 @@ export default {
       this.emitToast(content)
     })
 
+
+
     if (await webRTC.checkMediaDevices()) {
-      let stream = await webRTC.createVideoStream();
-      this.addVideo(true, 'local', stream);
+      if (!mobile.isMobile) {
+        let stream = await webRTC.createVideoStream();
+        this.addVideo(true, 'local', stream);
+      }
       // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
       // const result = await axios.get('https://www.cloudflare.com/cdn-cgi/trace')
       // let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
