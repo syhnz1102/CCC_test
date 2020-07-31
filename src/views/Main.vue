@@ -305,22 +305,22 @@ export default {
           let domain = this.url.split('/')[2];
           let roomId = this.url.split('/')[4];
           if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
-              mobile.onStartConference(roomId);
-            } else {
+            // if (mobile.isMobile) {
+            //   mobile.onStartConference(roomId);
+            // } else {
               router.push({ path: `/room/${roomId}` });
-            }
+            // }
           } else {
             this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
           }
         } else {
           // Room 번호만 입력 한 경우
           if (Number(this.url) && this.url.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
-              mobile.onStartConference(this.url);
-            } else {
+            // if (mobile.isMobile) {
+            //   mobile.onStartConference(this.url);
+            // } else {
               router.push({ path: `/room/${this.url}` });
-            }
+            // }
           } else {
             this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
           }
