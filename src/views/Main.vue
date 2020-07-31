@@ -256,10 +256,10 @@ export default {
   },
   mounted() {
     // 200721 ivypark, v1.0.8. 메인페이지 deeplink 추가
-    if (mobile.isMobile && !mobile.isWebView) {
-      location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
-    }
+    // if (mobile.isMobile && !mobile.isWebView) {
+    //   location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+    //   return false;
+    // }
 
     // 200721 ivypark, v1.1.0b. 영문화 적용. initialize
     this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';

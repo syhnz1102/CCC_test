@@ -114,11 +114,11 @@ export default {
     // this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
 
     // 200625 ivypark, v1.0.0a deeplink 추가
-    if (mobile.isMobile && !mobile.isWebView) {
-      // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
-      location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
-    }
+    // if (mobile.isMobile && !mobile.isWebView) {
+    //   // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
+    //   location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+    //   return false;
+    // }
 
     if (mobile.isMobile) {
       // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
@@ -182,7 +182,7 @@ export default {
     if (await webRTC.checkMediaDevices()) {
       let stream = await webRTC.createVideoStream();
       this.addVideo(true, 'local', stream);
-      
+
       // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
       // const result = await axios.get('https://www.cloudflare.com/cdn-cgi/trace')
       // let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
