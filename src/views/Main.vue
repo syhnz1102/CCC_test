@@ -308,7 +308,8 @@ export default {
             if (mobile.isMobile) {
               mobile.onStartConference(roomId);
             } else {
-              router.push({ path: `${addUrl}/room/${roomId}` });
+              // router.push({ path: `${addUrl}/room/${roomId}` });
+              router.push({ path: `/room/${roomId}` });
             }
           } else {
             this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
@@ -319,7 +320,8 @@ export default {
             if (mobile.isMobile) {
               mobile.onStartConference(this.url);
             } else {
-              router.push({ path: `${addUrl}/room/${this.url}` });
+              // router.push({ path: `${addUrl}/room/${this.url}` });
+              router.push({ path: `/room/${this.url}` });
             }
           } else {
             this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
