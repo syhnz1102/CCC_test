@@ -8,7 +8,7 @@ class Session {
 
   constructor() {
     console.debug('----------------- Opened Session -----------------')
-    this.socket = io.connect(config.socketIoUrl, {});
+    this.socket = io.connect(config.socketIoUrl, { reconnect: true, 'transports': ['websocket'] });
     this.socket.on('knowledgetalk', onMessage);
     store.commit('setSocketIo', this.socket);
   }
