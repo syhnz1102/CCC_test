@@ -43,11 +43,11 @@ export default {
 
             setTimeout(() => {
               webRTC.clear();
-              // if (mobile.isMobile) {
-              //   mobile.onStartConference(roomId);
-              // } else {
+              if (mobile.isMobile) {
+                mobile.onStartConference(roomId);
+              } else {
                 window.location.href = `/room/${roomId}`;
-              // }
+              }
             }, 1000);
           } else {
             eBus.$emit('toast', '전달 받은 URL 또는 번호를 정확히 입력해주세요.');
@@ -60,11 +60,11 @@ export default {
 
             setTimeout(() => {
               webRTC.clear();
-              // if (mobile.isMobile) {
-              //   mobile.onStartConference(this.url);
-              // } else {
+              if (mobile.isMobile) {
+                mobile.onStartConference(this.url);
+              } else {
                 window.location.href = `/room/${this.url}`;
-              // }
+              }
             }, 1000);
           } else {
             eBus.$emit('toast', '전달 받은 URL 또는 번호를 정확히 입력해주세요.');
