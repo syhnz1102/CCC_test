@@ -144,8 +144,9 @@ body,
 
 .mainVideo {width:100%;height:100%}
 .mainVideo .video video {transform:scaleX(-1);-webkit-transform:scaleX(-1)}
+.mainVideo .video video {object-fit:contain;background:#111}
 .mainVideo.one .video.local .userContainer {bottom:75px}
-.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
+.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:auto;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
