@@ -35,13 +35,13 @@
     </div>
     <p>{{ contents }}</p>
     <div class="button">
-      <button class="cancel" v-if="!this.option.inCall" @click="init">새로고침</button>
-      <button class="submit" @click="ok">{{ this.option.inCall ? '확인' : '시작' }}</button>
+      <button class="cancel" v-if="!this.option.inCall" @click="init">{{ this.$t('popup-refresh') }}</button>
+      <button class="submit" @click="ok">{{ this.option.inCall ? this.$t('popup-submit') : this.$t('popup-start') }}</button>
     </div>
     <div class="modalCheck">
       <div class="checkbox">
         <input id="checkbox" type="checkbox" @change="onChangeCheckbox($event)" v-model="isChecked">
-        <label for="checkbox">다음 부터 다시 보지 않기</label>
+        <label for="checkbox">{{ $t('popup-checkbox-1') }}</label>
       </div>
     </div>
   </div>

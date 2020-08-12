@@ -1,13 +1,13 @@
 <template>
   <div class="buttonContainer" v-if="isVisible">
       <div class="button wow animate__animated animate__fadeInUp animate__faster">
-        <button class="enter" @click="handleJoinBtn"><span>다른 회의 참여하기</span></button>
-        <button class="invite" @click="handleInviteBtn"><span>초대하기</span></button>
-        <button class="share" @click="handleScreenShareBtn"><span>화면공유</span></button>
-        <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>카메라</span></button>
-        <button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>마이크</span></button>
-        <button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>설정</span></button>
-        <button class="endCall" @click="handleEndCallBtn">통화종료</button>
+        <button class="enter" @click="handleJoinBtn"><span>{{ this.$t('button-another-meeting') }}</span></button>
+        <button class="invite" @click="handleInviteBtn"><span>{{ this.$t('button-invite') }}</span></button>
+        <button class="share" @click="handleScreenShareBtn"><span>{{ this.$t('button-share') }}</span></button>
+        <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>{{ this.$t('button-camera') }}</span></button>
+        <button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>{{ this.$t('button-microphone') }}</span></button>
+        <button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>{{ this.$t('button-setting') }}</span></button>
+        <button class="endCall" @click="handleEndCallBtn">{{ this.$t('button-end-call') }}</button>
       </div>
   </div>
 </template>
@@ -35,14 +35,14 @@ export default {
       eBus.$emit('popup', {
         on: true,
         type: 'Join',
-        title: '다른 회의 참여하기'
+        title: this.$t('popup-another-meeting-title')
       })
     },
     handleInviteBtn() {
       eBus.$emit('popup', {
         on: true,
         type: 'Invite',
-        title: '사용자 초대하기'
+        title: this.$t('popup-invite-title')
       })
     },
     async handleScreenShareBtn() {
@@ -51,8 +51,8 @@ export default {
         return eBus.$emit('popup', {
           on: true,
           type: 'Alert',
-          title: '화면 공유',
-          contents: '모바일 기기에서는 화면공유를 진행할 수 없습니다.'
+          title: this.$t('popup-screen-share-title'),
+          contents: this.$t('popup-screen-share-contents-failed-2')
         })
       }
 
@@ -61,8 +61,8 @@ export default {
         return eBus.$emit('popup', {
           on: true,
           type: 'Alert',
-          title: '화면 공유',
-          contents: '지금은 화면 공유를 진행할 수 없습니다.'
+          title: this.$t('popup-screen-share-title'),
+          contents: this.$t('popup-screen-share-contents-failed-1')
         })
       } else {
         sendMessage('SessionReserve', { userId: s.userInfo.id, roomId: s.roomInfo.roomId })
@@ -115,8 +115,8 @@ export default {
       eBus.$emit('popup', {
         on: true,
         type: 'Settings',
-        title: '디바이스 설정',
-        contents: `입장 후에는 디바이스 설정을 변경할 수 없습니다.`,
+        title: this.$t('popup-setting-devices-title'),
+        contents: this.$t('popup-setting-devices-contents-2'),
         option: { inCall: true },
         ok: () => {
           eBus.$emit('setVideo', {
@@ -144,8 +144,8 @@ export default {
       eBus.$emit('popup', {
         on: true,
         type: 'Confirm',
-        title: '통화 종료',
-        contents: `통화를 종료 하시겠습니까?`,
+        title: this.$t('popup-end-call-title'),
+        contents: this.$t('popup-end-call-contents'),
         ok: () => {
           webRTC.clear();
           eBus.$emit('video', { type: 'remove' });

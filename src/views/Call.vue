@@ -12,7 +12,7 @@
     <div class="toast wow animate__animated animate__fadeOut" data-wow-duration="1.5s" v-if="toast">
       <p>{{ toast }}</p>
     </div>
-    <div id="VideoContainer"  class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
+    <div id="VideoContainer" class="videoContainer" v-bind:class="{close: isCollapsedVideo}">
       <div class="shareContainer" v-bind:style="{display: (share ? 'block' : 'none')}" ref="share" @mouseover="handleBtnArea" @click="handleBtnArea">
         <div class="shareVideo">
           <div class="video" v-bind:style="{display: (share && !share.isSharer ? 'block' : 'none')}">
@@ -21,9 +21,9 @@
           <div class="share" v-if="share && share.isSharer">
             <div class="content">
                 <img src="../assets/images/img_screen_share_sharing.gif" alt="">
-                <p>화면 공유중입니다.<br />
-                화면 공유를 종료하시려면 아래 버튼을 클릭해주세요.</p>
-                <button @click="handleShareEndBtnClick">화면 공유 종료</button>
+                <p>{{ $t('call-share-contents-1') }}<br />
+                {{ $t('call-share-contents-2') }}</p>
+                <button @click="handleShareEndBtnClick">{{ $t('call-share-button') }}</button>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
     </div>
     <div @click="handleBtnArea" class="buttonInfo" v-if="buttonInfo">
       <strong>MENU</strong>
-      <p><span>{{ buttonInfo.message }}</span><br />  메뉴를 확인 하실 수 있습니다.</p>
+      <p><span>{{ buttonInfo.message }}</span><br />  {{ $t('call-menu-information-2') }}</p>
     </div>
     <div ref="btnArea" @mouseover="handleBtnArea" @mouseleave="handleBtnArea" style="position:fixed;display:flex;justify-content:center;align-items:flex-end;width:100%;bottom:0;height:20px;"></div>
     <Buttons ref="btn" v-bind:isVisible="visibleBtnArea" @mouseover="handleBtnArea" class="wow animate__animated animate__fadeIn animate__faster" />
@@ -106,13 +106,17 @@ export default {
       toast: '',
       buttonInfo: {
         on: true,
-        message: '화면 하단에 마우스를 가져가면'
+        message: this.$t('call-menu-information-pc-1')
       }
     }
   },
+  beforeCreate() {
+    // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
+    console.log(window.localStorage.getItem('locale'))
+    this.$i18n.locale = (mobile.isMobile ? this.$store.state.language : window.localStorage.getItem('locale')) || 'ko';
+    this.$store.commit('setLanguage', this.$i18n.locale);
+  },
   async created() {
-    // this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
-
     // 200625 ivypark, v1.0.0a deeplink 추가
     if (mobile.isMobile && !mobile.isWebView) {
       // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
@@ -126,7 +130,7 @@ export default {
       window.showExitPopup = mobile.showExitPopup;
       window.exitRoom = mobile.exitRoom;
       // 200713 ivypark. v1.0.6. 모바일 화면에서 메뉴가이드 메시지 변경
-      this.buttonInfo.message = '화면을 터치하면';
+      this.buttonInfo.message = this.$t('call-menu-information-app-1');
     }
 
     // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
@@ -205,8 +209,8 @@ export default {
       } else {
         this.popup.on = true;
         this.popup.type = 'Settings';
-        this.popup.title = '디바이스 설정';
-        this.popup.contents = `통화 시작 전 카메라와 마이크가 정상 동작하는지 확인하세요.`;
+        this.popup.title = this.$t('popup-setting-devices-title');
+        this.popup.contents = this.$t('popup-setting-devices-contents-1');
         this.popup.option.inCall = false;
         this.popup.ok = () => {
           if (!this.$store.state.socket) new Session();

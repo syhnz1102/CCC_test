@@ -27,8 +27,11 @@ export default {
     this.attachVideo(this.isOffVideo);
     // if (!this.isOffVideo) this.attachVideo();
     eBus.$on('setVideo', async param => {
+      console.log(param);
       // 200618 ivypark, v0.9.2. 1:1 공유 중 cam/mic off 시 로컬화면이 분리되는 현상 수정
-      this.isLocalVideo = this.id === 'local' && this.$store.state.roomInfo.count <= 2 && !this.$store.state.streamInfo.screen;
+      this.isLocalVideo = this.id === 'local' && (!this.$store.state.roomInfo.count || this.$store.state.roomInfo.count <= 2) && !this.$store.state.streamInfo.screen;
+      console.log(this.isLocalVideo, this.$store.state.roomInfo.count);
+
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
       if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
       if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
@@ -63,7 +66,7 @@ export default {
       eBus.$emit('popup', {
         on: true,
         type: 'ChangeName',
-        title: '이름 변경',
+        title: this.$t('popup-change-name-title'),
         ok: (param) => {
           this.name = param.name;
         }

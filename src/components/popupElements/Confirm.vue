@@ -2,8 +2,8 @@
   <div class="modalContent">
     <p>{{ contents }}</p>
     <div class="button">
-        <button class="submit" @click="ok">확인</button>
-        <button class="cancel" @click="cancel">취소</button>
+        <button class="submit" @click="ok">{{ this.$t('popup-submit') }}</button>
+        <button class="cancel" @click="cancel">{{ this.$t('popup-cancel') }}</button>
     </div>
   </div>
 </template>

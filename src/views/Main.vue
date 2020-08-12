@@ -27,9 +27,9 @@
                <a href="#download">
                   <span data-menu="download">download</span>
                </a>
-<!--               <button @click="onChangeLanguage" class="lang">-->
-<!--                 <span>{{ this.$i18n.locale === 'ko' ? 'KOR' : 'ENG' }}</span>-->
-<!--               </button>-->
+               <button @click="onChangeLanguage" class="lang">
+                 <span>{{ this.$i18n.locale === 'ko' ? 'KOR' : 'ENG' }}</span>
+               </button>
             </div>
          </div>
       </header>
@@ -53,7 +53,7 @@
                    <button @click="handleMakeBtnClick">{{ $t('main-button-start') }}</button>
                  </div>
                  <div class="enter" v-bind:class="{ open: isCollapsedJoinBtn }">
-                   <input v-model="url" type="text" placeholder="URL 또는 방 번호(8자리)를 입력하세요." v-on:keyup.enter="handleJoinBtnClick">
+                   <input v-model="url" type="text" v-bind:placeholder="this.$t('main-button-join-placeholder')" v-on:keyup.enter="handleJoinBtnClick">
                    <button v-on:mouseover="handleMouseoverJoinBtn" @click="handleJoinBtnClick">{{ $t('main-button-join') }}</button>
                  </div>
                </div>
@@ -208,18 +208,18 @@
       <footer class="footer">
          <div class="container">
             <div class="link">
-               <a href="https://knowledgepoint.co.kr/" target="_blank">회사소개</a>
-               <a href="https://knowledgepoint.co.kr/developer/qna/list" target="_blank">문의사항</a>
-               <a href="https://knowledgepoint.co.kr/developer/update/list" target="_blank">공지/업데이트</a>
-               <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">APP다운로드</a>
+               <a href="https://knowledgepoint.co.kr/" target="_blank">{{ $t('main-footer-menu-1') }}</a>
+               <a href="https://knowledgepoint.co.kr/developer/qna/list" target="_blank">{{ $t('main-footer-menu-2') }}</a>
+               <a href="https://knowledgepoint.co.kr/developer/update/list" target="_blank">{{ $t('main-footer-menu-3') }}</a>
+               <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">{{ $t('main-footer-menu-4') }}</a>
             </div>
             <div class="company">
                <strong>COCOcall <span>[{{ getVersion }}]</span></strong>
                <p>
-                  <span>(주)날리지포인트</span>
-                  <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
-                  <span>전화 : <a href="tel:070-4325-4033">070-4325-4033</a></span>
-                  <span>메일주소 : <a href="mailto:maverick@knowledgepoint.co.kr">maverick@knowledgepoint.co.kr</a></span>
+                  <span>{{ $t('main-footer-company-name') }}</span>
+                  <span>{{ $t('main-footer-company-address') }}</span>
+                  <span>{{ $t('main-footer-company-phone') }}<a href="tel:070-4325-4033">070-4325-4033</a></span>
+                  <span>{{ $t('main-footer-company-mail') }}<a href="mailto:maverick@knowledgepoint.co.kr">maverick@knowledgepoint.co.kr</a></span>
                </p>
             </div>
             <div class="copyright">Copyright All rights reserved. Knowledgepoint Co., Ltd.</div>
@@ -236,6 +236,7 @@ import config from '../config';
 import Popup from '@/components/Popup';
 import mobile from '../commons/mobile';
 import router from "../router";
+import utils from '../commons/utils';
 
 export default {
   components: { Popup },
@@ -261,12 +262,13 @@ export default {
       return false;
     }
 
-    // 200721 ivypark, v1.1.0b. 영문화 적용. initialize
-    this.$i18n.locale = window.localStorage.getItem('LOCALE') || 'ko';
-    window.localStorage.setItem('LOCALE', this.$i18n.locale);
-    console.log(this.$i18n.locale)
+    // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
+    this.$i18n.locale = (mobile.isMobile ? this.$store.state.language : window.localStorage.getItem('locale')) || 'ko';
+    this.$store.commit('setLanguage', this.$i18n.locale);
 
-    // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
+    // 200810 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
+    // utils.setPrivateInfo(this.$route.params.cp);
+
     // axios.get('https://www.cloudflare.com/cdn-cgi/trace')
     // .then(result => {
     //   let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
@@ -297,9 +299,12 @@ export default {
 
       // 200709 ivypark, v1.0.5. 회의 참여 버튼 추가
       if (!this.url) {
-        this.onPopup(`참여 하실 URL 또는 방 번호(${config.lengthOfRoomId}자리)를 입력하세요.`);
+        this.onPopup(this.$t('popup-join-failed-contents-1'));
         return false;
       } else {
+        let addUrl = '';
+        if (this.$store.state.userInfo.cp) addUrl = `/${this.$store.state.userInfo.cp}`;
+
         if (this.url.indexOf('https://') === 0 && this.url.indexOf('/room/') > -1) {
           // URL을 입력 한 경우
           let domain = this.url.split('/')[2];
@@ -312,7 +317,7 @@ export default {
               router.push({ path: `/room/${roomId}` });
             }
           } else {
-            this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
+            this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
         } else {
           // Room 번호만 입력 한 경우
@@ -324,7 +329,7 @@ export default {
               router.push({ path: `/room/${this.url}` });
             }
           } else {
-            this.onPopup(`전달 받은 URL 또는 번호를 정확히 입력해주세요.`);
+            this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
         }
       }
@@ -332,7 +337,7 @@ export default {
     onPopup(contents) {
       this.popup.on = true;
       this.popup.type = 'Alert';
-      this.popup.title = '회의 참여 실패';
+      this.popup.title = this.$t('popup-join-failed-title');
       this.popup.contents = contents;
     },
     handlePopupOkBtnClick(param) {
@@ -344,12 +349,9 @@ export default {
       if (this.popup.cancel) this.popup.cancel(param);
     },
     onChangeLanguage() {
-      if (this.$i18n.locale === 'ko')
-        this.$i18n.locale = 'en';
-      else
-        this.$i18n.locale = 'ko';
-
-      window.localStorage.setItem('LOCALE', this.$i18n.locale);
+      this.$i18n.locale = this.$i18n.locale === 'ko' ? 'en' : 'ko';
+      if (!mobile.isMobile) window.localStorage.setItem('locale', this.$i18n.locale);
+      this.$store.commit('setLanguage', this.$i18n.locale);
       // return this.$i18n.locale;
     }
   },

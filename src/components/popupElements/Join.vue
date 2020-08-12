@@ -2,13 +2,13 @@
   <div class="modalContent">
     <div class="enterCall">
       <div class="input">
-        <input v-model='url' type="text" placeholder="URL 또는 방 번호(8자리)를 입력하세요." v-on:keyup.enter="confirmed">
+        <input v-model='url' type="text" v-bind:placeholder="this.$t('popup-another-meeting-placeholder')" v-on:keyup.enter="confirmed">
 <!--        <label>다른 회의 참여</label>-->
       </div>
     </div>
     <div class="button">
-      <button class="submit" @click="confirmed">확인</button>
-      <button class="cancel" @click="this.cancel">취소</button>
+      <button class="submit" @click="confirmed">{{ this.$t('popup-submit') }}</button>
+      <button class="cancel" @click="this.cancel">{{ this.$t('popup-cancel') }}</button>
     </div>
   </div>
 </template>

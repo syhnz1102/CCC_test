@@ -3,15 +3,15 @@
     <div class="invite">
       <div class="btn disalbed" @click="handleTalkBtnClick">
         <button class="talk" data-title="카카오톡"></button>
-        <span>카카오톡</span>
+        <span>{{ this.$t('popup-invite-kakao') }}</span>
       </div>
       <div class="btn disalbed" @click="handleSMSBtnClick">
         <button class="message" data-title="문자메시지"></button>
-        <span>문자메시지</span>
+        <span>{{ this.$t('popup-invite-mms') }}</span>
       </div>
       <div class="btn" @click="handleUrlCopyBtnClick">
         <button class="url" data-title="URL 복사"></button>
-        <span>URL 복사</span>
+        <span>{{ this.$t('popup-invite-url') }}</span>
       </div>
     </div>
   </div>
@@ -35,15 +35,15 @@ export default {
       document.execCommand('copy');
       document.body.removeChild(t);
 
-      eBus.$emit('toast', 'URL이 복사 되었습니다.');
+      eBus.$emit('toast', this.$t('popup-invite-url-complete'));
       // 200702 ivypark, v1.0.1. 버튼 클릭 시 팝업 종료
       eBus.$emit('popup', { on: false });
     },
     handleTalkBtnClick() {
-      eBus.$emit('toast', '현재 준비중인 기능입니다.');
+      eBus.$emit('toast', this.$t('popup-invite-soon'));
     },
     handleSMSBtnClick() {
-      eBus.$emit('toast', '현재 준비중인 기능입니다.');
+      eBus.$emit('toast', this.$t('popup-invite-soon'));
     }
   }
 }

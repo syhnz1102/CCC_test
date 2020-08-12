@@ -10,6 +10,7 @@ export default new Vuex.Store({
     streamInfo: {},
     roomInfo: {},
     userInfo: {},
+    language: ''
   },
   mutations: {
     setSocketIo(state, socket) {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     setUserInfo(state, info) {
       Object.assign(state.userInfo, info);
+    },
+    setLanguage(state, info) {
+      state.language = info;
     },
     clearAll(state) {
       if (Object.keys(state.streamInfo).length > 0) {

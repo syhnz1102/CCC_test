@@ -5,6 +5,10 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.0a (20/08/12)
+- CCC Signal v3.0.0 연동
+- 영문화 적용 (메뉴/팝업, #16)
+
 # v1.0.8 (20/07/30)
 - 안드로이드 브라우저에서 cococall.net으로 직접 접속 시 App Redirect 되지 않는 문제 수정 (#45)
 - 카메라 없는 경우 회의 입장 되지않는 현상 수정 (#43)
