@@ -38,7 +38,7 @@ export async function onMessage(resp) {
 
     case 'StartSession':
       sendMessage('StartSession', { code: '200' });
-      if (resp.members) store.commit('setRoomInfo', { members: resp.members, count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p' });
+      if (resp.members) store.commit('setRoomInfo', { members: resp.members, count: Object.keys(resp.members).length, type: resp.useMediaSvr === 'Y' ? 'multi' : 'p2p', host: resp.host });
       if (resp.useMediaSvr === 'Y') {
         if (resp.changeView || resp.who === store.state.userInfo.id) {
           // 200619 ivypark, v0.9.3. 1:1 -> N:N 전환 시 화면공유 종료 (stream이 3번째 사용자에게 전달 되지 않음. 끊는 것이 날리지톡 정책)
@@ -150,6 +150,8 @@ export async function onMessage(resp) {
           count: store.state.roomInfo.count,
           id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId
         })
+      } else if (resp.action === 'join') {
+        if (resp.members) store.commit('setRoomInfo', { members: resp.members, count: Object.keys(resp.members).length });
       }
       break;
 

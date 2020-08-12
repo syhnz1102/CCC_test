@@ -92,7 +92,8 @@ class WebRTC {
       }
       peer.onicecandidate = e => {
         if (!e.candidate) {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId });
+          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId, host: store.state.roomInfo.host });
+          if (store.state.roomInfo.host === true) store.commit('setRoomInfo', { host: false });
           // sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         }
       };
