@@ -12,10 +12,11 @@ body,
 
 /* main */
 .container {position:relative;width:100%;max-width:1000px;height:100%;margin:0 auto;box-sizing:border-box}
-.header {overflow:hidden;position:absolute;top:0;left:0;width:100%;height:70px;z-index:1}
+.header {position:absolute;top:0;left:0;width:100%;height:70px;padding:15px 0;box-sizing:border-box;z-index:1}
 .header.fixed::before {animation:fadein .3s}
-.header h1 {float:left;margin-top:16px}
-.header .menu {overflow:hidden;float:right;height:40px;margin-top:15px}
+.header .container {overflow:hidden}
+.header h1 {float:left}
+.header .menu {overflow:hidden;float:right;height:40px}
 .header .menu a {display:inline-block;height:40px;margin-right:25px;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-size:16px}
 .header .menu a span {display:block;height:40px;line-height:40px;color:#fff;transition:transform .3s}
 .header .menu a span::after {content:attr(data-menu);display:block;height:40px;line-height:40px;color:#fff;transition:color .3s}
@@ -329,12 +330,12 @@ body,
 }
 
 @media screen and (max-width: 767px) {
-   .header {height:auto;padding:15px 0;text-align:center}
-   .header h1 {float:none}
-   .header h1 a {margin-top:0;font-size:16px}
+   .header {height:auto;text-align:center}
+   .header h1 a {font-size:16px}
    .header h1 span {font-size:12px}
-   .header .menu {display:none}
-   .header .menu button.lang {padding:4px 8px}
+   .header .menu {height:auto}
+   .header .menu a {display:none}
+   .header .menu button.lang {margin-top:3px;border:none}
    .header .menu button.lang span {font-size:12px}
    .main .visual .content {width:100%;text-align:center}
    .main .visual .content p {font-size:20px}
