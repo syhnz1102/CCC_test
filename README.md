@@ -7,8 +7,14 @@
 ```
 # v1.1.0b (20/08/20)
 - 라이센스 적용 (CP CODE 기반의 라이센스 체크)
+ => Signal 연동 API에 CP CODE, AUTH KEY 추가. (Signal 접근 제한 정책)
+ => WAS 서버 신규 개발 및 추가
+  - 기존 KnowledgeTalk 라이센스 정책 반영
+  - 이름 변경 시 변경을 감지하여 데이터베이스에 적재하는 API를 추가하였습니다.
+  - CreateRoom, Join, Exit 시 데이터베이스에 적재되는 Transaction API를 추가하였습니다.
 - 영상 화면 비율 원 상태로 복구
 - 모바일 화면에서 한/영 변경 버튼 추가
+- 화면공유 4명 이상일 때 화면 크기 소폭 변경
 
 # v1.1.0a (20/08/12)
 - CCC Signal v3.0.0 연동

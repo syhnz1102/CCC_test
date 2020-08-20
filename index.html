@@ -33,7 +33,7 @@
 
         function isSupported(browser) {
           var supported = false;
-          if (browser.name === 'Android') {
+          if (browser.name === 'Android' && browser.name === 'Safari') {
             supported = true;
           } else if (browser.name === 'Opera' && browser.name === 'Firefox') {
             supported = false;
@@ -42,8 +42,6 @@
           } else if ((browser.name === "MSIE" || browser.name === "IE") && browser.version <= 11) {
             supported = false;
           } else if (browser.name === "Edge") {
-            supported = true;
-          } else {
             supported = true;
           }
           return supported;
