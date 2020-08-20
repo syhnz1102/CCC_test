@@ -76,7 +76,8 @@ import Video from '@/components/Video';
 import OffVideo from '@/components/OffVideo';
 import Popup from '@/components/Popup';
 import Buttons from '@/components/Buttons';
-import axios from "axios";
+import utils from "../commons/utils";
+import store from "../store";
 
 export default {
   components: { Video, OffVideo, Buttons, Popup },
@@ -112,14 +113,12 @@ export default {
   },
   beforeCreate() {
     // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
-    console.log(window.localStorage.getItem('locale'))
     this.$i18n.locale = (mobile.isMobile ? this.$store.state.language : window.localStorage.getItem('locale')) || 'ko';
     this.$store.commit('setLanguage', this.$i18n.locale);
   },
   async created() {
     // 200625 ivypark, v1.0.0a deeplink 추가
     if (mobile.isMobile && !mobile.isWebView) {
-      // console.log(`Intent://kp.cococall?roomid=${window.location.href.split('/room/')}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`)
       location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
       return false;
     }
@@ -133,7 +132,7 @@ export default {
       this.buttonInfo.message = this.$t('call-menu-information-app-1');
     }
 
-    // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경.
+    // 200618 ivypark, v0.9.3. 새로 고침 시 동일한 방에 입장이 불가능 하도록 변경. 변경 실패. TODO.
     // if (window.performance) {
     //   console.info("window.performance is supported");
     // }
@@ -187,46 +186,9 @@ export default {
       let stream = await webRTC.createVideoStream();
       this.addVideo(true, 'local', stream);
 
-      // 200730 ivypark, v1.1.0a. 비즈니스 버전 (ip, cp 체크)
-      // const result = await axios.get('https://www.cloudflare.com/cdn-cgi/trace')
-      // let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
-      // let ip = r.substring(0, r.length - 1);
-      // let payload = { ip, cp: this.$route.params.cp };
-      // this.$store.commit('setUserInfo', payload);
-
-      // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
-      if (mobile.isMobile) {
-        // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정
-        if (!this.$store.state.socket) new Session();
-        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
-        return false;
-      }
-
-      let isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') && JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase())
-      if (isChecked) {
-        if (!this.$store.state.socket) new Session();
-        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
-      } else {
-        this.popup.on = true;
-        this.popup.type = 'Settings';
-        this.popup.title = this.$t('popup-setting-devices-title');
-        this.popup.contents = this.$t('popup-setting-devices-contents-1');
-        this.popup.option.inCall = false;
-        this.popup.ok = () => {
-          if (!this.$store.state.socket) new Session();
-          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
-          eBus.$emit('setVideo', {
-            type: 'set',
-            id: 'local',
-            deviceSetting: {
-              done: true
-            }
-          });
-        }
-        this.popup.cancel = () => {
-          window.location.href = '/';
-        }
-      }
+      // 200730 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
+      utils.setPrivateInfo(this.$route.params.cp);
+      this.init();
     } else {
       if (this.$store.state.socket && this.$store.state.roomInfo) {
         webRTC.destroyRoom();
@@ -241,6 +203,41 @@ export default {
     webRTC.clear();
   },
   methods: {
+    init() {
+      if (mobile.isMobile) {
+        // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정
+        if (!this.$store.state.socket) new Session();
+        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+        return false;
+      }
+
+      // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
+      let isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') && JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase())
+      if (isChecked) {
+        if (!this.$store.state.socket) new Session();
+        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+      } else {
+        this.popup.on = true;
+        this.popup.type = 'Settings';
+        this.popup.title = this.$t('popup-setting-devices-title');
+        this.popup.contents = this.$t('popup-setting-devices-contents-1');
+        this.popup.option.inCall = false;
+        this.popup.ok = () => {
+          if (!this.$store.state.socket) new Session();
+          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+          eBus.$emit('setVideo', {
+            type: 'set',
+            id: 'local',
+            deviceSetting: {
+              done: true
+            }
+          });
+        }
+        this.popup.cancel = () => {
+          window.location.href = '/';
+        }
+      }
+    },
     handleBtnArea(e) {
       // 200625 ivypark, v1.0.0a 모바일과 버튼 이벤트 분리. 모바일은 화면 터치 시 버튼 나오도록 출력 개선
       if (mobile.isMobile && e.type === 'click') {
@@ -264,7 +261,6 @@ export default {
       }, 1500)
     },
     handlePopupOkBtnClick(param) {
-      if (param && param.name) sendMessage('ChangeName', { userId: param.id, roomId: this.$store.state.roomInfo.roomId, name: param.name }, 'signalOp');
       this.popup.on = false;
       if (this.popup.ok) this.popup.ok(param);
     },

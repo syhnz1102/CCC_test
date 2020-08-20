@@ -12,7 +12,7 @@
       <header class="header">
          <div class="container">
             <h1>
-               <a href="#top" class="logo">COCOcall</a>
+               <a href="/" class="logo">COCOcall</a>
             </h1>
             <div class="menu">
                <a href="#information">
@@ -28,7 +28,7 @@
                   <span data-menu="download">download</span>
                </a>
                <button @click="onChangeLanguage" class="lang">
-                 <span>{{ this.$i18n.locale === 'ko' ? 'KOR' : 'ENG' }}</span>
+                 <span>{{ this.$i18n.locale === 'ko' ? 'ENG' : 'KOR' }}</span>
                </button>
             </div>
          </div>
@@ -229,7 +229,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
 import config from '../config';
@@ -267,23 +266,12 @@ export default {
     this.$store.commit('setLanguage', this.$i18n.locale);
 
     // 200810 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
-    // utils.setPrivateInfo(this.$route.params.cp);
-
-    // axios.get('https://www.cloudflare.com/cdn-cgi/trace')
-    // .then(result => {
-    //   let r = result.data.substring(result.data.search('ip=')+3, result.data.search('ts='));
-    //   let ip = r.substring(0, r.length - 1);
-    //   let payload = { ip, cp: this.$route.params.cp };
-    //   this.$store.commit('setUserInfo', payload);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
+    utils.setPrivateInfo(this.$route.params.cp);
   },
   methods: {
     async handleMakeBtnClick() {
       new Session();
-      sendMessage('CreateRoom', {});
+      sendMessage('CreateRoom', { cp: this.$route.params.cp });
     },
     handleMouseoverJoinBtn() {
       if (!mobile.isMobile && !this.isCollapsedJoinBtn) {
@@ -307,14 +295,16 @@ export default {
 
         if (this.url.indexOf('https://') === 0 && this.url.indexOf('/room/') > -1) {
           // URL을 입력 한 경우
-          let domain = this.url.split('/')[2];
-          let roomId = this.url.split('/')[4];
+
+          // 200813 ivypark, v1.1.0b. 라이센스 버전 url 변경으로 인해 url 체크 부분 변경
+          let urlArr = this.url.split('/');
+          let domain = urlArr[2];
+          let roomId = urlArr[urlArr.findIndex(elem => elem === 'room') + 1];
           if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
             if (mobile.isMobile) {
               mobile.onStartConference(roomId);
             } else {
-              // router.push({ path: `${addUrl}/room/${roomId}` });
-              router.push({ path: `/room/${roomId}` });
+              router.push({ path: `${addUrl}/room/${roomId}` });
             }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));
@@ -325,8 +315,7 @@ export default {
             if (mobile.isMobile) {
               mobile.onStartConference(this.url);
             } else {
-              // router.push({ path: `${addUrl}/room/${this.url}` });
-              router.push({ path: `/room/${this.url}` });
+              router.push({ path: `${addUrl}/room/${this.url}` });
             }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));

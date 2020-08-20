@@ -1,8 +1,25 @@
 export default {
-  version: 'v1.1.0a (0812)',
-  // socketIoUrl: 'https://ktgenie.com:7103/SignalServer', // TB
-  // socketIoUrl: 'https://localhost:11099/SignalServer', // LOCAL
-  socketIoUrl: 'https://cococall.net:7103/SignalServer', // RELEASED
+  version: 'v1.1.0b (0819)',
+  env: 'LOCAL', // 'LOCAL', 'TB', 'PROD'
+  socketIoUrl: {
+    LOCAL: 'https://localhost:7103/SignalServer',
+    TB: 'https://ktgenie.com:7103/SignalServer',
+    PROD: 'https://cococall.net:7103/SignalServer'
+  },
+  privateMode: {
+    switch: false,
+    cpName: 'KnowledgePoint',
+    cpCode: {
+      LOCAL: 'KP-20200101-01',
+      TB: 'KP-20200101-01',
+      PROD: 'KP-20200101-01'
+    },
+    authKey: {
+      LOCAL: '', // knowledgepointtoken
+      TB: '', // knowledgepointtoken
+      PROD: '' // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi64Kg66as7KeA7Y-s7J247Yq4IiwibWF4VXNlciI6IjUwMDAwMDAwIiwic3RhcnREYXRlIjoiMjAyMC0wMS0wMVQwNjo0NzowMC4wMDBaIiwiZW5kRGF0ZSI6IjIwMzAtMTItMzFUMDY6NDc6MDAuMDAwWiIsImF1dGhDb2RlIjoiS1AtMjAyMDAxMDEtMDEiLCJjb21wYW55Q29kZSI6IkxJQy0wMSIsImlhdCI6MTU4NzUzODExNH0.73A0UiiMHJeIS8pIgoN4DfEWT4QCsMnXkO4uUdnfbYI
+    }
+  },
   iceServer: { iceServers: [{ urls: 'turn:13.125.217.175:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:13.125.217.175:46000' }, { urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }] }, // RELEASED
   constraints: {
     share: { width: 480, height: 270 }, // video constraint when screen sharing
@@ -14,9 +31,5 @@ export default {
     sixteen: { width: 240, height: 135 }, // 4 by 4
   },
   lengthOfRoomId: 8,
-  listOfDomains: ['localhost', 'ktgenie.com', 'cococall.net'],
-  privateMode: {
-    switch: true,
-    cpName: 'test'
-  }
+  listOfDomains: ['localhost', 'ktgenie.com', 'cococall.net']
 }

@@ -4,9 +4,23 @@ import webRTC from './webrtc';
 import mobile from './mobile';
 import { eBus } from "./eventBus";
 import screenShare from "./screenshare";
+import utils from './utils';
+import config from '../config';
 
 export async function onMessage(resp) {
   console.debug(`[ ${resp.eventOp} ] Signal -> Web `, resp);
+  if (config.privateMode.switch && resp.code === '412') {
+    return eBus.$emit('popup', {
+      on: true,
+      type: 'Alert',
+      title: '회의 참여',
+      contents: '잘못된 경로로 접근하였습니다. 초기화면으로 이동합니다.',
+      cancel: () => {
+        window.location.href = utils.getPrivateUrl();
+      }
+    })
+  }
+
   switch (resp.eventOp || resp.signalOp) {
     case 'CreateRoom':
       if (resp.code === '200') {
@@ -16,7 +30,7 @@ export async function onMessage(resp) {
         if (mobile.isMobile) {
           mobile.onStartConference(resp.roomId);
         } else {
-          router.push({ path: `/room/${resp.roomId}` });
+          router.push({ path: `${resp.cp ? '/'+resp.cp : ''}/room/${resp.roomId}` });
         }
       }
       break;
@@ -184,8 +198,8 @@ export async function onMessage(resp) {
 export function sendMessage(op, data = {}, type = 'eventOp') {
   let obj = {};
   obj[type] = op;
-  // obj['cp'] = store.state.userInfo.cp;
-  // obj['ip'] = store.state.userInfo.ip;
+  obj['cpCode'] = config.privateMode.cpCode[config.env];
+  obj['authKey'] = config.privateMode.authKey[config.env];
   Object.assign(data, obj);
   console.debug(`[ ${op} ] Web -> Signal `, data);
   store.state.socket.emit('knowledgetalk', data);

@@ -5,6 +5,11 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.0b (20/08/20)
+- 라이센스 적용 (CP CODE 기반의 라이센스 체크)
+- 영상 화면 비율 원 상태로 복구
+- 모바일 화면에서 한/영 변경 버튼 추가
+
 # v1.1.0a (20/08/12)
 - CCC Signal v3.0.0 연동
 - 영문화 적용 (메뉴/팝업, #16)

@@ -15,9 +15,10 @@
 
 <script>
 import { eBus } from "../../commons/eventBus";
+import {sendMessage} from "../../commons/message";
 
 export default {
-  props: { ok: Function, cancel: Function },
+  props: { ok: Function, cancel: Function, option: Object },
   data() {
     return {
       name: this.$store.state.userInfo.name
@@ -32,6 +33,7 @@ export default {
       this.$store.commit('setUserInfo', { name: this.name });
       this.ok({ id: this.$store.state.userInfo.id, name: this.name });
       eBus.$emit('toast', this.$t('popup-change-name-complete'));
+      sendMessage('ChangeName', { userId: this.$store.state.userInfo.id, roomId: this.$store.state.roomInfo.roomId, name: this.name }, 'signalOp');
     }
   }
 }
