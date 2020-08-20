@@ -256,10 +256,10 @@ export default {
   },
   mounted() {
     // 200721 ivypark, v1.0.8. 메인페이지 deeplink 추가
-    if (mobile.isMobile && !mobile.isWebView) {
-      location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
-    }
+    // if (mobile.isMobile && !mobile.isWebView) {
+    //   location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+    //   return false;
+    // }
 
     // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
     this.$i18n.locale = (mobile.isMobile ? this.$store.state.language : window.localStorage.getItem('locale')) || 'ko';
@@ -301,22 +301,22 @@ export default {
           let domain = urlArr[2];
           let roomId = urlArr[urlArr.findIndex(elem => elem === 'room') + 1];
           if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
-              mobile.onStartConference(roomId);
-            } else {
+            // if (mobile.isMobile) {
+            //   mobile.onStartConference(roomId);
+            // } else {
               router.push({ path: `${addUrl}/room/${roomId}` });
-            }
+            // }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
         } else {
           // Room 번호만 입력 한 경우
           if (Number(this.url) && this.url.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
-              mobile.onStartConference(this.url);
-            } else {
+            // if (mobile.isMobile) {
+            //   mobile.onStartConference(this.url);
+            // } else {
               router.push({ path: `${addUrl}/room/${this.url}` });
-            }
+            // }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
