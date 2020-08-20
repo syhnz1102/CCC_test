@@ -33,9 +33,9 @@
 
         function isSupported(browser) {
           var supported = false;
-          if (browser.name === 'Android' && browser.name === 'Safari') {
+          if (browser.name === 'Android') {
             supported = true;
-          } else if (browser.name === 'Opera' && browser.name === 'Firefox') {
+          } else if (browser.name === 'Opera' && browser.name === 'Firefox' && browser.name === 'Safari') {
             supported = false;
           } else if (browser.name === "Chrome" && browser.version >= 48) {
             supported = true;
