@@ -16,6 +16,7 @@ body,
 .header.fixed::before {animation:fadein .3s}
 .header .container {overflow:hidden}
 .header h1 {float:left}
+.header .logo {display:block}
 .header .menu {overflow:hidden;float:right;height:40px}
 .header .menu a {display:inline-block;height:40px;margin-right:25px;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-size:16px}
 .header .menu a span {display:block;height:40px;line-height:40px;color:#fff;transition:transform .3s}
@@ -145,6 +146,7 @@ body,
 
 .mainVideo {width:100%;height:100%}
 .mainVideo .video video {transform:scaleX(-1);-webkit-transform:scaleX(-1)}
+.mainVideo .video video {object-fit:contain;background:#111}
 .mainVideo.one .video.local .userContainer {bottom:75px}
 .mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
@@ -168,12 +170,14 @@ body,
 .shareContainer .content button:active {background:#4b0f99}
 .mainVideoContainer {position:relative;float:left;width:20%;height:100%;transition:width .3s}
 .mainVideoContainer .mainVideo {overflow-y:auto;position:relative;float:right;width:calc(100% - 24px);height:100%;background:#fff}
-.mainVideoContainer .mainVideo .video {width:100%;height:25%}
+.mainVideoContainer .mainVideo .video {width:100%;height:22%}
 .mainVideoContainer .mainVideo .video:only-child {height:100%}
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {height:50%}
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(3),
 .mainVideoContainer .mainVideo .video:first-child:nth-last-child(3) ~ .video {height:33.33%}
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(4),
+.mainVideoContainer .mainVideo .video:first-child:nth-last-child(4) ~ .video {height:25%}
 .mainVideoContainer .button {float:left;position:absolute;top:0;left:0;width:34px;height:100%;transition:all .3s}
 .mainVideoContainer .button button {width:100%;height:100%;font-size:0;background:#ccc}
 .mainVideoContainer .button button::before {content:'';display:inline-block;width:14px;height:14px;margin-left:-10px;background:url('../images/icon_arrow.png') no-repeat 0 0;background-size:cover;transition:margin .3s}
