@@ -16,6 +16,7 @@ body,
 .header.fixed::before {animation:fadein .3s}
 .header .container {overflow:hidden}
 .header h1 {float:left}
+.header .logo {display:block}
 .header .menu {overflow:hidden;float:right;height:40px}
 .header .menu a {display:inline-block;height:40px;margin-right:25px;vertical-align:middle;font-family:'Montserrat','Noto Sans KR';font-size:16px}
 .header .menu a span {display:block;height:40px;line-height:40px;color:#fff;transition:transform .3s}
@@ -129,8 +130,8 @@ body,
 .video.speaker::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
 .video.speaker::before {top:0;right:0}
 .video.speaker::after {bottom:0;left:0}
-.video.speaker::before {border-width:5px 0 0 5px;border-color:red;animation:borderDrawBefore 1.5s}
-.video.speaker::after {border-width:0 5px 5px 0;border-color:blue;animation:borderDrawAfter 1.5s}
+.video.speaker::before {border-width:5px 0 0 5px;border-color:red;animation:borderDrawBefore 1.5s;z-index:1}
+.video.speaker::after {border-width:0 5px 5px 0;border-color:blue;animation:borderDrawAfter 1.5s;z-index:1}
 .video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
 
 .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
@@ -283,6 +284,17 @@ body,
 .modalContent .modalCheck {position:absolute;bottom:-30px;left:0}
 .modalContent .modalCheck .checkbox input[type="checkbox"] {background:transparent}
 .modalContent .modalCheck .checkbox label {line-height:16px;color:#fff}
+
+.recommendAppModal {position:fixed;top:0;left:0;width:100%;height:100%;z-index:100}
+.recommendAppModal::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.8)}
+.recommendAppModal .container {position:absolute;top:50%;left:50%;width:auto;height:auto;max-width:auto;transform:translate(-50%,-50%)}
+.recommendAppModal .content {text-align:center}
+.recommendAppModal .logo {font-size:16px}
+.recommendAppModal .logo + p {margin-top:10px;font-size:18px;color:#fff}
+.recommendAppModal .icon {width:80px;height:80px;margin:20px auto 0;border-radius:20px;background:url('../images/icon_logo.png') no-repeat center center #fff;background-size:50px 50px;;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.1)}
+.recommendAppModal .button {margin-top:30px;text-align:center}
+.recommendAppModal .button button {display:block;margin:0 auto;padding:12px 28px;font-size:15px;color:#fff;border-radius:1.5em;background:#7117EA}
+.recommendAppModal .button a {display:block;margin:10px auto 0;font-size:12px;text-decoration:underline;color:#ccc}
 
 .toast {position:fixed;top:50px;width:100%;text-align:center;z-index:101}
 .toast p {display:inline-block;padding:8px 25px;color:#fff;border-radius:1.5em;background:rgba(0,0,0,0.6)}

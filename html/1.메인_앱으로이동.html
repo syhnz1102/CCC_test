@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width">
+   <title>COCOcall</title>
+   <link rel="shortcut icon" href="images/favicon.ico">
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <script type="text/javascript" src="js/wow.min.js"></script>
+   <script>
+   //wow
+   new WOW().init();
+
+   $(document).ready(function(){
+      //header fixed
+      $(window).scroll(function(){
+          if ($(window).scrollTop() >= 10) {
+             $('.header').addClass('fixed');
+          }
+          else {
+             $('.header').removeClass('fixed');
+          }
+      });
+
+      //smooth scroll
+      $(".header a").on('click', function(event) {
+         if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+               scrollTop: $(hash).offset().top
+            }, 800, function(){
+               window.location.hash = hash;
+            });
+         }
+      });
+   });
+   </script>
+   <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body id="top">
+   <div class="wrapper">
+      <div class="recommendAppModal">
+         <div class="container">
+            <div class="content">
+               <div class="logo">COCOcall</div>
+               <p>COCOcall을<br /> APP으로 만나보세요!</p>
+               <div class="icon"></div>
+            </div>
+            <div class="button">
+               <button>COCOcall 앱으로 이동</button>
+               <a href="">괜찮아요. 모바일웹으로 이용할게요.</a>
+            </div>
+         </div>
+      </div>
+      <header class="header">
+         <div class="container">
+            <h1>
+               <a href="#top" class="logo">COCOcall</a>
+            </h1>
+            <div class="menu">
+               <a href="#information">
+                  <span data-menu="서비스 소개">서비스 소개</span>
+                  <!-- <span data-menu="Information">Information</span> -->
+               </a>
+               <a href="#function">
+                  <span data-menu="서비스 특징">서비스 특징</span>
+                  <!-- <span data-menu="Function">Function</span> -->
+               </a>
+               <a href="#guide">
+                  <span data-menu="이용안내">이용안내</span>
+                  <!-- <span data-menu="Guide">Guide</span> -->
+               </a>
+               <a href="#download">
+                  <span data-menu="다운로드">다운로드</span>
+                  <!-- <span data-menu="Download">Download</span> -->
+               </a>
+               <button class="lang">
+                  <span>ENG</span>
+                  <!-- <span>KOR</span> -->
+               </button>
+            </div>
+         </div>
+      </header>
+      <div class="main">
+         <section class="visual">
+            <div class="bg">
+               <img src="images/bg.jpg">
+            </div>
+            <div class="container">
+               <div class="content">
+                  <div class="title">
+                     <p class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">간편하게 즐기는 무료 화상 회의,</p>
+                     <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                        <span><i>CO</i>nvenient</span>
+                        <span><i>CO</i>nference</span>
+                        <span><i>call</i></span>
+                     </strong>
+                  </div>
+                  <div class="button wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
+                     <div class="make">
+                        <button>회의시작</button>
+                     </div>
+                     <div class="enter">
+                        <input type="text" placeholder="초대 받은 URL을 입력하세요.">
+                        <button>회의참여</button>
+                     </div>
+                     <!--
+                     <div class="enter open">
+                        <input type="text" placeholder="초대 받은 URL을 입력하세요.">
+                        <button>회의참여</button>
+                     </div>
+                     -->
+                  </div>
+               </div>
+               <button class="scroll"></button>
+            </div>
+         </section>
+         <section id="information" class="information">
+            <div class="container">
+               <h2><div class="logo">COCOcall</div></h2>
+               <ul>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>CO</strong>nvenient</div>
+                        <div class="content">
+                           <p>프로그램 설치와 회원가입이 필요 없어<br /> 편하게 사용할 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>CO</strong>nference</div>
+                        <div class="content">
+                           <p>회의실이 아니어도<br /> 화상으로 회의를 진행할 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="wow box animate__animated animate__zoomIn">
+                        <div class="tit"><strong>call</strong></div>
+                        <div class="content">
+                           <p>누구나 무료로<br /> 화상회의를 즐길 수 있습니다.</p>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="function" class="function">
+            <div class="container">
+               <ul>
+                  <li class="wow animate__animated animate__fadeInUp">
+                     <strong>비회원</strong>
+                     <p>복잡한 회원가입 절차가<br /> 필요 없습니다.</p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+                     <strong>프로그램 설치 없이</strong>
+                     <p>별도의 프로그램 설치가<br /> 필요 없습니다.</p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
+                     <strong>인터넷 브라우저</strong>
+                     <p>인터넷 브라우저만으로<br /> 화상회의를 할 수 있습니다. <span>*Chrome browser 권장</span></p>
+                  </li>
+                  <li class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                     <strong>최대 16명까지</strong>
+                     <p>최대 16명까지<br /> 화상회의를 할 수 있습니다.</p>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="guide" class="guide">
+            <div class="container">
+               <ul>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_01.jpg" alt="STEP 1">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 1</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">메인화면에서 '화상회의 시작하기' 버튼을 클릭하면 화상회의가 시작됩니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_02.jpg" alt="STEP 2">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 2</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">회의가 시작되기 전에 원하는 디바이스로 설정할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_03.jpg" alt="STEP 3">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 3</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">화면 하단에 마우스를 가져가면 메뉴를 확인하실 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_04.jpg" alt="STEP 4">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 4</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '초대하기' 버튼을 클릭 후 URL을 공유하여 사용자를 초대할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_05-1.jpg" alt="STEP 5-1">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 5-1</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 URL을 입력하면 바로 회의에 참석됩니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_05-2.jpg" alt="STEP 5-2">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 5-2</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">COCOcall을 실행 중이라면 메뉴에서 참여하기 버튼을 클릭 후 URL을 입력하면 회의에 참석됩니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_06.jpg" alt="STEP 6">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 6</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">최대 16명까지 화상회의가 가능합니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_07.jpg" alt="STEP 7">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 7</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 본인의 카메라, 오디오를 On/Off 할 수 있습니다.</p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_08.jpg" alt="STEP 8">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp">STEP 8</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">내 이름을 원하는 대로 수정할 수 있습니다. <span>*최초에는 '익명'으로 표시됩니다.</span></p>
+                  </li>
+                  <li>
+                     <div class="img">
+                        <img src="images/img_guide_09.jpg" alt="STEP 9">
+                     </div>
+                     <strong class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">STEP 9</strong>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".3s">메뉴에서 '화면공유' 버튼을 클릭하면 본인의 화면을 공유할 수 있습니다. <span>*PC에서만 제공됩니다.</span></p>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="download" class="download">
+            <div class="container">
+               <div class="content">
+                  <div class="logo">COCOcall</div>
+                  <div class="text">
+                     <p>COCOcall을 APP을 만나보세요!</p>
+                     <span>*안드로이드에서만 제공됩니다.</span>
+                  </div>
+                  <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
+                     <img src="images/img_app_download.png" alt="GET IT ON Google Play">
+                  </a>
+               </div>
+            </div>
+         </section>
+      </div>
+      <footer class="footer">
+         <div class="container">
+            <div class="link">
+               <a href="http://knowledgepoint.co.kr/" target="_blank">회사소개</a>
+               <a href="http://knowledgepoint.co.kr/developer/qna/list" target="_blank">문의사항</a>
+               <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">APP다운로드</a>
+            </div>
+            <div class="company">
+               <strong>COCOcall <span>[v1.0.0]</span></strong>
+               <p>
+                  <span>(주)날리지포인트</span>
+                  <span>주소 : 서울시 서초구 사임당로 8길 16 2층 (성재빌딩)</span>
+                  <span>전화 : <a href="tel:070-4325-4033">070-4325-4033</a></span>
+                  <span>메일주소 : <a href="mailto:kpointnotice@gmail.com">kpointnotice@gmail.com</a></span>
+               </p>
+            </div>
+            <div class="copyright">Copyright All rights reserved. Knowledgepoint Co., Ltd.</div>
+         </div>
+      </footer>
+   </div>
+</body>
+</html>
