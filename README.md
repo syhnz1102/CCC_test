@@ -5,6 +5,11 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.1-rc1 (20/08/27)
+- 모바일 웹 브라우저에서 COCOcall 사용 시 Web 혹은 App으로 사용 가능하도록 선택 팝업 추가
+- 모바일 웹 브라우저에서 영상 통화 비정상 동작되던 부분 수정
+- iOS Safari 웹 브라우저에서 영상 통화 시 화면이 멈춰보이던 현상 수정
+
 # v1.1.0b (20/08/20)
 - 라이센스 적용 (CP CODE 기반의 라이센스 체크)
  => Signal 연동 API에 CP CODE, AUTH KEY 추가. (Signal 접근 제한 정책)
