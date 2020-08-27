@@ -16,6 +16,9 @@
           if (window.navigator.userAgent.indexOf("KP_CCC_Android") > -1) {
             return { name: 'Android' }
           }
+          if (window.navigator.userAgent.indexOf("KAKAOTALK") > -1) {
+            return { name: 'kakaotalk' }
+          }
           if (window.navigator.userAgent.indexOf("Edge") > -1) {
             tem = ua.match(/\Edge\/(\d+)/)
             if (tem != null) { return { name: 'Edge', version: tem[1] }; }
@@ -36,7 +39,7 @@
           if (browser.name === 'Android') {
             supported = true;
           // } else if (browser.name === 'Opera' && browser.name === 'Firefox' && browser.name === 'Safari') {
-          } else if (browser.name === 'Opera' && browser.name === 'Firefox') {
+          } else if (browser.name === 'Opera' && browser.name === 'Firefox' || browser.name === 'kakaotalk') {
             supported = false;
           } else if (browser.name === "Chrome" && browser.version >= 48) {
             supported = true;
