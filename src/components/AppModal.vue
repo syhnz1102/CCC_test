@@ -16,6 +16,7 @@
 
 <script>
 import mobile from "../commons/mobile";
+import { eBus } from "../commons/eventBus";
 
 export default {
   props: { close: Function },
@@ -30,12 +31,24 @@ export default {
   },
   methods: {
     handleClickAppBtn() {
-      location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      mobile.setPlayBrowser(false);
+      if (mobile.isSafari) {
+        // iOS 실행의 경우
+        this.close();
+        mobile.setPlayBrowser(true);
+        eBus.$emit('popup-main', {
+          on: true,
+          type: 'Alert',
+          title: '앱 사용 실패',
+          contents: 'iOS App은 현재 준비 중입니다. \n확인 버튼을 누르시면 웹 브라우저로 계속 됩니다.'
+        })
+      } else {
+        location.href = `Intent://kp.cococall${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+        mobile.setPlayBrowser(false);
+      }
     },
     handleClickMobileWebBtn() {
-      mobile.setPlayBrowser(true);
       this.close();
+      mobile.setPlayBrowser(true);
     }
   }
 }

@@ -241,6 +241,7 @@ import AppModal from '@/components/AppModal';
 import mobile from '../commons/mobile';
 import router from "../router";
 import utils from '../commons/utils';
+import {eBus} from "../commons/eventBus";
 
 export default {
   components: { Popup, AppModal },
@@ -271,6 +272,16 @@ export default {
     // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
     this.$i18n.locale = (mobile.isMobile ? this.$store.state.language : window.localStorage.getItem('locale')) || 'ko';
     this.$store.commit('setLanguage', this.$i18n.locale);
+
+    eBus.$on('popup-main', param => {
+      this.popup.on = param.on;
+      this.popup.type = param.type;
+      this.popup.title = param.title;
+      this.popup.contents = param.contents;
+      this.popup.option = param.option;
+      this.popup.ok = param.ok;
+      this.popup.cancel = param.cancel;
+    });
 
     // 200810 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
     utils.setPrivateInfo(this.$route.params.cp);

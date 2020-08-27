@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <app-modal v-if="appModal" v-bind:close="handleAppModalClose" />
+    <app-modal v-if="appModal" v-bind:close="appModalCallback" />
     <Popup
       v-if="popup.on"
       v-bind:type="popup.type"
@@ -108,6 +108,7 @@ export default {
       },
       toast: '',
       appModal: false,
+      appModalCallback: () => {},
       buttonInfo: {
         on: true,
         message: this.$t('call-menu-information-pc-1')
@@ -120,11 +121,6 @@ export default {
     this.$store.commit('setLanguage', this.$i18n.locale);
   },
   async created() {
-    // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
-    if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
-      this.appModal = true;
-    }
-
     // 200625 ivypark, v1.0.0a deeplink 추가 - v1.1.1: AppModal 추가로 인한 삭제
     // if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
     //   location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
@@ -191,12 +187,29 @@ export default {
     })
 
     if (await webRTC.checkMediaDevices()) {
-      let stream = await webRTC.createVideoStream();
-      this.addVideo(true, 'local', stream);
+      // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
+      if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
+        this.appModal = true;
+        this.appModalCallback = async () => {
+          this.appModal = false;
 
-      // 200730 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
-      utils.setPrivateInfo(this.$route.params.cp);
-      this.init();
+          // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
+          let stream = await webRTC.createVideoStream();
+          this.addVideo(true, 'local', stream);
+
+          // 200730 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
+          utils.setPrivateInfo(this.$route.params.cp);
+          this.init();
+        }
+      } else {
+        // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
+        let stream = await webRTC.createVideoStream();
+        this.addVideo(true, 'local', stream);
+
+        // 200730 ivypark, v1.1.0b. 비즈니스 버전 (ip, cp 체크)
+        utils.setPrivateInfo(this.$route.params.cp);
+        this.init();
+      }
     } else {
       if (this.$store.state.socket && this.$store.state.roomInfo) {
         webRTC.destroyRoom();
@@ -275,9 +288,6 @@ export default {
     handlePopupCancelBtnClick(param) {
       this.popup.on = false;
       if (this.popup.cancel) this.popup.cancel(param);
-    },
-    handleAppModalClose() {
-      this.appModal = false;
     },
     handleShareEndBtnClick(isSharer) {
       let s = this.$store.state
