@@ -34,10 +34,18 @@ class WebRTC {
   createPeer(uid, isMulti, pluginId) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection(config.iceServer);
-      peer.onaddstream = ({ stream }) => {
-        console.debug(`onaddstream :`, stream);
+      // 200825 ivypark, legacy codes
+      // peer.onaddstream = ({ stream }) => {
+      peer.ontrack = ({ streams }) => {
+        console.debug(`onaddstream :`, streams[0]);
+
+        // 200825 ivypark,
+        if (Object.keys(store.state.streamInfo).some(elem => elem === (uid === 'local' && !isMulti ? 'remote' : uid))) {
+          return false;
+        }
+
         let streamObj = {};
-        streamObj[uid === 'local' && !isMulti ? 'remote' : uid] = stream;
+        streamObj[uid === 'local' && !isMulti ? 'remote' : uid] = streams[0];
         store.commit('setStreamInfo', streamObj);
 
         let info = {};
@@ -58,7 +66,7 @@ class WebRTC {
           type: 'add',
           isLocal: false,
           id: uid === 'local' && !isMulti ? 'remote' : uid,
-          stream,
+          stream: streams[0],
           count: store.state.roomInfo.count,
           info,
         });
@@ -90,10 +98,17 @@ class WebRTC {
         //   sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         // }
       }
+
+      let peerCount = 0;
       peer.onicecandidate = e => {
         if (!e.candidate) {
-          sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId, host: store.state.roomInfo.host });
-          if (store.state.roomInfo.host === true) store.commit('setRoomInfo', { host: false });
+          // if (peerCount <= 0) setTimeout(() => {
+            sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId, host: store.state.roomInfo.host });
+            if (store.state.roomInfo.host === true) store.commit('setRoomInfo', { host: false });
+          // }, 3000);
+          // peerCount++;
+          // sendMessage('SDP', { sdp: peer.localDescription, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id, pluginId: pluginId, host: store.state.roomInfo.host });
+          // if (store.state.roomInfo.host === true) store.commit('setRoomInfo', { host: false });
           // sendMessage('Candidate', { candidate: e.candidate, usage: 'cam', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
         }
       };

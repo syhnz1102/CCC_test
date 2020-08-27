@@ -28,16 +28,18 @@ class ScreenShare {
   createPeer(uid, pluginId) {
     return new Promise(async (resolve, reject) => {
       const peer = new RTCPeerConnection(config.iceServer);
-      peer.onaddstream = ({ stream }) => {
-        console.debug(`onaddstream :`, stream);
+      // 200825 ivypark, legacy codes
+      // peer.onaddstream = ({ stream }) => {
+      peer.ontrack = ({ streams }) => {
+        console.debug(`onaddstream :`, streams[0]);
         let streamObj = {};
-        streamObj[uid] = stream;
+        streamObj[uid] = streams[0];
         store.commit('setStreamInfo', streamObj);
         eBus.$emit('share', {
           type: 'add',
           id: 'screen',
           isLocal: false,
-          stream,
+          stream: streams[0],
           count: store.state.roomInfo.count
         })
       }

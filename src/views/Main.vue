@@ -9,6 +9,7 @@
        v-bind:ok="handlePopupOkBtnClick"
        v-bind:cancel="handlePopupCancelBtnClick"
       />
+      <app-modal v-if="appModal" v-bind:close="handleAppModalClose" />
       <header class="header">
          <div class="container">
             <h1>
@@ -33,6 +34,9 @@
             </div>
          </div>
       </header>
+      <div class="toast wow animate__animated animate__fadeOut" data-wow-duration="1.5s" v-if="toast">
+        <p>{{ toast }}</p>
+      </div>
       <div class="main">
          <section class="visual">
             <div class="bg">
@@ -45,7 +49,7 @@
                  <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
                    <span><i>CO</i>nvenient</span>
                    <span><i>CO</i>nference</span>
-                   <span><i>call</i></span>
+                   <span @dblclick="changeDeveloperMode"><i>call</i></span>
                  </strong>
                </div>
                <div class="button wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
@@ -233,12 +237,13 @@ import Session from '../commons/session';
 import { sendMessage } from '../commons/message';
 import config from '../config';
 import Popup from '@/components/Popup';
+import AppModal from '@/components/AppModal';
 import mobile from '../commons/mobile';
 import router from "../router";
 import utils from '../commons/utils';
 
 export default {
-  components: { Popup },
+  components: { Popup, AppModal },
   data () {
     return {
       url: '',
@@ -252,13 +257,15 @@ export default {
         ok: null,
         cancel: null
       },
+      toast: '',
+      appModal: false
     }
   },
   mounted() {
+    // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
     // 200721 ivypark, v1.0.8. 메인페이지 deeplink 추가
     if (mobile.isMobile && !mobile.isWebView) {
-      location.href = `Intent://kp.cococall#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
+      this.appModal = true;
     }
 
     // 200812 ivypark, v1.1.0a. 영문화 적용. initialize
@@ -301,7 +308,7 @@ export default {
           let domain = urlArr[2];
           let roomId = urlArr[urlArr.findIndex(elem => elem === 'room') + 1];
           if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
+            if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
               mobile.onStartConference(roomId);
             } else {
               router.push({ path: `${addUrl}/room/${roomId}` });
@@ -312,7 +319,7 @@ export default {
         } else {
           // Room 번호만 입력 한 경우
           if (Number(this.url) && this.url.length === config.lengthOfRoomId) {
-            if (mobile.isMobile) {
+            if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
               mobile.onStartConference(this.url);
             } else {
               router.push({ path: `${addUrl}/room/${this.url}` });
@@ -337,11 +344,23 @@ export default {
       this.popup.on = false;
       if (this.popup.cancel) this.popup.cancel(param);
     },
+    handleAppModalClose() {
+      this.appModal = false;
+    },
     onChangeLanguage() {
       this.$i18n.locale = this.$i18n.locale === 'ko' ? 'en' : 'ko';
       if (!mobile.isMobile) window.localStorage.setItem('locale', this.$i18n.locale);
       this.$store.commit('setLanguage', this.$i18n.locale);
       // return this.$i18n.locale;
+    },
+    changeDeveloperMode() {
+      config.developerMode = !config.developerMode;
+      console.log('developer mode : ', config.developerMode);
+      clearTimeout(this.timeout);
+      this.toast = `developer mode ${config.developerMode ? 'on' : 'off'}`;
+      this.timeout = setTimeout(() => {
+        this.toast = '';
+      }, 1500)
     }
   },
   computed: {

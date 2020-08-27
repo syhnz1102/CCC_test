@@ -27,7 +27,7 @@ export async function onMessage(resp) {
         store.commit('setRoomInfo', { roomId: resp.roomId });
 
         // 200622 ivypark, v0.9.4. mobile 입장 코드 추가 (가로모드 관련 이슈로 인해 redirect를 android에서 직접 하도록 함)
-        if (mobile.isMobile) {
+        if (mobile.isMobile && mobile.isWebView && !mobile.isPlayBrowser) {
           mobile.onStartConference(resp.roomId);
         } else {
           router.push({ path: `${resp.cp ? '/'+resp.cp : ''}/room/${resp.roomId}` });
@@ -190,6 +190,14 @@ export async function onMessage(resp) {
         type: 'set',
         id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId,
         isOffVideo: resp.status
+      })
+      break;
+
+    case 'Talking':
+      eBus.$emit('video', {
+        type: 'set',
+        id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId,
+        isTalking: resp.status
       })
       break;
   }

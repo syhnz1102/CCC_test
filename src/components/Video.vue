@@ -1,5 +1,5 @@
 <template>
-  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'camOff': offVideo }">
+  <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'camOff': offVideo, 'speaker': this.isTalking }">
     <div class="userContainer">
       <div class="user">
         <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
@@ -20,7 +20,8 @@ export default {
       id: this.isLocal ? 'local' : this.vid,
       name: this.userName,
       offVideo: this.isOffVideo,
-      offMic: this.isOffMic
+      offMic: this.isOffMic,
+      isTalking: false
     }
   },
   mounted() {
@@ -33,6 +34,7 @@ export default {
       console.log(this.isLocalVideo, this.$store.state.roomInfo.count);
 
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
+      if (param.id === this.id && param.hasOwnProperty('isTalking')) this.isTalking = param.isTalking;
       if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
       if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
         // 200702 ivypark, v1.0.1. 비디오 off 시 소리 들리지 않는 현상 수정. (기존 비디오 삭제 -> display: none, block으로 변경되도록 수정)
@@ -58,6 +60,7 @@ export default {
       video.srcObject = this.$store.state.streamInfo[this.isLocalVideo ? 'local' : (this.$store.state.roomInfo.type === 'p2p' ? 'remote' : this.id)];
       video.autoplay = true;
       video.muted = this.isLocalVideo;
+      video.playsInline = true;
       if (this.$refs.video.firstChild) this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
       // 200714 ivypark, v1.0.7. 화면 off후 신규 참가자 입장 시 카메라 화면이 출력되지 않는 문제 수정
       this.$refs.video.querySelector('video').style = isOff ? `display: none` : `display: block`;

@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <app-modal v-if="appModal" v-bind:close="handleAppModalClose" />
     <Popup
       v-if="popup.on"
       v-bind:type="popup.type"
@@ -76,11 +77,12 @@ import Video from '@/components/Video';
 import OffVideo from '@/components/OffVideo';
 import Popup from '@/components/Popup';
 import Buttons from '@/components/Buttons';
+import AppModal from '@/components/AppModal';
 import utils from "../commons/utils";
 import store from "../store";
 
 export default {
-  components: { Video, OffVideo, Buttons, Popup },
+  components: { Video, OffVideo, Buttons, Popup, AppModal },
   data () {
     return {
       videos: [],
@@ -105,6 +107,7 @@ export default {
         cancel: null
       },
       toast: '',
+      appModal: false,
       buttonInfo: {
         on: true,
         message: this.$t('call-menu-information-pc-1')
@@ -117,11 +120,16 @@ export default {
     this.$store.commit('setLanguage', this.$i18n.locale);
   },
   async created() {
-    // 200625 ivypark, v1.0.0a deeplink 추가
-    if (mobile.isMobile && !mobile.isWebView) {
-      location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-      return false;
+    // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
+    if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
+      this.appModal = true;
     }
+
+    // 200625 ivypark, v1.0.0a deeplink 추가 - v1.1.1: AppModal 추가로 인한 삭제
+    // if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
+    //   location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+    //   return false;
+    // }
 
     if (mobile.isMobile) {
       // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)
@@ -267,6 +275,9 @@ export default {
     handlePopupCancelBtnClick(param) {
       this.popup.on = false;
       if (this.popup.cancel) this.popup.cancel(param);
+    },
+    handleAppModalClose() {
+      this.appModal = false;
     },
     handleShareEndBtnClick(isSharer) {
       let s = this.$store.state

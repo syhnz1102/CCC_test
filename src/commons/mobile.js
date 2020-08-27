@@ -2,8 +2,9 @@ import { eBus } from "./eventBus";
 import webRTC from "./webrtc";
 
 class Mobile {
-  isMobile = false; // Android 기본 Web Browser로 open 시
-  isWebView = false; // Android App의 Web view 형태로 open 시
+  isMobile = false; // Mobile 버전인지 확인
+  isWebView = false; // App의 Web view 형태로 open 시
+  isPlayBrowser = false; // Web Browser로 서비스 진행 시 true
 
   constructor() {
     // 200622 ivypark, v1.0.0a mobile web view / web browser 구분 (deeplink 추가)
@@ -42,6 +43,10 @@ class Mobile {
       type: 'remove'
     })
     window.location.href = '/';
+  }
+
+  setPlayBrowser(status) {
+    this.isPlayBrowser = status;
   }
 }
 
