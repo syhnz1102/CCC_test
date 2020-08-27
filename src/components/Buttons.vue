@@ -1,7 +1,7 @@
 <template>
   <div class="buttonContainer" v-if="isVisible">
       <div class="button wow animate__animated animate__fadeInUp animate__faster">
-        <button class="enter" v-if="!isMobile || isWebView" @click="handleJoinBtn"><span>{{ this.$t('button-another-meeting') }}</span></button>
+        <button class="enter" v-if="!isMobile" @click="handleJoinBtn"><span>{{ this.$t('button-another-meeting') }}</span></button>
         <button class="invite" @click="handleInviteBtn"><span>{{ this.$t('button-invite') }}</span></button>
         <button class="share" @click="handleScreenShareBtn"><span>{{ this.$t('button-share') }}</span></button>
         <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>{{ this.$t('button-camera') }}</span></button>
