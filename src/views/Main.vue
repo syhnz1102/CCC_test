@@ -319,22 +319,22 @@ export default {
           let domain = urlArr[2];
           let roomId = urlArr[urlArr.findIndex(elem => elem === 'room') + 1];
           if (config.listOfDomains.some(c => domain.indexOf(c) > -1) && Number(roomId) && roomId.length === config.lengthOfRoomId) {
-            if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
-              mobile.onStartConference(roomId);
-            } else {
+            // if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
+            //   mobile.onStartConference(roomId);
+            // } else {
               router.push({ path: `${addUrl}/room/${roomId}` });
-            }
+            // }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
         } else {
           // Room 번호만 입력 한 경우
           if (Number(this.url) && this.url.length === config.lengthOfRoomId) {
-            if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
-              mobile.onStartConference(this.url);
-            } else {
+            // if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
+            //   mobile.onStartConference(this.url);
+            // } else {
               router.push({ path: `${addUrl}/room/${this.url}` });
-            }
+            // }
           } else {
             this.onPopup(this.$t('popup-join-failed-contents-2'));
           }
