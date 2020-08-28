@@ -60,19 +60,22 @@ class ScreenShare {
           // });
         }
       }
+      let peerCount = 0;
       peer.onicecandidate = e => {
-        if (!e.candidate) {
-          // sendMessage('Candidate', { candidate: e.candidate, usage: 'screen', roomId: store.state.roomInfo.roomId, isSfu: true, userId: store.state.userInfo.id });
-          sendMessage('SDP', {
-            sdp: peer.localDescription,
-            usage: 'screen',
-            roomId: store.state.roomInfo.roomId,
-            // isSfu: true,
-            userId: store.state.userInfo.id,
-            useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N',
-            pluginId: pluginId
-          });
+        if (peerCount <= 0) {
+          setTimeout(() => {
+            sendMessage('SDP', {
+              sdp: peer.localDescription,
+              usage: 'screen',
+              roomId: store.state.roomInfo.roomId,
+              // isSfu: true,
+              userId: store.state.userInfo.id,
+              useMediaSvr: store.state.roomInfo.count > 2 ? 'Y' : 'N',
+              pluginId: pluginId
+            });
+          }, 1500);
         }
+        peerCount++;
       };
 
       let peerObj = {};
