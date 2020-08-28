@@ -19,7 +19,7 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
-# v1.1.1-rc3 (20/08/28) *** DID NOT RELEASED ***
+# v1.1.1-rc3 (20/08/28)
 - 특정 디바이스에서 통화 연결이 매우 느린 현상 수정
 
 # v1.1.1-rc2 (20/08/27) *** DID NOT RELEASED ***
