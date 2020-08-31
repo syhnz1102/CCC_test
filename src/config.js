@@ -1,6 +1,6 @@
 export default {
   version: 'v1.1.1-rc4 (0831)',
-  env: 'TB', // 'LOCAL', 'TB', 'PROD'
+  env: 'PROD', // 'LOCAL', 'TB', 'PROD'
   socketIoUrl: {
     LOCAL: 'https://localhost:7103/SignalServer',
     TB: 'https://ktgenie.com:7103/SignalServer',
