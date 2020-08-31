@@ -121,11 +121,11 @@ export default {
     this.$store.commit('setLanguage', this.$i18n.locale);
   },
   async created() {
-    // 200625 ivypark, v1.0.0a deeplink 추가 - v1.1.1: AppModal 추가로 인한 삭제
-    // if (mobile.isMobile && !mobile.isWebView && !mobile.isPlayBrowser) {
-    //   location.href = `Intent://kp.cococall?roomid=${window.location.href.split('/room/')[1]}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
-    //   return false;
-    // }
+    // 200625 ivypark, v1.0.0a deeplink 추가 - v1.1.1: AppModal 추가로 인한 삭제 - v1.1.1-rc4: kakaotalk 브라우저 이슈로 재 추가
+    if (mobile.isMobile && mobile.isNotSupported) {
+      location.href = `Intent://kp.cococall${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
+      return false;
+    }
 
     if (mobile.isMobile) {
       // 200622 ivypark, v0.9.4. mobile 코드 추가 (back 버튼, 방 나가기 이벤트)

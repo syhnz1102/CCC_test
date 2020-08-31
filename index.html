@@ -38,8 +38,10 @@
           var supported = false;
           if (browser.name === 'Android') {
             supported = true;
-          // } else if (browser.name === 'Opera' && browser.name === 'Firefox' && browser.name === 'Safari') {
-          } else if (browser.name === 'Opera' && browser.name === 'Firefox' || browser.name === 'kakaotalk') {
+            // } else if (browser.name === 'Opera' && browser.name === 'Firefox' && browser.name === 'Safari') {
+          } else if (browser.name === 'kakaotalk') {
+            supported = true; // WebRTC 지원 되지 않아 일단 허용 후 App Redirect
+          } else if (browser.name === 'Opera' && browser.name === 'Firefox') {
             supported = false;
           } else if (browser.name === "Chrome" && browser.version >= 48) {
             supported = true;

@@ -19,6 +19,10 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.1-rc4 (20/08/31)
+- 카카오톡 브라우저에서 서비스 불가 안내 출력했던 부분 수정
+ + URL 복사 버튼 클릭 시 코멘트 추가 및 App Redirect 되도록 수정
+
 # v1.1.1-rc3 (20/08/28)
 - 특정 디바이스에서 통화 연결이 매우 느린 현상 수정
 
