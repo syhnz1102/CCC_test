@@ -136,7 +136,7 @@ body,
 
 .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
 .userContainer .user {overflow:hidden;height:30px;border-radius:1.5em;background:rgba(0,0,0,0.5)}
-.userContainer .user .name {overflow:hidden;float:left;display:block;max-width:200px;height:30px;line-height:30px;padding:0 15px;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:#fff;box-sizing:border-box}
+.userContainer .user .name {overflow:hidden;float:left;display:block;max-width:200px;min-width:60px;height:30px;line-height:30px;padding:0 10px;text-align:center;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:#fff;box-sizing:border-box}
 .userContainer .user .name:only-child {border-radius:1.5em}
 .userContainer .user .name.micOff::before {content:'';display:inline-block;width:12px;height:12px;margin-right:5px;background:url('../images/icon_mic_off.png') no-repeat left center;background-size:cover}
 .userContainer .user button {float:right;display:block;width:30px;height:30px;vertical-align:middle;font-size:0;border-left:1px solid rgba(255,255,255,0.1);border-top-right-radius:1.5em;border-bottom-right-radius:1.5em;box-sizing:border-box}
