@@ -1,5 +1,6 @@
 <template>
   <div class="video" ref="video" v-bind:id="this.id" v-bind:class="{ 'local': this.isLocalVideo, 'camOff': offVideo, 'speaker': this.isTalking }">
+    <div style="color: greenyellow; position:absolute; bottom: 50px" v-if="report">{{ report }}</div>
     <div class="userContainer">
       <div class="user">
         <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
@@ -11,6 +12,9 @@
 
 <script>
 import { eBus } from '../commons/eventBus';
+import utils from '../commons/utils';
+import config from "../config";
+import store from "../store";
 
 export default {
   props: { isLocal: Boolean, isOffVideo: Boolean, isOffMic: Boolean, vid: String, userName: String },
@@ -21,7 +25,8 @@ export default {
       name: this.userName,
       offVideo: this.isOffVideo,
       offMic: this.isOffMic,
-      isTalking: false
+      isTalking: false,
+      report: null
     }
   },
   mounted() {
@@ -64,6 +69,38 @@ export default {
       if (this.$refs.video.firstChild) this.$refs.video.insertBefore(video, this.$refs.video.firstChild);
       // 200714 ivypark, v1.0.7. 화면 off후 신규 참가자 입장 시 카메라 화면이 출력되지 않는 문제 수정
       this.$refs.video.querySelector('video').style = isOff ? `display: none` : `display: block`;
+
+      if (config.developerMode) {
+        setInterval(() => {
+          let peerInfo = store.state.peerInfo;
+          if (Object.keys(peerInfo).length) {
+            let localPeer = peerInfo['local'];
+            let sender = localPeer.getSenders();
+            let track;
+            sender.forEach(curr => {
+              if (curr.track.kind === 'video') track = curr;
+            })
+            if (!track) return;
+            track.getStats().then(r => {
+              r.forEach(report => {
+                let bytes;
+                let packets;
+                if (report.type === 'outbound-rtp') {
+                  if (report.isRemote) {
+                    return;
+                  }
+                  const now = report.timestamp;
+                  bytes = report.bytesSent;
+                  packets = report.packetsSent;
+                  console.debug('[ local report ] - ', report);
+                  console.debug('local : ', now, packets, bytes);
+                }
+                this.report = JSON.stringify(report);
+              });
+            })
+          }
+        }, 10000)
+      }
     },
     handleChangeName() {
       eBus.$emit('popup', {

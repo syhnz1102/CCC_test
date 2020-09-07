@@ -293,8 +293,13 @@ export default {
   },
   methods: {
     async handleMakeBtnClick() {
-      new Session();
-      sendMessage('CreateRoom', { cp: this.$route.params.cp });
+      const session = new Session();
+      if (await session.connect()) {
+        sendMessage('CreateRoom', { cp: this.$route.params.cp });
+      } else {
+        session.close();
+        this.onPopup('서버와의 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.');
+      }
     },
     handleMouseoverJoinBtn() {
       if (!mobile.isMobile && !this.isCollapsedJoinBtn) {

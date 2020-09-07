@@ -224,35 +224,47 @@ export default {
     webRTC.clear();
   },
   methods: {
-    init() {
+    async init() {
       if (mobile.isMobile) {
         // 200708 ivypark. v1.0.4. 모바일 화면에서 연결/종료가 되지 않는 문제 수정
-        if (!this.$store.state.socket) new Session();
-        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1]});
+        const session = !this.$store.state.socket ? new Session() : this.$store.state.socket;
+        if (await session.connect()) {
+          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+        } else {
+          session.close();
+        }
         return false;
       }
 
       // 200707 ivypark, v1.0.4. 최초 입장 시 디바이스 설정 다시 보지 않기에 체크 되어있다면 팝업 띄우지 않기
       let isChecked = window.localStorage.getItem('IS_CHECKED_DEVICE') && JSON.parse(window.localStorage.getItem('IS_CHECKED_DEVICE').toLowerCase())
       if (isChecked) {
-        if (!this.$store.state.socket) new Session();
-        sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+        const session = !this.$store.state.socket ? new Session() : this.$store.state.socket;
+        if (await session.connect()) {
+          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+        } else {
+          session.close();
+        }
       } else {
         this.popup.on = true;
         this.popup.type = 'Settings';
         this.popup.title = this.$t('popup-setting-devices-title');
         this.popup.contents = this.$t('popup-setting-devices-contents-1');
         this.popup.option.inCall = false;
-        this.popup.ok = () => {
-          if (!this.$store.state.socket) new Session();
-          sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
-          eBus.$emit('setVideo', {
-            type: 'set',
-            id: 'local',
-            deviceSetting: {
-              done: true
-            }
-          });
+        this.popup.ok = async () => {
+          const session = !this.$store.state.socket ? new Session() : this.$store.state.socket;
+          if (await session.connect()) {
+            sendMessage('RoomJoin', { roomId: window.location.href.split('/room/')[1] });
+            eBus.$emit('setVideo', {
+              type: 'set',
+              id: 'local',
+              deviceSetting: {
+                done: true
+              }
+            });
+          } else {
+            session.close();
+          }
         }
         this.popup.cancel = () => {
           window.location.href = '/';

@@ -21,6 +21,9 @@ class Utils {
       store.commit('setUserInfo', payload);
     }
   }
+
+  getPacketsTimeline(data) {
+  }
 }
 
 

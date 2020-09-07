@@ -10,9 +10,9 @@ class Mobile {
 
   constructor() {
     // 200622 ivypark, v1.0.0a mobile web view / web browser 구분 (deeplink 추가)
-    this.isMobile = navigator.userAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || navigator.userAgent.match(/LG|SAMSUNG|Samsung/) != null;
+    this.isMobile = navigator.userAgent.match(/iPhone|iPod|iPad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || navigator.userAgent.match(/LG|SAMSUNG|Samsung/) != null;
     this.isWebView = /KP_CCC_Android/i.test(navigator.userAgent);
-    this.isSafari = /iPhone|iPod/i.test(navigator.userAgent);
+    this.isSafari = /iPhone|iPod|iPad/i.test(navigator.userAgent);
     this.isNotSupported = /KAKAOTALK/i.test(navigator.userAgent);
 
     console.debug(`----- device: ${this.isMobile ? 'Android' : 'Web'} // Web View : ${this.isWebView} // ${this.isSafari} -----`);

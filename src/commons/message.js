@@ -21,6 +21,18 @@ export async function onMessage(resp) {
     })
   }
 
+  if (resp.code === '504') {
+    eBus.$emit(Object.keys(store.state.roomInfo).length ? 'popup' : 'popup-main', {
+      on: true,
+      type: 'Alert',
+      title: '서버 오류',
+      contents: '서버와의 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.',
+      cancel: () => {
+        window.location.href = utils.getPrivateUrl();
+      }
+    });
+  }
+
   switch (resp.eventOp || resp.signalOp) {
     case 'CreateRoom':
       if (resp.code === '200') {
