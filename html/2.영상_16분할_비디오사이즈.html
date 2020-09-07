@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width">
+   <title>COCOcall</title>
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <script>
+      window.onload = function() {
+         var videoBox = document.querySelectorAll('.video');
+         for (var i = 0; i < videoBox.length; ++i) {
+            var div = videoBox[i];
+            var videoBoxSize = div.offsetHeight / div.offsetWidth;
+
+            var video = div.querySelector('.video img');
+            var videoSize = video.height / video.width;
+
+            if (videoSize <= videoBoxSize) {
+               // 이미지가 div보다 납작한 경우
+               var videoWidthActual = div.offsetHeight / videoSize;
+               var videoWidthToBe = div.offsetHeight / videoBoxSize;
+               video.style.cssText = 'width:100%; height:100%; object-fit:contain'
+            } else {
+               // 이미지가 div보다 길쭉한 경우
+               video.style.cssText = 'width:100%; height:100%; object-fit:cover';
+            }
+         }
+      };
+   </script>
+</head>
+<body>
+   <div class="wrapper">
+      <div class="videoContainer">
+         <div class="mainVideo sixteen">
+            <div class="video">
+               <img src="images/sample02.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name micOff">익명</span>
+                     <button>이름변경</button>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample18.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample04.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample05.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample06.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample07.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample08.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample09.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample10.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample11.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample12.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample13.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample14.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample15.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample16.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+            <div class="video">
+               <img src="images/sample18.jpg">
+               <div class="userContainer">
+                  <div class="user">
+                     <span class="name">익명</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="buttonContainer" style="display:none">
+            <div class="button">
+               <button class="enter"><span>참여하기</span></button>
+               <button class="invite"><span>초대하기</span></button>
+               <button class="share"><span>화면공유</span></button>
+               <!-- <button class="camera off"><span>카메라</span></button> -->
+               <button class="camera"><span>카메라</span></button>
+               <button class="mic"><span>마이크</span></button>
+               <!-- <button class="mic off"><span>마이크</span></button> -->
+               <button class="setting"><span>설정</span></button>
+               <button class="endCall">통화종료</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+</html>
