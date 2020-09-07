@@ -7,25 +7,30 @@
    <meta name="viewport" content="width=device-width">
    <title>COCOcall</title>
    <link rel="stylesheet" type="text/css" href="css/style.css">
-   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    <script>
       window.onload = function() {
-         var videoBox = document.querySelectorAll('.video');
+         var videoBox = document.querySelectorAll('.mainVideo .video');
          for (var i = 0; i < videoBox.length; ++i) {
             var div = videoBox[i];
             var videoBoxSize = div.offsetHeight / div.offsetWidth;
 
-            var video = div.querySelector('.video img');
+            var video = div.querySelector('.mainVideo .video img'); //.mainVideo .video video 로 변경
             var videoSize = video.height / video.width;
 
             if (videoSize <= videoBoxSize) {
                // 이미지가 div보다 납작한 경우
-               var videoWidthActual = div.offsetHeight / videoSize;
-               var videoWidthToBe = div.offsetHeight / videoBoxSize;
-               video.style.cssText = 'width:100%; height:100%; object-fit:contain'
+               if(video.height >= video.width) {
+                  video.classList.add('cover')
+               } else {
+                  video.classList.add('contain')
+               }
             } else {
                // 이미지가 div보다 길쭉한 경우
-               video.style.cssText = 'width:100%; height:100%; object-fit:cover';
+               if(video.height >= video.width) {
+                  video.classList.add('contain')
+               } else {
+                  video.classList.add('cover')
+               }
             }
          }
       };
