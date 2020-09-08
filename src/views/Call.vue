@@ -336,17 +336,17 @@ export default {
 
         // 200908, Video 비율 조정 Test (혜윤)
         var videoBox = document.querySelectorAll('.mainVideo .video');
-         for (var i = 0; i < videoBox.length; ++i) {
-            var div = videoBox[i];
-            var video = div.querySelector('.mainVideo .video video'); //.mainVideo .video video
-            if (video.height < video.width) {
-               video.classList.add('cover')
+        for (var i = 0; i < videoBox.length; ++i) {
+          var div = videoBox[i];
+          var video = div.querySelector('.mainVideo .video video'); //.mainVideo .video video
+          if (!video) return false;
+          if (video.height < video.width) {
+              video.classList.add('cover')
+          } else {
+            if(video.height >= video.width) {
+              video.classList.add('contain')
             } else {
-              if(video.height >= video.width) {
-                video.classList.add('contain')
-              } else {
-                video.classList.add('cover')
-              }
+              video.classList.add('cover')
             }
           }
         }
