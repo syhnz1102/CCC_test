@@ -7,45 +7,13 @@
    <meta name="viewport" content="width=device-width">
    <title>COCOcall</title>
    <link rel="stylesheet" type="text/css" href="css/style.css">
-   <!-- <script>
-      window.onload = function() {
-         var videoBox = document.querySelectorAll('.video');
-         for (var i = 0; i < videoBox.length; ++i) {
-            var div = videoBox[i];
-            var videoBoxSize = div.offsetHeight / div.offsetWidth;
-
-            var video = div.querySelector('.video img');
-            var videoSize = video.height / video.width;
-
-            if (videoSize <= videoBoxSize) {
-               // 이미지가 div보다 납작한 경우
-               if(video.height >= video.width) {
-                  video.classList.add = 'width:100%; height:100%; object-fit:cover; background-color:#111'
-               } else {
-                  video.style.cssText = 'width:100%; height:100%; object-fit:contain; background-color:#111'
-               }
-            } else {
-               // 이미지가 div보다 길쭉한 경우
-               if(video.height >= video.width) {
-                  video.style.cssText = 'width:100%; height:100%; object-fit:contain; background-color:#111'
-               } else {
-                  video.style.cssText = 'width:100%; height:100%; object-fit:cover; background-color:#111'
-               }
-            }
-         }
-      };
-   </script> -->
    <script>
       window.onload = function() {
          var videoBox = document.querySelectorAll('.mainVideo .video');
          for (var i = 0; i < videoBox.length; ++i) {
             var div = videoBox[i];
-            var videoBoxSize = div.offsetHeight / div.offsetWidth;
-
-            var video = div.querySelector('.mainVideo .video img'); //.mainVideo .video video 로 변경
-            var videoSize = video.height / video.width;
-
-            if (videoSize <= videoBoxSize) {
+            var video = div.querySelector('.mainVideo .video img'); //.mainVideo .video video
+            if (video.height < video.width) {
                video.classList.add('cover')
             } else {
                if(video.height >= video.width) {
