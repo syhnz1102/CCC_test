@@ -333,6 +333,28 @@ export default {
           isOffMic: info && info.isOffMic ? info.isOffMic : false,
           isLocal
         })
+
+        // 200908, Video 비율 조정 Test (혜윤)
+        var videoBox = document.querySelectorAll('.mainVideo .video');
+        for (var i = 0; i < videoBox.length; ++i) {
+          var div = videoBox[i];
+          var videoBoxSize = div.offsetHeight / div.offsetWidth;
+
+          var video = div.querySelector('.mainVideo .video video'); //.mainVideo .video video 로 변경
+          if (video) {
+            var videoSize = video.height / video.width;
+
+            if (videoSize <= videoBoxSize) {
+              video.classList.add('cover')
+            } else {
+              if(video.height >= video.width) {
+                video.classList.add('contain')
+              } else {
+                video.classList.add('cover')
+              }
+            }
+          }
+        }
       }
     },
     setVideo(param) {
