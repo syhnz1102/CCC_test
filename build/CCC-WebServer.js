@@ -84,10 +84,10 @@ devMiddleware.waitUntilValid(() => {
 })
 
 const server = https.createServer({
-  key: fs.readFileSync('./ssl/ktgenie.key'),
-  cert: fs.readFileSync('./ssl/ktgenie_cert.pem'),
-  ca: fs.readFileSync(`./ssl/RootCA.crt`),
-  passphrase: 'kpoint'
+  key: fs.readFileSync('./ssl/dev_knowledgetalk.key'),
+  cert: fs.readFileSync('./ssl/dev_knowledgetalk.pem'),
+  ca: fs.readFileSync(`./ssl/dev_RootCA.crt`),
+  passphrase: 'kpoint01'
 }, app).listen(port)
 
 module.exports = {
