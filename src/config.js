@@ -3,7 +3,7 @@ export default {
   env: 'PROD', // 'LOCAL', 'TB', 'PROD'
   socketIoUrl: {
     LOCAL: 'https://localhost:7103/SignalServer',
-    TB: 'https://ktgenie.com:7103/SignalServer',
+    TB: 'https://dev.knowledgetalk.co.kr:7103/SignalServer',
     PROD: 'https://cococall.net:7103/SignalServer'
   },
   developerMode: false,
