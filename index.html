@@ -41,7 +41,7 @@
             // } else if (browser.name === 'Opera' && browser.name === 'Firefox' && browser.name === 'Safari') {
           } else if (browser.name === 'kakaotalk') {
             supported = true; // WebRTC 지원 되지 않아 일단 허용 후 App Redirect
-          } else if (browser.name === 'Opera' && browser.name === 'Firefox') {
+          } else if (browser.name === 'Opera' || browser.name === 'Firefox') {
             supported = false;
           } else if (browser.name === "Chrome" && browser.version >= 48) {
             supported = true;
@@ -57,26 +57,83 @@
 
         if (!isSupport) {
           //render unsupported message
-          document.write('<div style="padding:100px 20px 100px;text-align:center"><img src="/static/img/icons/icon_text_logo.png" alt="COCOcall" style="display:block;margin:0 auto"><div style="margin-top:20px">');
-          document.write('<strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:28px;color:#333">다른 브라우저를 이용해 주세요.</strong>');
-          document.write('<p style="margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-size:14px;color:#666">COCOcall은 현재 사용 중인 브라우저를 지원하지 않습니다. <br />');
-          document.write('서비스를 계속 이용하시려면 다른 브라우저를 설치하시기 바랍니다.<br />브라우저 아이콘을 클릭하시면 설치 페이지로 이동합니다.</p>');
-          document.write('<ul style="margin-top:20px;padding:0"><li style="display:inline-block;width:120px;padding:5px"><a href="https://www.microsoft.com/edge" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
-          document.write('<img src="/static/img/icons/icon_browser_edge.png" alt="Microsoft Edge" width="100%"><span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Microsoft Edge</span>');
-          document.write('</a></li><li style="display:inline-block;width:120px;padding:5px">');
-          document.write('<a href="https://www.google.com/chrome/" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
-          document.write('<img src="/static/img/icons/icon_browser_chrome.png" alt="Google Chrome" width="100%">');
-          document.write('<span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Google Chrome</span>');
-          document.write('</a></li><li style="display:inline-block;width:120px;padding:5px">');
-          document.write('<a href="https://whale.naver.com/" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
-          document.write('<img src="/static/img/icons/icon_browser_whale.png" alt="NAVER whale" width="100%">');
-          document.write('<span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">NAVER whale</span>');
-          document.write('</a></li></ul></div><span style="display:block;width:30px;height:1px;margin:40px auto 30px;background:#ddd"></span>');
-          document.write('<div><strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:28px;color:#333">모바일 앱을 이용해 주세요.</strong>');
-          document.write('<p style="margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#666">COCOcall은 안드로이드 앱만 제공됩니다.<br />아래 아이콘을 클릭하여 COCOcall App을 설치하세요.</p>');
-          document.write('<a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank" style="display:block;margin-top:20px">');
-          document.write('<img src="/static/img/icons/img_app_download.png" alt="GET IT ON Google Play" width="160px"></a></div></div>');
-
+          document.write('<div style="padding:50px 10px 50px;text-align:center">');
+          document.write('  <img src="/static/img/icons/icon_text_logo.png" alt="COCOcall" style="display:block;margin:0 auto">');
+          document.write('    <div style="margin-top:10px">');
+          document.write('      <strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:24px;color:#333">다른 브라우저를 이용해 주세요.</strong>');
+          document.write('      <p style="margin-top:2px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-size:14px;color:#666">현재 사용 중인 브라우저를 지원하지 않습니다.<br />');
+          document.write('        서비스를 계속 이용하시려면 디바이스에 맞는 브라우저를 이용해 주세요.<br />');
+          document.write('        해당 아이콘을 클릭하면 설치 페이지로 이동합니다.</p>');
+          document.write('    </div>');
+          document.write('    <div style="margin-top:20px">');
+          document.write('      <div style="padding:0 10px">');
+          document.write('        <strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:18px;color:#333">PC</strong>');
+          document.write('        <ul style="margin-top:5px;padding:0">');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px">');
+          document.write('            <a href="https://www.google.com/chrome/" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <img src="/static/img/icons/icon_browser_chrome.png" alt="Google Chrome" width="100%">');
+          document.write('                <span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Google Chrome</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px">');
+          document.write('            <a href="https://whale.naver.com/" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <img src="/static/img/icons/icon_browser_whale.png" alt="NAVER whale" width="100%">');
+          document.write('                <span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">NAVER whale</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px">');
+          document.write('            <a href="https://www.microsoft.com/edge" target="_blank" style="display:block;padding:15px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <img src="/static/img/icons/icon_browser_edge.png" alt="Microsoft Edge" width="100%">');
+          document.write('                <span style="display:block;margin-top:5px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Microsoft Edge</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('        </ul>');
+          document.write('      </div>');
+          document.write('      <div style="display:inline-block;padding:0 5px;vertical-align:top">');
+          document.write('        <strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:18px;color:#333">Android</strong>');
+          document.write('        <ul style="margin-top:5px;padding:0">');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px">');
+          document.write('            <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank"  style="display:block;padding:20px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <span style="display:block;width:80px;height:80px;line-height:80px;border-radius:20px;background:#fff;box-shadow:0px 5px 5px 0px rgba(0,0,0,0.05)">');
+          document.write('               <img src="/static/img/icons/icon_logo.png" alt="Android COCOcall App" width="65%" style="vertical-align:middle">');
+          document.write('              </span>');
+          document.write('              <span style="display:block;margin-top:10px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">App</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px">');
+          document.write('            <a href="https://play.google.com/store/apps/details?id=com.android.chrome" target="_blank" style="display:block;padding:20px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <span style="display:block;width:80px;height:80px;line-height:80px;border-radius:20px;background:#fff;box-shadow:0px 5px 5px 0px rgba(0,0,0,0.05)">');
+          document.write('                <img src="/static/img/icons/icon_browser_chrome.png" alt="Google Chrome" width="80%" style="vertical-align:middle">');
+          document.write('              </span>');
+          document.write('              <span style="display:block;margin-top:10px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Chrome</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('        </ul>');
+          document.write('      </div>');
+          document.write('      <div style="display:inline-block;padding:0 5px;vertical-align:top">');
+          document.write('        <strong style="font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-weight:normal;font-size:18px;color:#333">iPhone</strong>');
+          document.write('        <ul style="margin-top:5px;padding:0">');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px;vertical-align:top">');
+          document.write('            <a href="#" target="_blank"  style="display:block;padding:20px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <span style="display:block;width:80px;height:80px;line-height:80px;border-radius:20px;background:#fff;box-shadow:0px 5px 5px 0px rgba(0,0,0,0.05)">');
+          document.write('                <img src="/static/img/icons/icon_logo.png" alt="Android COCOcall App" width="65%" style="vertical-align:middle">');
+          document.write('              </span>');
+          document.write('              <span style="display:block;margin-top:10px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">App</span>');
+          document.write('            </a>');
+          document.write('            <span style="display:block;margin-top:2px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;font-size:12px;color:#999">iPhone App 출시예정</span>');
+          document.write('          </li>');
+          document.write('          <li style="display:inline-block;width:120px;padding:5px 2px;vertical-align:top">');
+          document.write('            <a href="#" target="_blank" style="display:block;padding:20px;text-decoration:none;text-align:center;font-size:12px;border-radius:5px;background:#f5f5f5">');
+          document.write('              <span style="display:block;width:80px;height:80px;line-height:80px;border-radius:20px;background:#fff;box-shadow:0px 5px 5px 0px rgba(0,0,0,0.05)">');
+          document.write('                <img src="/static/img/icons/icon_browser_safari.png" alt="Google Chrome" width="100%" style="vertical-align:middle">');
+          document.write('              </span>');
+          document.write('              <span style="display:block;margin-top:10px;font-family:\'Noto Sans KR\',\'돋음\',Dotum;color:#333">Safari</span>');
+          document.write('            </a>');
+          document.write('          </li>');
+          document.write('        </ul>');
+          document.write('      </div>');
+          document.write('    </div>');
+          document.write('</div>');
           return false;
         }
       })
@@ -84,6 +141,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="COCOcall" />
+    <meta property="og:description" content="간편하게 즐기는 무료 화상 회의" />
+    <meta property="og:image" content="/static/img/icons/img_open_graph.jpg" />
     <title>COCOcall</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon.ico">

@@ -1,13 +1,15 @@
 import io from 'socket.io-client';
 import store from '../store';
 import config from '../config';
-import { onMessage } from './message';
+import { onMessage, sendMessage } from './message';
 import { eBus } from './eventBus';
 import utils from "./utils";
 import webRTC from "./webrtc";
 
 class Session {
   socket = null;
+  timeout = null;
+  interval = null;
 
   constructor() {
 
@@ -21,6 +23,12 @@ class Session {
       this.socket.on('connect', () => {
         this.socket.on('knowledgetalk', onMessage);
         store.commit('setSocketIo', this.socket);
+
+        if (!this.interval) {
+          sendMessage('KeepAlive', {});
+          this.interval = setInterval(this.handleIntervalProc, config.pingInterval * 1000);
+        }
+
         resolve(true);
       })
 
@@ -59,6 +67,15 @@ class Session {
   close() {
     this.socket.close();
     store.commit('clearAll');
+    this.stopInterval();
+  }
+
+  handleIntervalProc() {
+    sendMessage('KeepAlive', {});
+  }
+
+  stopInterval() {
+    if (this.interval) clearInterval(this.interval);
   }
 }
 

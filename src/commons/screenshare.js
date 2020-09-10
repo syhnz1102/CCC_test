@@ -27,7 +27,7 @@ class ScreenShare {
 
   createPeer(uid, pluginId) {
     return new Promise(async (resolve, reject) => {
-      const peer = new RTCPeerConnection(config.iceServer);
+      const peer = new RTCPeerConnection(config.iceServer[config.env]);
       // 200825 ivypark, legacy codes
       // peer.onaddstream = ({ stream }) => {
       peer.ontrack = ({ streams }) => {

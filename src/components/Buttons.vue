@@ -148,6 +148,7 @@ export default {
         title: this.$t('popup-end-call-title'),
         contents: this.$t('popup-end-call-contents'),
         ok: () => {
+          sendMessage('ExitRoom', { roomId: window.location.href.split('/room/')[1] });
           webRTC.clear();
           eBus.$emit('video', { type: 'remove' });
           // eBus.$emit('popup', { on: false });

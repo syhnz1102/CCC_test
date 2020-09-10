@@ -17,6 +17,12 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.3 (20/09/10)
+- KeepAlive, ExitRoom (통화 종료 버튼으로 종료할 경우) 메시지 적용
+- Turn 서버가 TB/상용 구분하여 TB Web에서는 TB Turn에만 연동되도록 수정
+- 미지원 브라우저 안내 페이지 업데이트 (Android, iOS 안내 추가)
+- Open Graph(메타 태그) 추가 : URL 공유 시 로고 및 안내 메시지 추가
+
 # v1.1.2 (20/09/02)
 - 서버와 연결이 원활하지 않거나 끊긴 경우 안내 팝업 출력
 - 작은 화면의 모바일 웹 브라우저에서 이름이 ...으로 나오는 문제 수정
