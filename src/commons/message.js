@@ -97,7 +97,7 @@ export async function onMessage(resp) {
         }
       } else if (resp.usage === 'screen') {
         if (resp.sdp.type === 'offer') {
-          await screenShare.createPeer('screen', resp.pluginId);
+          await screenShare.createPeer('screen', resp.useMediaSvr === 'Y', resp.pluginId);
           await webRTC.createAnswer(resp.sdp, 'screen');
           sendMessage('SDP', { code: '200' });
         } else if (resp.sdp.type === 'answer') {
@@ -130,7 +130,7 @@ export async function onMessage(resp) {
     case 'SessionReserve':
       if (resp.code === '200') {
         let stream = await screenShare.createShareStream();
-        await screenShare.createPeer('screen');
+        await screenShare.createPeer('screen', store.state.roomInfo.count > 2);
         await webRTC.createOffer('screen');
         eBus.$emit('share', {
           type: 'add',

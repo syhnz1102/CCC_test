@@ -33,7 +33,7 @@ class WebRTC {
 
   createPeer(uid, isMulti, pluginId) {
     return new Promise(async (resolve, reject) => {
-      const peer = new RTCPeerConnection(config.iceServer[config.env]);
+      const peer = new RTCPeerConnection(config.iceServer[config.env][isMulti ? 'media' : 'p2p']);
       // 200825 ivypark, legacy codes
       // peer.onaddstream = ({ stream }) => {
       peer.ontrack = ({ streams }) => {
