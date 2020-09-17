@@ -3,7 +3,7 @@
     <div style="color: greenyellow; position:absolute; bottom: 50px" v-if="report">{{ report }}</div>
     <div class="userContainer">
       <div class="user">
-        <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
+        <span class="name" v-bind:class="{ 'micOff': offMic }" @dblclick="testFnc">{{ name }}</span>
         <button v-if="id === 'local'" @click="handleChangeName">이름변경</button>
       </div>
     </div>
@@ -15,6 +15,7 @@ import { eBus } from '../commons/eventBus';
 import utils from '../commons/utils';
 import config from "../config";
 import store from "../store";
+import getStats from '../lib/getStats';
 
 export default {
   props: { isLocal: Boolean, isOffVideo: Boolean, isOffMic: Boolean, vid: String, userName: String },
@@ -26,7 +27,9 @@ export default {
       offVideo: this.isOffVideo,
       offMic: this.isOffMic,
       isTalking: false,
-      report: null
+      report: null,
+      bytes: 0,
+      packets: 0
     }
   },
   mounted() {
@@ -111,6 +114,43 @@ export default {
           this.name = param.name;
         }
       })
+    },
+    async testFnc() {
+      let peerInfo = store.state.peerInfo;
+      if (peerInfo.hasOwnProperty('local')) {
+        let localPeer = peerInfo['local'];
+        getStats(localPeer, result => { console.log(result) }, 3000);
+        // let sender = localPeer.getSenders();
+        // let track;
+        // sender.forEach(curr => {
+        //   if (curr.track.kind === 'video') track = curr;
+        // })
+        // if (!track) return;
+        // track.getStats().then(r => {
+        //   r.forEach(report => {
+        //     let bytes;
+        //     let packets;
+        //     if (report.type === 'outbound-rtp') {
+        //       if (report.isRemote) {
+        //         return;
+        //       }
+        //       const now = report.timestamp;
+        //       bytes = report.bytesSent;
+        //       packets = report.packetsSent;
+        //       console.debug('[ local report ] - ', report);
+        //       console.debug('local : ', now, packets, bytes);
+        //
+        //       if (report) {
+        //         this.bytes = report.bytesSent - this.report.bytesSent;
+        //         this.packets = report.packetsSent - this.report.packetsSent;
+        //         console.debug('local diffs : ', this.bytes, this.packets);
+        //       }
+        //
+        //       this.report = JSON.stringify(report);
+        //     }
+        //   });
+        // });
+      }
     }
   }
 }
