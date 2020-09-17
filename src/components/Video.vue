@@ -3,7 +3,7 @@
     <div style="color: greenyellow; position:absolute; bottom: 50px" v-if="report">{{ report }}</div>
     <div class="userContainer">
       <div class="user">
-        <span class="name" v-bind:class="{ 'micOff': offMic }" @dblclick="testFnc">{{ name }}</span>
+        <span class="name" v-bind:class="{ 'micOff': offMic }">{{ name }}</span>
         <button v-if="id === 'local'" @click="handleChangeName">이름변경</button>
       </div>
     </div>

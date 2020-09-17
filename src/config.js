@@ -1,6 +1,6 @@
 export default {
-  version: 'v1.1.3 (0910)',
-  env: 'TB', // 'LOCAL', 'TB', 'PROD'
+  version: 'v1.1.4 (0917)',
+  env: 'PROD', // 'LOCAL', 'TB', 'PROD'
   socketIoUrl: {
     LOCAL: 'https://localhost:7103/SignalServer',
     TB: 'https://dev.knowledgetalk.co.kr:7103/SignalServer',

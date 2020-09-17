@@ -49,7 +49,7 @@
                  <strong class="wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
                    <span><i>CO</i>nvenient</span>
                    <span><i>CO</i>nference</span>
-                   <span @dblclick="changeDeveloperMode"><i>call</i></span>
+                   <span><i>call</i></span>
                  </strong>
                </div>
                <div class="button wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
