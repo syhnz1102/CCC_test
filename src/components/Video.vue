@@ -36,10 +36,8 @@ export default {
     this.attachVideo(this.isOffVideo);
     // if (!this.isOffVideo) this.attachVideo();
     eBus.$on('setVideo', async param => {
-      console.log(param);
       // 200618 ivypark, v0.9.2. 1:1 공유 중 cam/mic off 시 로컬화면이 분리되는 현상 수정
       this.isLocalVideo = this.id === 'local' && (!this.$store.state.roomInfo.count || this.$store.state.roomInfo.count <= 2) && !this.$store.state.streamInfo.screen;
-      console.log(this.isLocalVideo, this.$store.state.roomInfo.count);
 
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
       if (param.id === this.id && param.hasOwnProperty('isTalking')) this.isTalking = param.isTalking;
@@ -119,7 +117,13 @@ export default {
       let peerInfo = store.state.peerInfo;
       if (peerInfo.hasOwnProperty('local')) {
         let localPeer = peerInfo['local'];
-        getStats(localPeer, result => { console.log(result) }, 3000);
+        getStats(localPeer, result => {
+          console.warn('======== REPORTS ========');
+          console.log('participants count : ', store.state.roomInfo.count, '                 |||   video byte sent/latency/packetloss : ', result.video.bytesSent, result.video.latency, result.video.packetsLost);
+          console.log('internal audio delay/packetloss : ', result.internal.audio.prevGoogCurrentDelayMs, result.internal.audio.prevPacketsLost,
+            ' |||   internal video delay/packetloss : ', result.internal.video.prevGoogCurrentDelayMs, result.internal.video.prevPacketsLost);
+          console.log('## download speed : ', result.bandwidth.speed);
+        }, 3000);
         // let sender = localPeer.getSenders();
         // let track;
         // sender.forEach(curr => {
