@@ -24,7 +24,7 @@ export default {
   iceServer: {
     LOCAL: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:106.240.247.44:46000' }] },
     TB: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:106.240.247.44:46000' }] },
-    PROD: { iceServers: [{ urls: 'turn:13.125.217.175:46000', username: 'kpoint', credential: 'kpoint01' }] },
+    PROD: { iceServers: [{ urls : 'stun:13.125.217.175:46000' }, { urls: 'turn:13.125.217.175:46000', username: 'kpoint', credential: 'kpoint01' }] },
   }, // RELEASED
   constraints: {
     share: { width: 480, height: 270 }, // video constraint when screen sharing
