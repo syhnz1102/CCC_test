@@ -1,5 +1,5 @@
 export default {
-  version: 'v1.1.4 (0917)',
+  version: 'v1.1.5 (0925)',
   env: 'PROD', // 'LOCAL', 'TB', 'PROD'
   socketIoUrl: {
     LOCAL: 'https://localhost:7103/SignalServer',

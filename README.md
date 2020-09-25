@@ -16,6 +16,9 @@
 ## Release Note
 ##### (http://knowledgepoint.co.kr:3000/SolutionDeveloper/KnowledgeTalkCCC/issues)
 ```
+# v1.1.5 (20/09/25)
+- 로고 및 이미지 변경
+
 # v1.1.4 (20/09/17)
 - 다자 통화 연결 시에는 STUN만 연결 되도록 RTCPeerConnection config 수정 (1:1은 변경 없음)
 
