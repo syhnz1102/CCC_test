@@ -121,7 +121,7 @@ body,
 .footer .copyright {margin-top:5px;color:#666}
 
 /* video */
-.videoContainer {overflow:hidden;width:100%;height:100%}
+.videoContainer {overflow:hidden;display:flex;width:100%;height:100%}
 .video {overflow:hidden;position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
 .video video {width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;object-fit:cover}
 .video.local {position:absolute}
@@ -144,10 +144,10 @@ body,
 .userContainer .user button::before {content:'';display:block;width:12px;height:12px;margin:0 auto;background:url('../images/icon_video_pen.png') no-repeat 0 0;background-size:cover}
 .video.local .userContainer .user .name {max-width:calc(100% - 30px)}
 
-.mainVideo {width:100%;height:100%}
+.mainVideo {float:left;width:100%;height:100%}
 .mainVideo .video video {transform:scaleX(-1);-webkit-transform:scaleX(-1)}
-.mainVideo .video .cover {object-fit:cover;background:#111}
-.mainVideo .video .contain {object-fit:contain;background:#111}
+.mainVideo .video .cover {object-fit:cover;background-color:#111;background-size:cover}
+.mainVideo .video .contain {object-fit:contain;background-color:#111;background-size:contain}
 .mainVideo.one .video.local .userContainer {bottom:75px}
 .mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
 .mainVideo.four .video {width:50%;height:50%}
@@ -376,7 +376,7 @@ body,
    .main .download .content {height:600px;padding:0;text-align:center;background-position:center 280px}
    .footer .company p span {display:block;margin-left:0 !important}
 
-   .mainVideo.two .video.local {width:40%}
+   .mainVideo.two .video.local {top:2vw;left:2vw;bottom:auto;right:auto;width:40%}
    .mainVideo.six .video {width:50%;height:33.33%}
    .mainVideo.twelve .video {width:33.33%;height:25%}
    .shareContainer {width:60%}
@@ -394,6 +394,22 @@ body,
    .main .information .box .content p {font-size:14px}
    .main .function li {width:100%}
    .main .function li + li {margin-top:50px}
+   .main .download .content .link a + a {margin-top:10px;margin-left:0}
+
+   .videoContainer {flex-direction:column}
+   .videoContainer.close .shareContainer {width:100%;height:calc(100% - 24px)}
+   .videoContainer.close .mainVideoContainer {width:100%;height:24px}
+   .videoContainer.close .mainVideoContainer .button button::before {transform:rotate(90deg)}
+   .shareContainer {width:100%;height:80%;order:2}
+   .mainVideoContainer {width:100%;height:20%;order:1}
+   .mainVideoContainer .button {top:auto;bottom:0;width:100%;height:34px}
+   .mainVideoContainer .button:hover {bottom:-10px;left:0}
+   .mainVideoContainer .button button::before {margin-top:10px;margin-left:0;transform:rotate(-90deg)}
+   .mainVideoContainer .button:hover button::before {margin-top:0;background-image:url('../images/icon_double_arrow.png')}
+   .mainVideoContainer .mainVideo {overflow-x:auto;overflow-y:hidden;width:100%;height:calc(100% - 24px);margin-bottom:24px;font-size:0;white-space:nowrap}
+   .mainVideoContainer .mainVideo .video {display:inline-block;float:none;width:45%;height:100% !important;font-size:14px}
+   .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
+   .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {width:50%}
 
    .buttonContainer .button button {width:50px;height:50px;margin-left:0}
    .modalContainer {width:100%;min-width:100%;height:100%;background:#fff}
