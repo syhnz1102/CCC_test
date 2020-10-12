@@ -220,7 +220,6 @@
                <a href="https://knowledgepoint.co.kr/" target="_blank">{{ $t('main-footer-menu-1') }}</a>
                <a href="https://knowledgepoint.co.kr/developer/qna/list" target="_blank">{{ $t('main-footer-menu-2') }}</a>
                <a href="https://knowledgepoint.co.kr/developer/update/list" target="_blank">{{ $t('main-footer-menu-3') }}</a>
-               <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">{{ $t('main-footer-menu-4') }}</a>
             </div>
             <div class="company">
                <strong>COCOcall <span>[{{ getVersion }}]</span></strong>
