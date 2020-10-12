@@ -204,10 +204,10 @@
                   </div>
                  <div class="link">
                      <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
-                        <img src="images/img_app_download.png" alt="GET IT ON Google Play">
+                        <img src="../assets/images/img_app_download.png" alt="GET IT ON Google Play">
                      </a>
                      <a href="https://apps.apple.com/kr/app/cococall/id1533624306" target="_blank">
-                        <img src="images/img_app_download2.png" alt="Download on the App Store">
+                        <img src="../assets/images/img_app_download2.png" alt="Download on the App Store">
                      </a>
                   </div>
                </div>
