@@ -23,7 +23,14 @@ export default {
   },
   iceServer: {
     LOCAL: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:106.240.247.44:46000' }] },
-    TB: { iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:106.240.247.44:46000' }] },
+    TB: {
+      p2p: {
+        iceServers: [{ urls: 'turn:106.240.247.44:46000', username: 'kpoint', credential: 'kpoint01' }, { urls : 'stun:106.240.247.44:46000' }]
+      },
+      media: {
+        iceServers: [{ urls : 'stun:106.240.247.44:46000' }]
+      }
+    },
     PROD: {
       p2p: {
         iceServers: [{ urls : 'stun:13.125.217.175:46000' }, { urls: 'turn:13.125.217.175:46000', username: 'kpoint', credential: 'kpoint01' }]
