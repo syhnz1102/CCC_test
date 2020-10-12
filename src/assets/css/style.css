@@ -102,9 +102,12 @@ body,
 .main .download .content {display:inline-block;height:400px;padding-top:80px;padding-left:350px;text-align:left;background:url('../images/img_app_phone.png') no-repeat left top;background-size:270px auto;box-sizing:border-box}
 .main .download .content .text {margin-top:10px;color:#fff}
 .main .download .content .text p {font-size:24px}
-.main .download .content .text span {color:rgba(255,255,255,0.5)}
-.main .download .content a {display:inline-block;width:160px;margin-top:40px}
-.main .download .content a img {width:100%}
+.main .download .content .text span {font-size:16px}
+.main .download .content .link {margin-top:20px}
+.main .download .content .link a {display:inline-block;height:48px}
+.main .download .content .link p {font-size:18px;color:#fff}
+.main .download .content .link a + a {margin-left:10px}
+.main .download .content .link a img {height:100%}
 
 .footer {background:#151515}
 .footer .container {padding-top:50px;padding-bottom:50px;color:#666}
@@ -343,6 +346,8 @@ body,
 @media screen and (max-width: 1200px) {
    .container {width:90% !important}
    .header .menu a {margin-right:10px}
+   .main .guide li:nth-child(5),
+   .main .guide li:nth-child(6) {min-height:370px}
 }
 
 @media screen and (max-width: 767px) {

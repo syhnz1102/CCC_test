@@ -154,7 +154,7 @@
                         <img src="../assets/images/img_guide_05-1.jpg" alt="STEP 5-1">
                      </div>
                      <strong class="wow animate__animated animate__fadeInUp">STEP 5-1</strong>
-                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저에 바로 URL을 입력하거나 COCOcall 메인에서 '회의참여'에 URL을 입력하면 회의에 참석됩니다.</p>
+                     <p class="wow animate__animated animate__fadeInUp"  data-wow-delay=".2s">초대받은 사용자는 인터넷 브라우저나 메인화면 '회의참여'버튼 클릭 후 URL을 입력하면 회의에 참석됩니다.</p>
                   </li>
                   <li>
                      <div class="img">
@@ -199,12 +199,17 @@
                <div class="content">
                   <div class="logo">COCOcall</div>
                   <div class="text">
-                     <p>COCOcall을 APP으로 만나보세요!</p>
-                     <span>*안드로이드에서만 제공됩니다.</span>
+                     <span>간편하게 즐기는 무료 화상 회의,</span>
+                     <p>COCOcall을 APP을 만나보세요!</p>
                   </div>
-                  <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
-                     <img src="../assets/images/img_app_download.png" alt="GET IT ON Google Play">
-                  </a>
+                 <div class="link">
+                     <a href="https://play.google.com/store/apps/details?id=kr.co.knowledgepoint.knowledgetalkccc" target="_blank">
+                        <img src="images/img_app_download.png" alt="GET IT ON Google Play">
+                     </a>
+                     <a href="https://apps.apple.com/kr/app/cococall/id1533624306" target="_blank">
+                        <img src="images/img_app_download2.png" alt="Download on the App Store">
+                     </a>
+                  </div>
                </div>
             </div>
          </section>

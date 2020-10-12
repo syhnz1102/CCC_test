@@ -102,9 +102,12 @@ body,
 .main .download .content {display:inline-block;height:400px;padding-top:80px;padding-left:350px;text-align:left;background:url('../images/img_app_phone.png') no-repeat left top;background-size:270px auto;box-sizing:border-box}
 .main .download .content .text {margin-top:10px;color:#fff}
 .main .download .content .text p {font-size:24px}
-.main .download .content .text span {color:rgba(255,255,255,0.5)}
-.main .download .content a {display:inline-block;width:160px;margin-top:40px}
-.main .download .content a img {width:100%}
+.main .download .content .text span {font-size:16px}
+.main .download .content .link {margin-top:20px}
+.main .download .content .link a {display:inline-block;height:48px}
+.main .download .content .link p {font-size:18px;color:#fff}
+.main .download .content .link a + a {margin-left:10px}
+.main .download .content .link a img {height:100%}
 
 .footer {background:#151515}
 .footer .container {padding-top:50px;padding-bottom:50px;color:#666}
@@ -130,8 +133,8 @@ body,
 .video.speaker::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
 .video.speaker::before {top:0;right:0}
 .video.speaker::after {bottom:0;left:0}
-.video.speaker::before {border-width:5px 0 0 5px;border-color:red;animation:borderDrawBefore 1.5s;z-index:1}
-.video.speaker::after {border-width:0 5px 5px 0;border-color:blue;animation:borderDrawAfter 1.5s;z-index:1}
+.video.speaker::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:1}
+.video.speaker::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:1}
 .video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
 
 .userContainer {position:absolute;bottom:10px;left:0;display:flex;justify-content:center;width:100%;padding:0 5px;box-sizing:border-box}
@@ -219,7 +222,7 @@ body,
 
 .modal {position:fixed;top:0;left:0;width:100%;height:100%;z-index:100}
 .modal::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.5)}
-.modalContainer {position:absolute;top:50%;left:50%;width:auto;min-width:470px;transform:translate(-50%,-50%)}
+.modalContainer {position:absolute;top:50%;left:50%;width:auto;min-width:470px;transform:translate(-50%,-50%);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2}
 .modalHeader {position:relative;width:100%;height:60px;line-height:60px;padding:0 20px;font-size:18px;color:#fff;background:linear-gradient(to left, #EA6060, #7117EA);box-sizing:border-box}
 .modalHeader button {overflow:hidden;position:absolute;top:15px;right:20px;display:block;width:30px;height:30px;text-indent:-999px;background:url('../images/icon_close.png') no-repeat center center;background-size:20px 20px;transition:transform 0.3s}
 .modalHeader button:hover {transform:rotate(90deg)}
@@ -227,7 +230,7 @@ body,
 .modalHeader .invite::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_invite.png') no-repeat 0 0;background-size:cover}
 .modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
 .modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
-.modalContent {padding:50px 30px;background:#fff;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
+.modalContent {padding:50px 30px;background:#fff)}
 .modalContent p {text-align:center}
 .modalContent p.error {margin-top:5px;color:#f00}
 .modalContent > p:only-child {font-size:16px}
@@ -343,6 +346,8 @@ body,
 @media screen and (max-width: 1200px) {
    .container {width:90% !important}
    .header .menu a {margin-right:10px}
+   .main .guide li:nth-child(5),
+   .main .guide li:nth-child(6) {min-height:370px}
 }
 
 @media screen and (max-width: 767px) {
@@ -376,7 +381,7 @@ body,
    .main .download .content {height:600px;padding:0;text-align:center;background-position:center 280px}
    .footer .company p span {display:block;margin-left:0 !important}
 
-   .mainVideo.two .video.local {top:2vw;left:2vw;bottom:auto;right:auto;width:40%}
+   .mainVideo.two .video.local {top:2vw;left:2vw;bottom:auto;right:auto;width:35%;height:35%}
    .mainVideo.six .video {width:50%;height:33.33%}
    .mainVideo.twelve .video {width:33.33%;height:25%}
    .shareContainer {width:60%}
