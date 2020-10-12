@@ -102,7 +102,9 @@ export default {
         type: '',
         title: '',
         contents: '',
-        option: {},
+        option: {
+          inCall: false
+        },
         ok: null,
         cancel: null
       },
@@ -250,7 +252,7 @@ export default {
         this.popup.type = 'Settings';
         this.popup.title = this.$t('popup-setting-devices-title');
         this.popup.contents = this.$t('popup-setting-devices-contents-1');
-        this.popup.option.inCall = false;
+        // this.popup.option.inCall = false;
         this.popup.ok = async () => {
           const session = !this.$store.state.socket ? new Session() : this.$store.state.socket;
           if (await session.connect()) {
