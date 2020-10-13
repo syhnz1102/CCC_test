@@ -58,7 +58,7 @@ body,
 .main .visual .scroll::before {content:'';position:absolute;bottom:-2px;left:4px;display:block;width:1px;height:12px;transform:rotate(45deg);background:rgba(255,255,255,0.6)}
 .main section {width:100%}
 .main section .container {padding-top:120px;padding-bottom:120px}
-.main .information h2 {text-align:center}
+.main h2 {margin-bottom:30px;text-align:center;font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:30px}
 .main .information .logo {width:170px;height:25px;margin:0 auto;background:url('../images/img_logo.png') no-repeat 0 center;background-size:cover}
 .main .information {background:#f5f5f5}
 .main .information li {position:relative;margin-top:70px}
@@ -95,7 +95,15 @@ body,
 .main .guide li:hover .img img {transform:scale(1.05)}
 .main .guide strong {display:block;margin-top:30px;font-family:'Montserrat','Noto Sans KR';font-weight:900;font-size:20px;color:#7117EA}
 .main .guide p {min-height:45px;margin-top:10px}
-.main .guide p span {display:block;font-size:12px;color:#999}
+.main .guide p span {font-size:12px;color:#999}
+.main .faq ul {margin-top:40px}
+.main .faq li {padding:30px;border-bottom:1px solid #eee}
+.main .faq li:first-child {border-top:1px solid #eee}
+.main .faq button {position:relative;width:100%;padding-right:35px;text-align:left;font-size:16px}
+.main .faq button::before {content:'Q.';margin-right:10px;font-family:'Montserrat','Noto Sans KR';font-size:20px;color:#7117EA}
+.main .faq button::after {content:'';position:absolute;top:2px;right:0;display:block;width:18px;height:18px;background:url('../images/icon_main_arrow.png') no-repeat 0 0;background-size:cover;transition:transform .3s}
+.main .faq li.open button::after {transform:rotate(180deg)}
+.main .faq .answer {display:none;margin-top:20px}
 .main .download {position:relative;background:#7117EA}
 .main .download::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:url('../images/bg_app_download.png') no-repeat center center;background-size:cover}
 .main .download .container {position:relative;padding-top:60px;padding-bottom:0;text-align:center}
