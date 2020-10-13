@@ -33,7 +33,7 @@ export default {
       t.value = `${window.location.href}
 
 안드로이드는 크롬 브라우저, 아이폰은 사파리 브라우저에 본 URL을 복사하여 붙여 넣으시면 회의 방에 참석하실수 있습니다.
-안드로이드 앱이 있는 경우 위 URL을 클릭하시면 앱으로 이동 되며, 자동으로 회의 방에 참석합니다. (아이폰 앱은 준비 중입니다.)`;
+앱이 있는 경우 위 URL을 클릭하시면 앱으로 이동 되며, 자동으로 회의 방에 참석합니다.`;
       t.select();
       document.execCommand('copy');
       document.body.removeChild(t);
