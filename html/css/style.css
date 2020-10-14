@@ -136,13 +136,27 @@ body,
 .video {overflow:hidden;position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
 .video video {width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;object-fit:cover}
 .video.local {position:absolute}
-.video.speaking {position:relative}
-.video.speaking::before,
-.video.speaking::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
-.video.speaking::before {top:0;right:0}
-.video.speaking::after {bottom:0;left:0}
-.video.speaking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:1}
-.video.speaking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:1}
+.video.talking {position:relative}
+.video.talking::before,
+.video.talking::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
+.video.talking::before {top:0;right:0}
+.video.talking::after {bottom:0;left:0}
+.video.talking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:1}
+.video.talking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:1}
+.video.talking .volume {position:absolute;top:15px;left:15px;width:32px;height:32px;border-radius:5px;background:#7117EA;box-sizing:border-box;box-shadow:0px 5px 20px 0px rgba(0,0,0,0.1);z-index:1}
+.video.talking .volume .percent {overflow:hidden;position:absolute;bottom:5px;left:5px;height:3px;min-height:10% !important;max-height:18px !important}
+.video.talking .volume span {position:relative;float:left;display:block;width:2px;height:100%}
+.video.talking .volume span + span {margin-left:2px}
+.video.talking .volume span::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:#fff;animation-name:volume;animation-duration:.5s;animation-play-state:running;animation-direction:alternate;animation-timing-function:linear;animation-iteration-count:infinite}
+.video.talking .volume span:nth-child(1)::before {height:80%;animation-duration:0}
+.video.talking .volume span:nth-child(2)::before {height:50%;animation-duration:.3s}
+.video.talking .volume span:nth-child(3)::before {height:100%;animation-duration:.6s}
+.video.talking .volume span:nth-child(4)::before {height:70%;animation-duration:.9s}
+.video.talking .volume span:nth-child(5)::before {height:60%;animation-duration:.6s}
+.video.talking .volume span:nth-child(6)::before {height:90%;animation-duration:.3s}
+.video.talking .volume.none {background:#999}
+.video.talking .volume.none .percent {height:3px !important}
+.video.talking .volume.none .percent span::before {height:100% !important}
 .video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
 .networkCheck::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.55)}
 .networkCheck .loading {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center}
@@ -466,8 +480,8 @@ body,
    .mainVideoContainer .mainVideo .video {display:inline-block;float:none;width:45%;height:100% !important;font-size:14px}
    .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
    .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {width:50%}
-
    .buttonContainer .button > ul > li > button {width:50px;height:50px;margin-left:0}
+
    .modalContainer {width:100%;min-width:100%;height:100%;background:#fff}
    .modalContent {height:calc(100% - 60px);box-sizing:border-box}
    .modalContent .modalCheck {bottom:20px;left:20px}
