@@ -269,7 +269,7 @@ export default {
   mounted() {
     // 200826 ivypark, v1.1.1. 모바일 웹브라우저 동작 팝업 추가
     // 200721 ivypark, v1.0.8. 메인페이지 deeplink 추가 - v1.1.1-rc4: kakaotalk 브라우저 이슈로 재 추가
-    if (mobile.isMobile && mobile.isNotSupported) {
+    if (mobile.isMobile && mobile.isNotSupported && !isSafari) {
       location.href = `Intent://kp.cococall${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
       return false;
     }

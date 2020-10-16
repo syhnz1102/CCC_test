@@ -51,6 +51,11 @@ app.get('/apple-app-site-association', function(req, res) {
     res.status(200).send(JSON.stringify(data))
 })
 
+//ios go appstore
+app.get('/ios_ulink/*', function(req, res) {
+    res.status(320).redirect('https://itunes.apple.com/app/id1533624306')
+})
+
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(hotMiddleware)

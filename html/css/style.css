@@ -135,15 +135,16 @@ body,
 .videoContainer {overflow:hidden;display:flex;width:100%;height:100%}
 .video {overflow:hidden;position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
 .video video {width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;object-fit:cover}
+.video canvas {position:absolute;top:0;left:0;width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;z-index:1}
 .video.local {position:absolute}
 .video.talking {position:relative}
 .video.talking::before,
 .video.talking::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
 .video.talking::before {top:0;right:0}
 .video.talking::after {bottom:0;left:0}
-.video.talking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:1}
-.video.talking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:1}
-.video.talking .volume {position:absolute;top:15px;left:15px;width:32px;height:32px;border-radius:5px;background:#7117EA;box-sizing:border-box;box-shadow:0px 5px 20px 0px rgba(0,0,0,0.1);z-index:1}
+.video.talking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:2}
+.video.talking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:2}
+.video.talking .volume {position:absolute;top:15px;left:15px;width:32px;height:32px;border-radius:5px;background:#7117EA;box-sizing:border-box;box-shadow:0px 5px 20px 0px rgba(0,0,0,0.1);z-index:2}
 .video.talking .volume .percent {overflow:hidden;position:absolute;bottom:5px;left:5px;height:3px;min-height:10% !important;max-height:18px !important}
 .video.talking .volume span {position:relative;float:left;display:block;width:2px;height:100%}
 .video.talking .volume span + span {margin-left:2px}
@@ -182,7 +183,7 @@ body,
 .mainVideo .video .cover {object-fit:cover;background-color:#111;background-size:cover}
 .mainVideo .video .contain {object-fit:contain;background-color:#111;background-size:contain}
 .mainVideo.one .video.local .userContainer {bottom:75px}
-.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
+.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:5}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
