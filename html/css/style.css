@@ -135,14 +135,29 @@ body,
 .videoContainer {overflow:hidden;display:flex;width:100%;height:100%}
 .video {overflow:hidden;position:relative;float:left;width:100%;height:100%;background:url('../images/img_user.png') no-repeat center center #eee;background-size:15% auto;box-sizing:border-box}
 .video video {width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;object-fit:cover}
+.video canvas {position:absolute;top:0;left:0;width:calc(100% + 2px);height:calc(100% + 2px);margin:-1px 0 0 -1px;z-index:1}
 .video.local {position:absolute}
-.video.speaking {position:relative}
-.video.speaking::before,
-.video.speaking::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
-.video.speaking::before {top:0;right:0}
-.video.speaking::after {bottom:0;left:0}
-.video.speaking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:1}
-.video.speaking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:1}
+.video.talking {position:relative}
+.video.talking::before,
+.video.talking::after {content:'';position:absolute;display:block;width:100%;height:100%;border-style:solid;border-image:linear-gradient(-35deg, rgba(234,96,96,1) 0%, rgba(113,23,234,1) 100%);border-image-slice:1;box-sizing:border-box}
+.video.talking::before {top:0;right:0}
+.video.talking::after {bottom:0;left:0}
+.video.talking::before {border-width:5px 0 0 5px;animation:borderDrawBefore 1.5s;z-index:2}
+.video.talking::after {border-width:0 5px 5px 0;animation:borderDrawAfter 1.5s;z-index:2}
+.video.talking .volume {position:absolute;top:15px;left:15px;width:32px;height:32px;border-radius:5px;background:#7117EA;box-sizing:border-box;box-shadow:0px 5px 20px 0px rgba(0,0,0,0.1);z-index:2}
+.video.talking .volume .percent {overflow:hidden;position:absolute;bottom:5px;left:5px;height:3px;min-height:10% !important;max-height:18px !important}
+.video.talking .volume span {position:relative;float:left;display:block;width:2px;height:100%}
+.video.talking .volume span + span {margin-left:2px}
+.video.talking .volume span::before {content:'';position:absolute;bottom:0;left:0;display:block;width:100%;height:100%;background:#fff;animation-name:volume;animation-duration:.5s;animation-play-state:running;animation-direction:alternate;animation-timing-function:linear;animation-iteration-count:infinite}
+.video.talking .volume span:nth-child(1)::before {height:80%;animation-duration:0}
+.video.talking .volume span:nth-child(2)::before {height:50%;animation-duration:.3s}
+.video.talking .volume span:nth-child(3)::before {height:100%;animation-duration:.6s}
+.video.talking .volume span:nth-child(4)::before {height:70%;animation-duration:.9s}
+.video.talking .volume span:nth-child(5)::before {height:60%;animation-duration:.6s}
+.video.talking .volume span:nth-child(6)::before {height:90%;animation-duration:.3s}
+.video.talking .volume.none {background:#999}
+.video.talking .volume.none .percent {height:3px !important}
+.video.talking .volume.none .percent span::before {height:100% !important}
 .video.camOff {background:url('../images/img_camera_off.png') no-repeat center center #eee;background-size:15% auto}
 .networkCheck::before {content:'';position:absolute;top:0;left:0;display:block;width:100%;height:100%;background:rgba(0,0,0,0.55)}
 .networkCheck .loading {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center}
@@ -168,7 +183,7 @@ body,
 .mainVideo .video .cover {object-fit:cover;background-color:#111;background-size:cover}
 .mainVideo .video .contain {object-fit:contain;background-color:#111;background-size:contain}
 .mainVideo.one .video.local .userContainer {bottom:75px}
-.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:1}
+.mainVideo.two .video.local {bottom:2vw;right:2vw;width:25%;height:30%;box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2);z-index:5}
 .mainVideo.four .video {width:50%;height:50%}
 .mainVideo.six .video {width:33.33%;height:50%}
 .mainVideo.nine .video {width:33.33%;height:33.33%}
@@ -240,9 +255,10 @@ body,
 .buttonContainer .button .dropdown li:hover {background:#f5f5f5}
 .buttonContainer .button .dropdown li button {font-size:15px;color:#666}
 .buttonContainer .button .dropdown li button::before {content:'';display:inline-block;width:17px;height:17px;margin-right:10px;vertical-align:middle;background:url('../images/icons.png') no-repeat 0 0;transition:opacity .3s}
-.buttonContainer .button .dropdown li button.invite::before {background-position:0 0}
-.buttonContainer .button .dropdown li button.enter::before {background-position:-17px 0}
-.buttonContainer .button .dropdown li button.setting::before {background-position:-34px 0}
+.buttonContainer .button .dropdown li button.enter::before {background-position-x:0}
+.buttonContainer .button .dropdown li button.talking::before {background-position-x:-17px}
+.buttonContainer .button .dropdown li button.bgBlur::before {background-position-x:-34px}
+.buttonContainer .button .dropdown li button.setting::before {background-position-x:-51px}
 .buttonInfo {position:absolute;left:50px;bottom:50px;padding:15px 20px;border-radius:10px;background:linear-gradient(to left, #EA6060, #7117EA);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
 .buttonInfo::before {content:'';position:absolute;bottom:-16px;left:20px;display:block;border:8px solid transparent;border-top-color:#7117EA}
 .buttonInfo strong {padding-left:24px;font-size:20px;color:#fff;background:url('../images/icon_menu.png') no-repeat 0 center;background-size:16px 16px}
@@ -258,7 +274,7 @@ body,
 .modalHeader .invite::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_invite.png') no-repeat 0 0;background-size:cover}
 .modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
 .modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
-.modalContent {padding:50px 30px;background:#fff)}
+.modalContent {padding:50px 30px;background:#fff}
 .modalContent p {text-align:center}
 .modalContent p.error {margin-top:5px;color:#f00}
 .modalContent > p:only-child {font-size:16px}
@@ -437,6 +453,7 @@ body,
    .mainVideoContainer {width:40%}
    .buttonContainer .button > ul > li:nth-child(3) {display:none}
    .buttonContainer .button .dropdown {left:auto;right:0}
+   .buttonContainer .button .dropdown ul:last-child {display:none}
 
    .modalContainer {min-width:90%}
    .modalContent {padding:50px 20px}
@@ -466,8 +483,8 @@ body,
    .mainVideoContainer .mainVideo .video {display:inline-block;float:none;width:45%;height:100% !important;font-size:14px}
    .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2),
    .mainVideoContainer .mainVideo .video:first-child:nth-last-child(2) ~ .video {width:50%}
-
    .buttonContainer .button > ul > li > button {width:50px;height:50px;margin-left:0}
+
    .modalContainer {width:100%;min-width:100%;height:100%;background:#fff}
    .modalContent {height:calc(100% - 60px);box-sizing:border-box}
    .modalContent .modalCheck {bottom:20px;left:20px}
