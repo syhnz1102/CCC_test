@@ -254,9 +254,10 @@ body,
 .buttonContainer .button .dropdown li:hover {background:#f5f5f5}
 .buttonContainer .button .dropdown li button {font-size:15px;color:#666}
 .buttonContainer .button .dropdown li button::before {content:'';display:inline-block;width:17px;height:17px;margin-right:10px;vertical-align:middle;background:url('../images/icons.png') no-repeat 0 0;transition:opacity .3s}
-.buttonContainer .button .dropdown li button.talking::before {background-position-x:0}
-.buttonContainer .button .dropdown li button.bgBlur::before {background-position-x:-17px}
-.buttonContainer .button .dropdown li button.setting::before {background-position-x:-34px}
+.buttonContainer .button .dropdown li button.enter::before {background-position-x:0}
+.buttonContainer .button .dropdown li button.talking::before {background-position-x:-17px}
+.buttonContainer .button .dropdown li button.bgBlur::before {background-position-x:-34px}
+.buttonContainer .button .dropdown li button.setting::before {background-position-x:-51px}
 .buttonInfo {position:absolute;left:50px;bottom:50px;padding:15px 20px;border-radius:10px;background:linear-gradient(to left, #EA6060, #7117EA);box-shadow:0px 10px 20px 0px rgba(0,0,0,0.2)}
 .buttonInfo::before {content:'';position:absolute;bottom:-16px;left:20px;display:block;border:8px solid transparent;border-top-color:#7117EA}
 .buttonInfo strong {padding-left:24px;font-size:20px;color:#fff;background:url('../images/icon_menu.png') no-repeat 0 center;background-size:16px 16px}
@@ -272,7 +273,7 @@ body,
 .modalHeader .invite::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_invite.png') no-repeat 0 0;background-size:cover}
 .modalHeader .setting::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_setting.png') no-repeat 0 0;background-size:cover}
 .modalHeader .enter::before {content:'';display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;background:url('../images/icon_enter.png') no-repeat 0 0;background-size:cover}
-.modalContent {padding:50px 30px;background:#fff)}
+.modalContent {padding:50px 30px;background:#fff}
 .modalContent p {text-align:center}
 .modalContent p.error {margin-top:5px;color:#f00}
 .modalContent > p:only-child {font-size:16px}
@@ -451,6 +452,7 @@ body,
    .mainVideoContainer {width:40%}
    .buttonContainer .button > ul > li:nth-child(3) {display:none}
    .buttonContainer .button .dropdown {left:auto;right:0}
+   .buttonContainer .button .dropdown ul:last-child {display:none}
 
    .modalContainer {min-width:90%}
    .modalContent {padding:50px 20px}
