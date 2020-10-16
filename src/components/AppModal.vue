@@ -32,15 +32,12 @@ export default {
   methods: {
     handleClickAppBtn() {
       if (mobile.isSafari) {
-        // iOS 실행의 경우
-        this.close();
-        mobile.setPlayBrowser(true);
-        eBus.$emit('popup-main', {
-          on: true,
-          type: 'Alert',
-          title: '앱 사용 실패',
-          contents: 'iOS App은 현재 준비 중입니다. \n확인 버튼을 누르시면 웹 브라우저로 계속 됩니다.'
-        })
+        //deeplink
+        // location.href = `kp.cococall://roomjoin${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}`;
+
+        //universal link
+        location.href = `https://cococall.net/ios_ulink/roomjoin${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}`;
+        mobile.setPlayBrowser(false);
       } else {
         location.href = `Intent://kp.cococall${window.location.href.indexOf('/room/') > -1 ? `?roomid=${window.location.href.split('/room/')[1]}` : ``}#Intent;scheme=kpoint;package=kr.co.knowledgepoint.knowledgetalkccc;end`;
         mobile.setPlayBrowser(false);
