@@ -59,8 +59,8 @@
   "button-more": "더보기",
   "button-shows-speaker-on": "화자 감지 활성화",
   "button-shows-speaker-off": "화자 감지 비활성화",
-  "button-bg-blur-on": "배경 블러 활성화",
-  "button-bg-blur-off": "배경 블러 비활성화",
+  "button-bg-blur-on": "사생활 보호 활성화",
+  "button-bg-blur-off": "사생활 보호 비활성화",
   "button-setting": "설정",
   "button-end-call": "통화 종료"
 }
