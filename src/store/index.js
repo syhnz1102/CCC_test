@@ -10,6 +10,7 @@ export default new Vuex.Store({
     streamInfo: {},
     roomInfo: {},
     userInfo: {},
+    showsSpeaker: false,
     language: ''
   },
   mutations: {
@@ -49,6 +50,10 @@ export default new Vuex.Store({
     },
     setLanguage(state, info) {
       state.language = info;
+    },
+    setShowsSpeaker(state, shows) {
+      // 화자감지 기능 on/off
+      state.showsSpeaker = shows;
     },
     clearAll(state) {
       if (Object.keys(state.streamInfo).length > 0) {

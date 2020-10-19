@@ -40,7 +40,8 @@ export default {
       this.isLocalVideo = this.id === 'local' && (!this.$store.state.roomInfo.count || this.$store.state.roomInfo.count <= 2) && !this.$store.state.streamInfo.screen;
 
       if (param.id === this.id && param.hasOwnProperty('name')) this.name = param.name;
-      if (param.id === this.id && param.hasOwnProperty('isTalking')) this.isTalking = param.isTalking;
+      if (param.hasOwnProperty('showsSpeaker') && !param.showsSpeaker) this.isTalking = false; //화자감지 표시 중 기능 off 시 효과 없애기
+      if (param.id === this.id && param.hasOwnProperty('isTalking')) this.isTalking = param.isTalking; //화자감지 on
       if (param.id === this.id && param.hasOwnProperty('isOffMic')) this.offMic = param.isOffMic;
       if (param.id === this.id && param.hasOwnProperty('isOffVideo')) {
         // 200702 ivypark, v1.0.1. 비디오 off 시 소리 들리지 않는 현상 수정. (기존 비디오 삭제 -> display: none, block으로 변경되도록 수정)

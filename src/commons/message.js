@@ -156,29 +156,39 @@ export async function onMessage(resp) {
       break;
 
     case 'Presence':
-      if (resp.action === 'exit') {
-        store.commit('setRoomInfo', { count: store.state.roomInfo.count - 1 });
-        if (store.state.roomInfo.count <= 1 && store.state.peerInfo.hasOwnProperty('screen')) {
-          eBus.$emit('share', {
-            type: 'remove',
-            isSharer: true
-          })
-          eBus.$emit('popup', {
-            on: true,
-            type: 'Alert',
-            title: '화면 공유',
-            contents: '다른 모든 사용자가 통화를 종료하여 화면공유가 종료됩니다.'
-          })
-        }
+      if (resp.hasOwnProperty('action')){
+        if (resp.action === 'exit') {
+          store.commit('setRoomInfo', { count: store.state.roomInfo.count - 1 });
+          if (store.state.roomInfo.count <= 1 && store.state.peerInfo.hasOwnProperty('screen')) {
+            eBus.$emit('share', {
+              type: 'remove',
+              isSharer: true
+            })
+            eBus.$emit('popup', {
+              on: true,
+              type: 'Alert',
+              title: '화면 공유',
+              contents: '다른 모든 사용자가 통화를 종료하여 화면공유가 종료됩니다.'
+            })
+          }
 
-        eBus.$emit('video', {
-          type: 'remove',
-          count: store.state.roomInfo.count,
-          id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId
-        })
-      } else if (resp.action === 'join') {
-        if (resp.members) store.commit('setRoomInfo', { members: resp.members, count: Object.keys(resp.members).length });
+          eBus.$emit('video', {
+            type: 'remove',
+            count: store.state.roomInfo.count,
+            id: store.state.roomInfo.type === 'p2p' ? 'remote' : resp.userId
+          })
+        } else if (resp.action === 'join') {
+          if (resp.members) store.commit('setRoomInfo', { members: resp.members, count: Object.keys(resp.members).length });
+        }
+    }else if (resp.hasOwnProperty('who') && resp.hasOwnProperty('talking')){
+      //화자감지 이벤트 수신
+      if (store.state.showsSpeaker && store.state.roomInfo.count > 2){
+        eBus.$emit('setVideo',{
+          id : resp.who === store.state.userInfo.id ? 'local' : resp.who,
+          isTalking : resp.talking
+        });
       }
+    }
       break;
 
     case 'ChangeName':

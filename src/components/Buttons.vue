@@ -50,6 +50,10 @@ export default {
   mounted() {
 
 },
+  updated() {
+    // buttonContainer invisible 되면 더보기 dropbox도 invisible 되도록
+    if (!this.isVisible) this.showsMore = false;
+  },
   methods: {
     handleJoinBtn() {
       eBus.$emit('popup', {
@@ -131,7 +135,14 @@ export default {
       }
     },
     handleTalkingBtn(){
-      
+      this.showsSpeaker = !this.showsSpeaker;
+      this.$store.commit('setShowsSpeaker', this.showsSpeaker);
+      if (this.showsSpeaker === false) {
+        eBus.$emit('setVideo', {
+          showsSpeaker : false
+        });
+      }
+      this.btnStrTalking = this.showsSpeaker ? this.$t('button-shows-speaker-off') : this.$t('button-shows-speaker-on');
     },
     // handleBgBlurBtn(){
       
