@@ -1,13 +1,28 @@
 <template>
   <div class="buttonContainer" v-if="isVisible">
       <div class="button wow animate__animated animate__fadeInUp animate__faster">
-        <button class="enter" v-if="!isMobile" @click="handleJoinBtn"><span>{{ this.$t('button-another-meeting') }}</span></button>
-        <button class="invite" @click="handleInviteBtn"><span>{{ this.$t('button-invite') }}</span></button>
-        <button class="share" @click="handleScreenShareBtn"><span>{{ this.$t('button-share') }}</span></button>
-        <button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>{{ this.$t('button-camera') }}</span></button>
-        <button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>{{ this.$t('button-microphone') }}</span></button>
-        <button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>{{ this.$t('button-setting') }}</span></button>
-        <button class="endCall" @click="handleEndCallBtn">{{ this.$t('button-end-call') }}</button>
+        <ul>
+          <li><button class="invite" @click="handleInviteBtn"><span>{{ this.$t('button-invite') }}</span></button></li>
+        	<li><button class="share" @click="handleScreenShareBtn"><span>{{ this.$t('button-share') }}</span></button></li>
+        	<li><button class="camera" v-bind:class="{off: isOffVideo}" @click="handleCamBtn"><span>{{ this.$t('button-camera') }}</span></button></li>
+        	<li><button class="mic" v-bind:class="{off: isOffMic}" @click="handleMicBtn"><span>{{ this.$t('button-microphone') }}</span></button></li>
+        	<li>
+        		<button class="more" @click="function(){showsMore = !showsMore}"><span>{{ this.$t('button-more') }}</span></button> 
+		        <div class="dropdown" v-if="showsMore">
+        	    <ul>
+                <li><button class="enter" v-if="!isMobile" @click="handleJoinBtn"><span>{{ this.$t('button-another-meeting') }}</span></button></li>
+        	    </ul>
+		          <ul>
+                <li><button class="talking" @click="handleTalkingBtn"><span>{{ btnStrTalking }}</span></button></li>
+                <!-- <li><button class="bgBlur" @click="handleBgBlurBtn"><span>{{ this.$t('button-bg-blur-on') }}</span></button></li> -->
+		          </ul>
+		          <ul>
+                <li><button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>{{ this.$t('button-setting') }}</span></button></li>
+		          </ul>
+		        </div>
+		      </li>
+        	<li><button class="endCall" @click="handleEndCallBtn">{{ this.$t('button-end-call') }}</button></li>
+      	</ul>
       </div>
   </div>
 </template>
@@ -25,17 +40,21 @@ export default {
       isWebView: mobile.isWebView,
       isMobile: mobile.isMobile,
       isOffVideo: false,
-      isOffMic: false
+      isOffMic: false,
+      showsSpeaker: false,
+      isBgBlur: false,
+      showsMore : false,
+      btnStrTalking : this.showsSpeaker ? this.$t('button-shows-speaker-off') : this.$t('button-shows-speaker-on')
     }
   },
   mounted() {
 
-  },
+},
   methods: {
     handleJoinBtn() {
       eBus.$emit('popup', {
         on: true,
-        type: 'Join',
+        type: 'Join', 
         title: this.$t('popup-another-meeting-title')
       })
     },
@@ -111,6 +130,12 @@ export default {
         });
       }
     },
+    handleTalkingBtn(){
+      
+    },
+    // handleBgBlurBtn(){
+      
+    // },
     handleSettingBtn() {
       // 200706 ivypark, v1.0.3. 디바이스 세팅 팝업 추가
       eBus.$emit('popup', {

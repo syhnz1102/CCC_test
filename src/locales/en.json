@@ -56,6 +56,11 @@
   "button-share": "Screen sharing",
   "button-camera": "Camera",
   "button-microphone": "Microphone",
+  "button-more": "More",
+  "button-shows-speaker-on": "화자 감지 활성화",
+  "button-shows-speaker-off": "화자 감지 비활성화",
+  "button-bg-blur-on": "배경 제거 활성화",
+  "button-bg-blur-off": "배경 제거 비활성화",
   "button-setting": "Settings",
   "button-end-call": "End Call"
 }
