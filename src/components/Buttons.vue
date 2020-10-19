@@ -14,7 +14,7 @@
         	    </ul>
 		          <ul>
                 <li><button class="talking" @click="handleTalkingBtn"><span>{{ btnStrTalking }}</span></button></li>
-                <!-- <li><button class="bgBlur" @click="handleBgBlurBtn"><span>{{ this.$t('button-bg-blur-on') }}</span></button></li> -->
+                <li><button class="bgBlur" @click="handleBgBlurBtn"><span>{{ this.$t('button-bg-blur-on') }}</span></button></li>
 		          </ul>
 		          <ul>
                 <li><button class="setting" v-if="!isMobile" @click="handleSettingBtn"><span>{{ this.$t('button-setting') }}</span></button></li>
@@ -135,6 +135,17 @@ export default {
       }
     },
     handleTalkingBtn(){
+      //2명 이하 팝업추가
+      console.log('@@@@' + this.$store.state.roomInfo.count);
+      if (this.$store.state.roomInfo.count<3) {
+        eBus.$emit('popup', {
+          on: true,
+          type: 'Alert',
+          title: '화자 감지',
+          contents: '사용자가 3명 이상일 때 사용 가능합니다.'
+        });
+        return;
+      }
       this.showsSpeaker = !this.showsSpeaker;
       this.$store.commit('setShowsSpeaker', this.showsSpeaker);
       if (this.showsSpeaker === false) {
@@ -144,9 +155,14 @@ export default {
       }
       this.btnStrTalking = this.showsSpeaker ? this.$t('button-shows-speaker-off') : this.$t('button-shows-speaker-on');
     },
-    // handleBgBlurBtn(){
-      
-    // },
+    handleBgBlurBtn(){
+      eBus.$emit('popup', {
+        on: true,
+        type: 'Alert',
+        title: '사생활 보호',
+        contents: '현재 준비 중인 기능입니다.'
+      });
+    },
     handleSettingBtn() {
       // 200706 ivypark, v1.0.3. 디바이스 세팅 팝업 추가
       eBus.$emit('popup', {
